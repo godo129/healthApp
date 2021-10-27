@@ -153,7 +153,7 @@ class HomeController: UIViewController {
             self.present(alert, animated: true, completion: nil)
             
         } else {
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "RecordView")
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ExerciseRecordView")
             vc?.modalPresentationStyle = .fullScreen
             vc?.modalTransitionStyle = .coverVertical
             self.present(vc!, animated: true, completion: nil)

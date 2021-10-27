@@ -13,6 +13,7 @@ var p_id: String = ""
 var cur_date: String = ""
 var today : String = ""
 
+let exerciseTypes: [String] = ["데드리프트","스쿼트","벤치프레스"]
 
 class personInfo {
     

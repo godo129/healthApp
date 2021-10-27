@@ -64,16 +64,20 @@ class CalendarViewController: UIViewController,FSCalendarDataSource, FSCalendarD
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        if cur_date != t_date {
+            setCount = 0
+            weightCount = 0
+        }
         cur_date = t_date
     }
     
     
     @objc private func conformButtonTapped() {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "RecordView")
-        vc?.modalPresentationStyle = .fullScreen
-        vc?.modalTransitionStyle = .coverVertical
-        
-        self.present(vc!, animated: true, completion: nil)
+       // let vc = self.storyboard?.instantiateViewController(withIdentifier: "ExerciseRecordView")
+       // vc?.modalPresentationStyle = .fullScreen
+       // vc?.modalTransitionStyle = .coverVertical
+       // self.present(vc!, animated: true, completion: nil)
+        self.dismiss(animated: false, completion: nil)
     }
     
     

@@ -11,13 +11,10 @@ var big: [[String: [String:String]]] = []
 
 class RecordViewController: UIViewController {
     
-    
-    
     private let db = Database.database().reference()
     
     private let dateLabel: UILabel = {
         let dateLabel = UILabel()
-        dateLabel.text = cur_date
         return dateLabel
     } ()
     
@@ -57,14 +54,7 @@ class RecordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 날짜 정보 없을 시 처리
-        if cur_date == "" {
-            let c_date = DateFormatter()
-            c_date.dateFormat = "yyyy-MM-dd"
-            let c_date_string = c_date.string(from: Date())
-            cur_date = c_date_string
-            today = c_date_string
-        }
+        
         
         
         // 메모정보 가져오기
@@ -124,13 +114,13 @@ class RecordViewController: UIViewController {
         }
         
         print(db.child(p_id).child(cur_date))
-        let object: [String:String] = ["memo":memo]
-        db.child(p_id).child(cur_date).setValue(object)
+        //let object: [String:String] = ["memo":memo]
+        db.child(p_id).child(cur_date).child("memo").setValue(memo)
 
     }
     
     @objc private func backButtonTapped() {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeView")
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ExerciseRecordView")
         vc?.modalPresentationStyle = .fullScreen
         vc?.modalTransitionStyle = .coverVertical
         self.present(vc!, animated: true, completion: nil)
@@ -139,9 +129,9 @@ class RecordViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         backButton.frame = CGRect(x: 20, y: 40, width: 50, height: 30)
-        dateLabel.frame = CGRect(x: 100, y: 100, width: 200, height: 100)
-        calendarButton.frame = CGRect(x: 350, y: 100, width: 50, height: 30)
-        recordButton.frame = CGRect(x: 350, y: calendarButton.frame.origin.y+50, width: 50, height: 30)
+        dateLabel.frame = CGRect(x: self.view.bounds.maxX/2-50, y: 100, width: 200, height: 100)
+        //calendarButton.frame = CGRect(x: 350, y: 100, width: 50, height: 30)
+        recordButton.frame = CGRect(x: 350, y: dateLabel.frame.origin.y+50, width: 50, height: 30)
         textView.frame = CGRect(x: 50, y: recordButton.frame.origin.y+100, width: view.frame.size.width-100, height: view.frame.size.height-400)
         
     }
