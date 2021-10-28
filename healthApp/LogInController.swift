@@ -85,7 +85,7 @@ class LogInController: UIViewController {
             return
         }
         
-        Firebase.Auth.auth().signIn(withEmail: Id, password: password) { [weak self] result, error in
+        Firebase.Auth.auth().signIn(withEmail: Id+"@healthApp.com", password: password) { [weak self] result, error in
             
             guard let strongSelf = self else {
 

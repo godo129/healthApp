@@ -29,7 +29,7 @@ class SignUpController: UIViewController {
     
     private let IdField: UITextField = {
         let IdField = UITextField()
-        IdField.placeholder = "Email Address"
+        IdField.placeholder = "ID"
         
         return IdField
     }()
@@ -100,9 +100,17 @@ class SignUpController: UIViewController {
             self.present(notEqualPasswords, animated: true, completion: nil)
             
             return
-        }  else {
+        } else if password.count <= 5 {
+            let underSixPasswords = UIAlertController(title: "", message: "비밀번호를 6개 이상 입력해주세요", preferredStyle: .alert)
+            underSixPasswords.addAction(UIAlertAction(title: "확인", style: .cancel, handler: { _ in
+                
+            }))
+            self.present(underSixPasswords, animated: true, completion: nil)
             
-            Firebase.Auth.auth().createUser(withEmail: id, password: password) { [weak self] result, error in
+            return
+        } else  {
+            
+            Firebase.Auth.auth().createUser(withEmail: id+"@healthApp.com", password: password) { [weak self] result, error in
                 
                 guard let strongSelf = self else {
                     return
@@ -111,7 +119,7 @@ class SignUpController: UIViewController {
                 // 이메일 이미 존재하는 경우
                 guard error == nil else {
            
-                    let existedEmail = UIAlertController(title: "오류!", message: "이메일과 비밀번호 형식을 확인해주세요", preferredStyle: .alert)
+                    let existedEmail = UIAlertController(title: "", message: "이미 존재하는 아이디입니다", preferredStyle: .alert)
                     existedEmail.addAction(UIAlertAction(title: "확인", style: .cancel, handler: { _ in
                         
                     }))
