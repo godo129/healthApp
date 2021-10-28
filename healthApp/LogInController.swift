@@ -34,7 +34,7 @@ class LogInController: UIViewController {
     private let IdField: UITextField = {
         let IdField = UITextField()
         IdField.placeholder = "ID"
-        
+        IdField.autocapitalizationType = .none
         return IdField
     }()
     
@@ -42,7 +42,7 @@ class LogInController: UIViewController {
         let passwordField = UITextField()
         passwordField.placeholder = "password"
         passwordField.isSecureTextEntry = true
-        
+        passwordField.autocapitalizationType = .none
         return passwordField
     }()
     

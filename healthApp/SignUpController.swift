@@ -30,6 +30,7 @@ class SignUpController: UIViewController {
     private let IdField: UITextField = {
         let IdField = UITextField()
         IdField.placeholder = "ID"
+        IdField.autocapitalizationType = .none
         
         return IdField
     }()
@@ -38,6 +39,7 @@ class SignUpController: UIViewController {
         let passwordField = UITextField()
         passwordField.placeholder = "pasword"
         passwordField.isSecureTextEntry = true
+        passwordField.autocapitalizationType = .none
         return passwordField
     }()
     
@@ -45,6 +47,7 @@ class SignUpController: UIViewController {
         let checkPasswordField = UITextField()
         checkPasswordField.placeholder = "check pasword"
         checkPasswordField.isSecureTextEntry = true
+        checkPasswordField.autocapitalizationType = .none
         return checkPasswordField
     }()
     
