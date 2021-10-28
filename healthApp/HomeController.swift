@@ -125,14 +125,18 @@ class HomeController: UIViewController {
         
         db.child(p_id).child("PersonalInfo").child("Nick").observeSingleEvent(of: .value) { snapshot in
             guard let value = snapshot.value as? String else {
-                self.userLabel.text = p_id + "님 환영합니다!!!"
                 return
             }
             nick = value
-            self.userLabel.text = value + "님 환영합니다!!!"
+        }
+    
+        if nick == "" {
+            userLabel.text = p_id + "님 환영합니다!!!"
+        } else {
+            userLabel.text = nick + "님 환영합니다!!!"
         }
         
-        // 계속 정보 업데이트 
+        // 계속 정보 업데이트
         db.child(p_id).child("PersonalInfo").child("Age").observeSingleEvent(of: .value, with: { snapshot in
             if let value = snapshot.value as? Int {
                 age = value
