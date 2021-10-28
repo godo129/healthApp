@@ -143,8 +143,11 @@ class persnalInfoViewController: UIViewController {
             return
         }
         
-        
-        if Int(a_value) == nil {
+        if a_value.isEmpty {
+            age = 0
+            db.child(p_id).child("PersonalInfo").child("Age").setValue(age)
+            
+        } else if Int(a_value) == nil {
             let ageAlert = UIAlertController(title: "", message: "나이를 제대로 입력해주세요", preferredStyle: .alert)
             ageAlert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: { _ in
                     
@@ -161,7 +164,11 @@ class persnalInfoViewController: UIViewController {
             return
         }
         
-        if Double(h_value) == nil {
+        if h_value.isEmpty {
+            height = 0.0
+            db.child(p_id).child("PersonalInfo").child("Height").setValue(height)
+            
+        } else if Double(h_value) == nil {
             let heightAlert = UIAlertController(title: "", message: "키를 제대로 입력해주세요", preferredStyle: .alert)
             heightAlert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: { _ in
                     
@@ -178,7 +185,11 @@ class persnalInfoViewController: UIViewController {
             return
         }
         
-        if Double(w_value) == nil {
+        if w_value.isEmpty {
+            weight = 0.0
+            db.child(p_id).child("PersonalInfo").child("Weight").setValue(weight)
+            
+        } else if Double(w_value) == nil {
             let weightAlert = UIAlertController(title: "", message: "몸무게를 제대로 입력해주세요", preferredStyle: .alert)
             weightAlert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: { _ in
                     

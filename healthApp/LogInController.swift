@@ -147,7 +147,13 @@ class LogInController: UIViewController {
             // 개인 정보 불러오기
             self?.db.child(p_id).child("PersonalInfo").child("Nick").observeSingleEvent(of: .value) { snapshot in
                 guard let value = snapshot.value as? String  else {
+                    return
                     
+                }
+                
+                nick = value
+                
+                if nick == "" {
                     // 닉네임 없을 땐 아이디로 환영
                     let LogInSuccessed = UIAlertController(title: " " , message: p_id+"님 환영합니다!", preferredStyle: .alert)
                     LogInSuccessed.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
@@ -158,24 +164,25 @@ class LogInController: UIViewController {
                     }))
                     
                     strongSelf.present(LogInSuccessed, animated: true)
+                
+                } else {
+                    // 닉네임 있을 땐 닉네임으로 환영
+                    let LogInSuccessed = UIAlertController(title: " " , message: nick+"님 환영합니다!", preferredStyle: .alert)
+                    LogInSuccessed.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+                        let vc = strongSelf.storyboard?.instantiateViewController(withIdentifier: "HomeView")
+                        vc?.modalPresentationStyle = .fullScreen
+                        vc?.modalTransitionStyle = .coverVertical
+                        strongSelf.present(vc!, animated: true, completion: nil)
+
+                        
+                    }))
                     
-                    return
+                    strongSelf.present(LogInSuccessed, animated: true)
                 }
                 
-                nick = value
                 
-                // 닉네임 있을 땐 닉네임으로 환영 
-                let LogInSuccessed = UIAlertController(title: " " , message: nick+"님 환영합니다!", preferredStyle: .alert)
-                LogInSuccessed.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-                    let vc = strongSelf.storyboard?.instantiateViewController(withIdentifier: "HomeView")
-                    vc?.modalPresentationStyle = .fullScreen
-                    vc?.modalTransitionStyle = .coverVertical
-                    strongSelf.present(vc!, animated: true, completion: nil)
-
-                    
-                }))
                 
-                strongSelf.present(LogInSuccessed, animated: true)
+                
                 
             }
             
