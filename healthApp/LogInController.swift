@@ -7,8 +7,11 @@
 
 import UIKit
 import Firebase
+import FirebaseDatabase
 
 class LogInController: UIViewController {
+    
+    private let db = Database.database().reference()
     
     private let backButton: UIButton = {
         let backButton = UIButton()
@@ -30,7 +33,7 @@ class LogInController: UIViewController {
     
     private let IdField: UITextField = {
         let IdField = UITextField()
-        IdField.placeholder = "Email Address"
+        IdField.placeholder = "ID"
         
         return IdField
     }()
@@ -107,15 +110,78 @@ class LogInController: UIViewController {
             cur_date = c_date_string
             today = c_date_string
             
-            let LogInSuccessed = UIAlertController(title: " " , message: Id.split(separator: "@")[0]+"님 환영합니다!", preferredStyle: .alert)
-            LogInSuccessed.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-                let vc = strongSelf.storyboard?.instantiateViewController(withIdentifier: "HomeView")
-                vc?.modalPresentationStyle = .fullScreen
-                vc?.modalTransitionStyle = .coverVertical
-                strongSelf.present(vc!, animated: true, completion: nil)
-            }))
+            // 로그인 됬을 때 환영 인사주기 위해 email 정보 얻어오기
+            guard let name = Firebase.Auth.auth().currentUser?.email else {
+                return
+            }
+            p_id = String(name.split(separator: "@")[0])
             
-            strongSelf.present(LogInSuccessed, animated: true)
+            
+            // 로그인 시 개인정보 가져오기
+            self?.db.child(p_id).child("PersonalInfo").child("Age").observeSingleEvent(of: .value, with: { snapshot in
+                if let value = snapshot.value as? Int {
+                    age = value
+                } else {
+                    age = 0
+                }
+                
+            })
+            
+            self?.db.child(p_id).child("PersonalInfo").child("Weight").observeSingleEvent(of: .value, with: { snapshot in
+                if let value = snapshot.value as? Double {
+                    weight = value
+                } else {
+                    weight = 0
+                }
+            })
+            
+            self?.db.child(p_id).child("PersonalInfo").child("Height").observeSingleEvent(of: .value, with: { snapshot in
+                if let value = snapshot.value as? Double {
+                    height = value
+                } else {
+                    height = 0
+                }
+            })
+            
+            
+            // 개인 정보 불러오기
+            self?.db.child(p_id).child("PersonalInfo").child("Nick").observeSingleEvent(of: .value) { snapshot in
+                guard let value = snapshot.value as? String  else {
+                    
+                    // 닉네임 없을 땐 아이디로 환영
+                    let LogInSuccessed = UIAlertController(title: " " , message: p_id+"님 환영합니다!", preferredStyle: .alert)
+                    LogInSuccessed.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+                        let vc = strongSelf.storyboard?.instantiateViewController(withIdentifier: "HomeView")
+                        vc?.modalPresentationStyle = .fullScreen
+                        vc?.modalTransitionStyle = .coverVertical
+                        strongSelf.present(vc!, animated: true, completion: nil)
+                    }))
+                    
+                    strongSelf.present(LogInSuccessed, animated: true)
+                    
+                    return
+                }
+                
+                nick = value
+                
+                // 닉네임 있을 땐 닉네임으로 환영 
+                let LogInSuccessed = UIAlertController(title: " " , message: nick+"님 환영합니다!", preferredStyle: .alert)
+                LogInSuccessed.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+                    let vc = strongSelf.storyboard?.instantiateViewController(withIdentifier: "HomeView")
+                    vc?.modalPresentationStyle = .fullScreen
+                    vc?.modalTransitionStyle = .coverVertical
+                    strongSelf.present(vc!, animated: true, completion: nil)
+
+                    
+                }))
+                
+                strongSelf.present(LogInSuccessed, animated: true)
+                
+            }
+            
+            
+            
+            
             
         }
     }

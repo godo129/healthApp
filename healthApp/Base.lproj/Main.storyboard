@@ -38,6 +38,21 @@
             </objects>
             <point key="canvasLocation" x="756" y="-1843"/>
         </scene>
+        <!--Persnal Info View Controller-->
+        <scene sceneID="eC7-2D-vpk">
+            <objects>
+                <viewController storyboardIdentifier="PersonalInfoView" id="eBZ-sT-Xiq" customClass="persnalInfoViewController" customModule="healthApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="B0a-Am-9Br">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="NcU-EO-7T2"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gsu-Ka-Rll" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1454" y="-1533"/>
+        </scene>
         <!--Sign Up Controller-->
         <scene sceneID="rgf-Jl-InN">
             <objects>

@@ -21,7 +21,7 @@ class RecordViewController: UIViewController {
     private let backButton: UIButton = {
         let backbutton = UIButton()
         backbutton.setTitle("Back", for: .normal)
-        backbutton.backgroundColor = .orange
+        backbutton.setTitleColor(.systemBlue, for: .normal)
         return backbutton
 
     }()
