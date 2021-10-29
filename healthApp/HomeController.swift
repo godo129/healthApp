@@ -69,6 +69,13 @@ class HomeController: UIViewController {
         recordViewButton.setImage(UIImage(named: "record"), for: .normal)
         return recordViewButton
     }()
+    
+    
+    private let questionButton : UIButton = {
+        let questionButton = UIButton()
+        questionButton.setImage(UIImage(named: "question"), for: .normal)
+        return  questionButton
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +89,8 @@ class HomeController: UIViewController {
         view.addSubview(personalInfoButton)
         
         view.addSubview(recordViewButton)
+        
+        view.addSubview(questionButton)
         
      
         
@@ -109,6 +118,7 @@ class HomeController: UIViewController {
         logOutButton.addTarget(self, action: #selector(LogOutButtonTapped), for: .touchUpInside)
         personalInfoButton.addTarget(self, action: #selector(personalInfoButtonTapped), for: .touchUpInside)
         recordViewButton.addTarget(self, action: #selector(recordViewButtonTapped), for: .touchUpInside)
+        questionButton.addTarget(self, action: #selector(questionButtonTapped), for: .touchUpInside)
         
         
        
@@ -241,6 +251,14 @@ class HomeController: UIViewController {
         
     }
     
+    @objc private func questionButtonTapped() {
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "QuestionView")
+        vc?.modalPresentationStyle = .fullScreen
+        vc?.modalTransitionStyle = .coverVertical
+        self.present(vc!, animated: true, completion: nil)
+    }
+    
     
     override func viewDidLayoutSubviews() {
         titleLabel.frame = CGRect(x: 50,
@@ -267,11 +285,20 @@ class HomeController: UIViewController {
                                     width: 100,
                                     height: 50)
         
-        personalInfoButton.frame = CGRect(x: view.frame.size.width-100, y: titleLabel.frame.origin.y+50, width: 100, height: 50)
+        personalInfoButton.frame = CGRect(x: view.frame.size.width-100,
+                                          y: titleLabel.frame.origin.y+50,
+                                          width: 100,
+                                          height: 50)
+        
         recordViewButton.frame = CGRect(x: 50,
                                   y: titleLabel.frame.origin.y+200,
                                   width: view.frame.size.width-100,
                                   height: 200)
+        
+        questionButton.frame = CGRect(x: view.frame.maxX-70,
+                                      y: view.frame.maxY-70,
+                                      width: 50,
+                                      height: 50)
     }
     
 

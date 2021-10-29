@@ -21,6 +21,7 @@
 		F13220052728265800E69FEE /* personInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13220042728265800E69FEE /* personInfo.swift */; };
 		F132200C272829EB00E69FEE /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F132200B272829EB00E69FEE /* CalendarViewController.swift */; };
 		F135093A272A2E4100F0E1CC /* persnalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1350939272A2E4100F0E1CC /* persnalInfoViewController.swift */; };
+		F135093C272BBA7A00F0E1CC /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F135093B272BBA7A00F0E1CC /* QuestionViewController.swift */; };
 		F1DBE2F227284B3E0015EE27 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F1DBE2F127284B3D0015EE27 /* GoogleService-Info.plist */; };
 		F1DBE2F42728F0AF0015EE27 /* ExerciseRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DBE2F32728F0AF0015EE27 /* ExerciseRecordViewController.swift */; };
 /* End PBXBuildFile section */
@@ -44,6 +45,7 @@
 		F13220042728265800E69FEE /* personInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = personInfo.swift; sourceTree = "<group>"; };
 		F132200B272829EB00E69FEE /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		F1350939272A2E4100F0E1CC /* persnalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = persnalInfoViewController.swift; sourceTree = "<group>"; };
+		F135093B272BBA7A00F0E1CC /* QuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewController.swift; sourceTree = "<group>"; };
 		F1DBE2F127284B3D0015EE27 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F1DBE2F32728F0AF0015EE27 /* ExerciseRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRecordViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,15 +103,16 @@
 				F12E1B7F27269B11001CB6F4 /* AppDelegate.swift */,
 				F12E1B8127269B11001CB6F4 /* SceneDelegate.swift */,
 				F12E1B8327269B11001CB6F4 /* ViewController.swift */,
-				F12E1B8527269B11001CB6F4 /* Main.storyboard */,
+				F135093B272BBA7A00F0E1CC /* QuestionViewController.swift */,
 				F1350939272A2E4100F0E1CC /* persnalInfoViewController.swift */,
 				F1DBE2F32728F0AF0015EE27 /* ExerciseRecordViewController.swift */,
 				F132200B272829EB00E69FEE /* CalendarViewController.swift */,
 				F132200227281FE500E69FEE /* RecordViewController.swift */,
-				F13220062728294D00E69FEE /* Data */,
 				F12E1B972726CC54001CB6F4 /* LogInController.swift */,
 				F12E1B992726CCAF001CB6F4 /* SignUpController.swift */,
 				F12E1B9527269CEA001CB6F4 /* HomeController.swift */,
+				F12E1B8527269B11001CB6F4 /* Main.storyboard */,
+				F13220062728294D00E69FEE /* Data */,
 				F12E1B8827269B13001CB6F4 /* Assets.xcassets */,
 				F12E1B8A27269B13001CB6F4 /* LaunchScreen.storyboard */,
 				F12E1B8D27269B13001CB6F4 /* Info.plist */,
@@ -243,6 +246,7 @@
 			files = (
 				F12E1B9627269CEA001CB6F4 /* HomeController.swift in Sources */,
 				F12E1B8427269B11001CB6F4 /* ViewController.swift in Sources */,
+				F135093C272BBA7A00F0E1CC /* QuestionViewController.swift in Sources */,
 				F135093A272A2E4100F0E1CC /* persnalInfoViewController.swift in Sources */,
 				F12E1B982726CC54001CB6F4 /* LogInController.swift in Sources */,
 				F132200327281FE500E69FEE /* RecordViewController.swift in Sources */,
