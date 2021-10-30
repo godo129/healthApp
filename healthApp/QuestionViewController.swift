@@ -43,12 +43,11 @@ class QuestionViewController: UIViewController {
                                                         width: 50,
                                                         height: 40))
             ExerciseButton.setImage(UIImage(named: "video"), for: .normal)
+            
+            //태그 값 주기
+            ExerciseButton.tag = i
+            ExerciseButton.addTarget(self, action: #selector(ExerciseButtonTapped1(sender: )), for: .touchUpInside)
 
-            ExerciseButton.addTarget(self, action: #selector(ExerciseButtonTapped1), for: .touchUpInside)
-            
-
-            
-            
 
             view.addSubview(ExerciseLabel)
             view.addSubview(ExerciseButton)
@@ -68,18 +67,19 @@ class QuestionViewController: UIViewController {
         self.present(vc!, animated: true, completion: nil)
     }
     
-    @objc func ExerciseButtonTapped1(){
+    @objc func ExerciseButtonTapped1(sender: UIButton){
         
+        // 버튼 마다 태그 값 받아서 유투브 검색창에 쿼리 값 넣어 줘서 버튼 마다 다른 뷰 주기
+        let idx = sender.tag
+
         let ExerciseView = WKWebView()
         ExerciseView.frame = CGRect(x: 0, y: 40, width: view.frame.size.width, height: view.frame.size.height)
-        let url = "https://www.youtube.com/results?search_query="+"데드리프트"
+        let url = "https://www.youtube.com/results?search_query="+exerciseTypes[idx]
         let encodingUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         ExerciseView.load(URLRequest(url: URL(string: encodingUrl)!))
                           
         view.addSubview(ExerciseView)
-        
-        
-        
+    
     }
     
    
