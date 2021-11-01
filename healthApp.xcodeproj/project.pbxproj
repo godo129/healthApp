@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		15377C7CC6334E2911E92E02 /* Pods_healthApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49D5AA402D1400C467BFAECB /* Pods_healthApp.framework */; };
+		F129FA82272F5C8900D0DCCA /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F129FA81272F5C8900D0DCCA /* ChartViewController.swift */; };
 		F12E1B8027269B11001CB6F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12E1B7F27269B11001CB6F4 /* AppDelegate.swift */; };
 		F12E1B8227269B11001CB6F4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12E1B8127269B11001CB6F4 /* SceneDelegate.swift */; };
 		F12E1B8427269B11001CB6F4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12E1B8327269B11001CB6F4 /* ViewController.swift */; };
@@ -30,6 +31,7 @@
 		12F869CB34B708981064FC3C /* Pods-healthApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-healthApp.debug.xcconfig"; path = "Target Support Files/Pods-healthApp/Pods-healthApp.debug.xcconfig"; sourceTree = "<group>"; };
 		49D5AA402D1400C467BFAECB /* Pods_healthApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_healthApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA6A1B00F37048543C768F45 /* Pods-healthApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-healthApp.release.xcconfig"; path = "Target Support Files/Pods-healthApp/Pods-healthApp.release.xcconfig"; sourceTree = "<group>"; };
+		F129FA81272F5C8900D0DCCA /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		F12E1B7C27269B11001CB6F4 /* healthApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = healthApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F12E1B7F27269B11001CB6F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F12E1B8127269B11001CB6F4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				F12E1B8127269B11001CB6F4 /* SceneDelegate.swift */,
 				F12E1B8327269B11001CB6F4 /* ViewController.swift */,
 				F135093B272BBA7A00F0E1CC /* QuestionViewController.swift */,
+				F129FA81272F5C8900D0DCCA /* ChartViewController.swift */,
 				F1350939272A2E4100F0E1CC /* persnalInfoViewController.swift */,
 				F1DBE2F32728F0AF0015EE27 /* ExerciseRecordViewController.swift */,
 				F132200B272829EB00E69FEE /* CalendarViewController.swift */,
@@ -248,6 +251,7 @@
 				F12E1B8427269B11001CB6F4 /* ViewController.swift in Sources */,
 				F135093C272BBA7A00F0E1CC /* QuestionViewController.swift in Sources */,
 				F135093A272A2E4100F0E1CC /* persnalInfoViewController.swift in Sources */,
+				F129FA82272F5C8900D0DCCA /* ChartViewController.swift in Sources */,
 				F12E1B982726CC54001CB6F4 /* LogInController.swift in Sources */,
 				F132200327281FE500E69FEE /* RecordViewController.swift in Sources */,
 				F12E1B8027269B11001CB6F4 /* AppDelegate.swift in Sources */,

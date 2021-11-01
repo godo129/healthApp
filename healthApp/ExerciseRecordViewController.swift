@@ -315,6 +315,43 @@ class ExerciseRecordViewController: UIViewController {
         print(history)
         //let object: [String: String] = ["history" : history]
         db.child(p_id).child(cur_date).child("history").setValue(history)
+        
+        let y = String(cur_date.split(separator: "-")[0])
+        let m = String(cur_date.split(separator: "-")[1])
+        let d = String(cur_date.split(separator: "-")[2])
+        
+        
+        // 주간, 월간 두 가지로 나눠서 이용
+        // 볼륨 저장
+   
+        print(nowExerciseType)
+        // 최대 무게 저장
+        //주간
+        db.child(p_id).child("chart").child("주간").child(nowExerciseType).child(y).child(m).child(d).observeSingleEvent(of: .value) { snapshot in
+            guard let value = snapshot.value as? Int else {
+                self.db.child(p_id).child("chart").child("주간").child(nowExerciseType).child(y).child(m).child(d).setValue(weightCount)
+                return
+            }
+            
+            if weightCount > value {
+                self.db.child(p_id).child("chart").child("주간").child(nowExerciseType).child(y).child(m).child(d).setValue(weightCount)
+
+            }
+        }
+       
+        // 월간
+        db.child(p_id).child("chart").child("월간").child(nowExerciseType).child(y).child(m).observeSingleEvent(of: .value) { snapshot in
+            guard let value = snapshot.value as? Int else {
+                self.db.child(p_id).child("chart").child("월간").child(nowExerciseType).child(y).child(m).setValue(weightCount)
+                return
+            }
+            if weightCount > value {
+                self.db.child(p_id).child("chart").child("월간").child(nowExerciseType).child(y).child(m).setValue(weightCount)
+
+            }
+        }
+        
+        
         historyLabel.text = history
         
         setCount = 0

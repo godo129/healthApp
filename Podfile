@@ -9,6 +9,8 @@ pod 'Firebase/Core'
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
 pod 'FSCalendar'
+pod 'SwiftCharts'
+pod 'Charts'
   # Pods for healthApp
 
 end

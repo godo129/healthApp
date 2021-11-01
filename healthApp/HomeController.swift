@@ -70,13 +70,19 @@ class HomeController: UIViewController {
         return recordViewButton
     }()
     
+    private let chartViewButton: UIButton = {
+        let chartViewButton = UIButton()
+        chartViewButton.setImage(UIImage(named: "chart"), for: .normal)
+        return chartViewButton
+    }()
+    
     
     private let questionButton : UIButton = {
         let questionButton = UIButton()
         questionButton.setImage(UIImage(named: "question"), for: .normal)
         return  questionButton
     }()
-
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -89,7 +95,7 @@ class HomeController: UIViewController {
         view.addSubview(personalInfoButton)
         
         view.addSubview(recordViewButton)
-        
+        view.addSubview(chartViewButton)
         view.addSubview(questionButton)
         
      
@@ -118,6 +124,7 @@ class HomeController: UIViewController {
         logOutButton.addTarget(self, action: #selector(LogOutButtonTapped), for: .touchUpInside)
         personalInfoButton.addTarget(self, action: #selector(personalInfoButtonTapped), for: .touchUpInside)
         recordViewButton.addTarget(self, action: #selector(recordViewButtonTapped), for: .touchUpInside)
+        chartViewButton.addTarget(self, action: #selector(chartViewButtonTapped), for: .touchUpInside)
         questionButton.addTarget(self, action: #selector(questionButtonTapped), for: .touchUpInside)
         
         
@@ -251,6 +258,14 @@ class HomeController: UIViewController {
         
     }
     
+    @objc private func chartViewButtonTapped(){
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChartView")
+        vc?.modalPresentationStyle = .fullScreen
+        vc?.modalTransitionStyle = .coverVertical
+        self.present(vc!, animated: true, completion: nil)
+    }
+    
+    
     @objc private func questionButtonTapped() {
         
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "QuestionView")
@@ -293,6 +308,11 @@ class HomeController: UIViewController {
         recordViewButton.frame = CGRect(x: 50,
                                   y: titleLabel.frame.origin.y+200,
                                   width: view.frame.size.width-100,
+                                  height: 200)
+        
+        chartViewButton.frame = CGRect(x: 60,
+                                  y: recordViewButton.frame.origin.y+300,
+                                  width: view.frame.size.width-150,
                                   height: 200)
         
         questionButton.frame = CGRect(x: view.frame.maxX-70,
