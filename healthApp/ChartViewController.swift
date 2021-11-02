@@ -24,6 +24,8 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     
     let months = ["01","02","03","04","05","06","07","08","09","10","11","12"]
     
+    
+    
     let chart = LineChartView()
     
     private let backButton: UIButton = {
@@ -89,6 +91,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         monthOrWeekButton.addTarget(self, action: #selector(monthOrWeekButtonTapped), for: .touchUpInside)
         selectTypeButton.addTarget(self, action: #selector(selectTypeButtonTapped), for: .touchUpInside)
         conformButton.addTarget(self, action: #selector(conformButtonTapped), for: .touchUpInside)
+        
        
         
     }
@@ -192,11 +195,95 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                 }
                 
                 //왜 그런지 모르겠는 데 db 찾은 정보가 리스트에 넣어도 밖에선 싹다 사라진다... ??? 왜 그러지 ???
-                
+                print(lists)
             }
 
-        } else {
+        } else {  // 주간
             
+            var dataLists: [Int] = []
+            var xLists: [String] = []
+            
+            let range = self.candiDates[conformButton.tag].split(separator: "~")
+
+            let first = range[0]
+            var firstMonth = "\(first.split(separator: "-")[0])"
+            if firstMonth.count == 1 {
+                firstMonth = "0"+firstMonth
+            }
+            let firstDate = "\(first.split(separator: "-")[1])"
+            
+            
+            let last = range[1]
+            var lastMonth = "\(last.split(separator: "-")[0])"
+            if lastMonth.count == 1 {
+                lastMonth = "0"+lastMonth
+            }
+            let lastDate = "\(last.split(separator: "-")[1])"
+       
+            
+            //데이터 모아주기
+            if firstMonth == lastMonth {
+                for date in Int(firstDate)!...Int(lastDate)! {
+                    xLists.append("\(firstMonth)-\(String(format: "%02d", date))")
+                }
+            } else {
+                if firstMonth == "12" {
+                    
+                    for date in Int(firstDate)!...31 {
+                        xLists.append("\(firstMonth)-\(String(format: "%02d", date))")
+                    }
+                    for date in 1...Int(lastDate)! {
+                        xLists.append("01-\(String(format: "%02d", date))")
+                    }
+                }
+                
+                else {
+                    
+                    if isCommon(year: selectedYear) {
+                        
+                        for date in Int(firstDate)!...commonYear[Int(firstDate)!-1] {
+                            xLists.append("\(firstMonth)-\(String(format: "%02d", date))")
+                        }
+                        for date in 1...Int(lastDate)! {
+                            xLists.append("\(lastMonth)-\(String(format: "%02d", date))")
+                        }
+                        
+                    } else {
+                        for date in Int(firstDate)!...leapYear[Int(firstDate)!-1] {
+                            xLists.append("\(firstMonth)-\(String(format: "%02d", date))")
+                        }
+                        for date in 1...Int(lastDate)! {
+                            xLists.append("\(lastMonth)-\(String(format: "%02d", date))")
+                            
+                        }
+
+                    }
+                    
+                }
+                
+            }
+            
+            print(xLists)
+            
+            
+            // 주간 차트 만들기 !!
+            for idx in 0..<xLists.count {
+                let md = xLists[idx].split(separator: "-")
+                let month = "\(md[0])"
+                let date = "\(md[1])"
+                db.child(p_id).child("chart").child(selectedType).child("주간").child(String(selectedYear)).child(month).child(date).observeSingleEvent(of: .value) { snapshot in
+                    guard let value = snapshot.value as? Int else {
+                        dataLists.append(0)
+                        return
+                    }
+                    dataLists.append(value)
+                    
+                    if dataLists.count == 7 {
+                        self.makingChart(datas: dataLists, x: xLists)
+                    }
+
+                }
+            }
             
         }
         
