@@ -126,7 +126,31 @@ class ChartViewController: UIViewController, ChartViewDelegate {
             self.selectedAct = "주간"
             self.monthOrWeekButton.setTitle("주간", for: .normal)
             self.candiWeeksButton.isHidden = false
-            self.candiWeeksButton.setTitle(self.selectedWeek, for: .normal)
+            
+            self.candiDates = []
+            
+            
+            // 주간 날짜들 만들기
+            if isCommon(year: self.selectedYear) {
+                self.candiDates = generateWeeks(commonOrLeap: commonYear, selectedYear: self.selectedYear)
+            } else {
+                self.candiDates = generateWeeks(commonOrLeap: leapYear, selectedYear: self.selectedYear)
+            }
+            
+            
+        
+            let alert = UIAlertController(title: "", message: "기간을 선택해주세요", preferredStyle: .alert)
+            
+            for i in 0..<self.candiDates.count {
+                alert.addAction(UIAlertAction(title: self.candiDates[i], style: .default, handler: { _ in
+                    self.candiWeeksButton.setTitle(self.candiDates[i], for: .normal)
+                    self.conformButton.tag = i
+                }))
+            }
+            self.present(alert, animated: true, completion: nil)
+            
+            
+            
         }))
         
         self.present(alert, animated: true, completion: nil)
@@ -147,16 +171,15 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         
     }
     
-    @objc private func conformButtonTapped() {
-        
-        
+    @objc private func conformButtonTapped(sender: UIButton) {
+
         if self.selectedAct == "월간" {
             
             var lists: [Int] = []
             
             
             for i in 0..<months.count {
-                db.child(p_id).child("chart").child("월간").child(selectedType).child(String(selectedYear)).child(months[i]).observeSingleEvent(of: .value) { snapshot in
+                db.child(p_id).child("chart").child(selectedType).child("월간").child(String(selectedYear)).child(months[i]).observeSingleEvent(of: .value) { snapshot in
     
                     guard let value = snapshot.value as? Int else {
                         lists.append(0)
@@ -166,7 +189,6 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                     if lists.count == self.months.count {
                         self.makingChart(datas: lists,x: self.months)
                     }
-                    print(lists)
                 }
                 
                 //왜 그런지 모르겠는 데 db 찾은 정보가 리스트에 넣어도 밖에선 싹다 사라진다... ??? 왜 그러지 ???
@@ -200,7 +222,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         chart.xAxis.labelPosition = .bottom
         chart.rightAxis.enabled = false
         chart.xAxis.valueFormatter = IndexAxisValueFormatter(values: x)
-        chart.xAxis.setLabelCount(months.count, force: true)
+        chart.xAxis.setLabelCount(datas.count, force: true)
         chart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
         chart.doubleTapToZoomEnabled = false
         

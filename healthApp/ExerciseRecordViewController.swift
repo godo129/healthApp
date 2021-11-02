@@ -324,23 +324,26 @@ class ExerciseRecordViewController: UIViewController {
         // 주간, 월간 두 가지로 나눠서 이용
         // 볼륨 저장
    
-        print(nowExerciseType)
+        
         // 최대 무게 저장
-        //주간
-        db.child(p_id).child("chart").child("주간").child(nowExerciseType).child(y).child(m).child(d).observeSingleEvent(of: .value) { snapshot in
+        // 주간 3
+        db.child(p_id).child("chart").child(nowExerciseType).child("주간").child(y).child(m).child(d).observeSingleEvent(of: .value) { snapshot in
             guard let value = snapshot.value as? Int else {
-                self.db.child(p_id).child("chart").child("주간").child(nowExerciseType).child(y).child(m).child(d).setValue(weightCount)
+                self.db.child(p_id).child("chart").child(nowExerciseType).child("주간").child(y).child(m).child(d).setValue(weightCount)
                 return
             }
             
             if weightCount > value {
-                self.db.child(p_id).child("chart").child("주간").child(nowExerciseType).child(y).child(m).child(d).setValue(weightCount)
-
+                self.db.child(p_id).child("chart").child(nowExerciseType).child("주간").child(y).child(m).child(d).setValue(weightCount)
             }
         }
-       
-        // 월간
-        db.child(p_id).child("chart").child("월간").child(nowExerciseType).child(y).child(m).observeSingleEvent(of: .value) { snapshot in
+        
+        self.db.child(p_id).child("chart").child(nowExerciseType).child("주간").child(y).child(m).child(d).setValue(weightCount)
+        
+        
+        
+        // 월간 .. nowExerciseType 이 3번째 자식으로 가면 이상하게 오류 나서 불가
+        db.child(p_id).child("chart").child(nowExerciseType).child("월간").child(y).child(m).observeSingleEvent(of: .value) { snapshot in
             guard let value = snapshot.value as? Int else {
                 self.db.child(p_id).child("chart").child("월간").child(nowExerciseType).child(y).child(m).setValue(weightCount)
                 return

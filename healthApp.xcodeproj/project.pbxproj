@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		15377C7CC6334E2911E92E02 /* Pods_healthApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49D5AA402D1400C467BFAECB /* Pods_healthApp.framework */; };
 		F129FA82272F5C8900D0DCCA /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F129FA81272F5C8900D0DCCA /* ChartViewController.swift */; };
+		F129FAA827314C1E00D0DCCA /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F129FAA727314C1E00D0DCCA /* Functions.swift */; };
 		F12E1B8027269B11001CB6F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12E1B7F27269B11001CB6F4 /* AppDelegate.swift */; };
 		F12E1B8227269B11001CB6F4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12E1B8127269B11001CB6F4 /* SceneDelegate.swift */; };
 		F12E1B8427269B11001CB6F4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12E1B8327269B11001CB6F4 /* ViewController.swift */; };
@@ -32,6 +33,7 @@
 		49D5AA402D1400C467BFAECB /* Pods_healthApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_healthApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA6A1B00F37048543C768F45 /* Pods-healthApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-healthApp.release.xcconfig"; path = "Target Support Files/Pods-healthApp/Pods-healthApp.release.xcconfig"; sourceTree = "<group>"; };
 		F129FA81272F5C8900D0DCCA /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
+		F129FAA727314C1E00D0DCCA /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		F12E1B7C27269B11001CB6F4 /* healthApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = healthApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F12E1B7F27269B11001CB6F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F12E1B8127269B11001CB6F4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				F13220042728265800E69FEE /* personInfo.swift */,
+				F129FAA727314C1E00D0DCCA /* Functions.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				F12E1B9627269CEA001CB6F4 /* HomeController.swift in Sources */,
 				F12E1B8427269B11001CB6F4 /* ViewController.swift in Sources */,
 				F135093C272BBA7A00F0E1CC /* QuestionViewController.swift in Sources */,
+				F129FAA827314C1E00D0DCCA /* Functions.swift in Sources */,
 				F135093A272A2E4100F0E1CC /* persnalInfoViewController.swift in Sources */,
 				F129FA82272F5C8900D0DCCA /* ChartViewController.swift in Sources */,
 				F12E1B982726CC54001CB6F4 /* LogInController.swift in Sources */,
