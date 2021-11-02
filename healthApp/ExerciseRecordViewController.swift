@@ -345,14 +345,16 @@ class ExerciseRecordViewController: UIViewController {
         // 월간 .. nowExerciseType 이 3번째 자식으로 가면 이상하게 오류 나서 불가
         db.child(p_id).child("chart").child(nowExerciseType).child("월간").child(y).child(m).observeSingleEvent(of: .value) { snapshot in
             guard let value = snapshot.value as? Int else {
-                self.db.child(p_id).child("chart").child("월간").child(nowExerciseType).child(y).child(m).setValue(weightCount)
+                self.db.child(p_id).child("chart").child(nowExerciseType).child("월간").child(y).child(m).setValue(weightCount)
                 return
             }
             if weightCount > value {
-                self.db.child(p_id).child("chart").child("월간").child(nowExerciseType).child(y).child(m).setValue(weightCount)
+                self.db.child(p_id).child("chart").child(nowExerciseType).child("월간").child(y).child(m).setValue(weightCount)
 
             }
         }
+        
+        db.child(p_id).child("chart").child(nowExerciseType).child("월간").child(y).child(m).setValue(weightCount)
         
         
         historyLabel.text = history

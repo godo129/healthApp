@@ -20,6 +20,5 @@ var weight = 0.0
 
 let exerciseTypes: [String] = ["데드리프트","스쿼트","벤치프레스"]
 
-class personInfo {
-    
-}
+
+var Datt = 0

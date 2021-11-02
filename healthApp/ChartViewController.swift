@@ -11,6 +11,8 @@ import FirebaseDatabase
 
 class ChartViewController: UIViewController, ChartViewDelegate {
     
+    var candiDates: [String] = []
+    
     let db = Database.database().reference()
     
     var selectedYear = 2021
