@@ -17,6 +17,10 @@ class ExerciseRecordViewController: UIViewController {
     
     // 추가 빼기 제어
     var plus = true
+    
+    
+    var historyTable = UITableView()
+    var exerciseHistory = [""]
         
     private let db = Database.database().reference()
 
@@ -129,11 +133,18 @@ class ExerciseRecordViewController: UIViewController {
         }
         
         
+        historyTable.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        historyTable.delegate = self
+        historyTable.dataSource = self
+        
         
         view.addSubview(backButton)
         view.addSubview(memoButton)
         view.addSubview(calendarButton)
         view.addSubview(historyLabel)
+        
+        view.addSubview(historyTable)
+        
         view.addSubview(nowDateLabel)
         view.addSubview(setLabel)
         view.addSubview(weightLable)
@@ -321,24 +332,29 @@ class ExerciseRecordViewController: UIViewController {
         let d = String(cur_date.split(separator: "-")[2])
         
         
-        // 주간, 월간 두 가지로 나눠서 이용
+        // 주간, 월간 두 가지로 나눠서 이용3
         // 볼륨 저장
    
         
         // 최대 무게 저장
         // 주간 3
         db.child(p_id).child("chart").child(nowExerciseType).child("주간").child(y).child(m).child(d).observeSingleEvent(of: .value) { snapshot in
+            
             guard let value = snapshot.value as? Int else {
                 self.db.child(p_id).child("chart").child(nowExerciseType).child("주간").child(y).child(m).child(d).setValue(weightCount)
+                print(1231)
                 return
             }
-            
+            print(value)
             if weightCount > value {
                 self.db.child(p_id).child("chart").child(nowExerciseType).child("주간").child(y).child(m).child(d).setValue(weightCount)
+                print(124214124)
             }
-        }
+            
         
-        self.db.child(p_id).child("chart").child(nowExerciseType).child("주간").child(y).child(m).child(d).setValue(weightCount)
+            
+        }
+
         
         
         
@@ -374,6 +390,7 @@ class ExerciseRecordViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         backButton.frame = CGRect(x: 20, y: 40, width: 50, height: 30)
         nowDateLabel.frame = CGRect(x: self.view.bounds.maxX/2-50, y: 100, width: 200, height: 100)
+        historyTable.frame = CGRect(x: 50 , y: nowDateLabel.frame.origin.y + 100, width: view.frame.size.width-100, height: 300)
         calendarButton.frame = CGRect(x: 350, y: 100, width: 50, height: 30)
         memoButton.frame = CGRect(x: calendarButton.frame.origin.x,
                                   y: calendarButton.frame.origin.y+50,
@@ -403,3 +420,34 @@ class ExerciseRecordViewController: UIViewController {
 
 }
 
+extension ExerciseRecordViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return exerciseHistory.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = historyTable.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = exerciseHistory[indexPath.row]
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            tableView.beginUpdates()
+            exerciseHistory.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
+        }
+    }
+    
+}
