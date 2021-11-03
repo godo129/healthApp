@@ -9,6 +9,10 @@ import UIKit
 import Charts
 import FirebaseDatabase
 
+
+var lists: [Int] = []
+var candi: [Int] = []
+
 class ChartViewController: UIViewController, ChartViewDelegate {
     
     var candiDates: [String] = []
@@ -180,7 +184,72 @@ class ChartViewController: UIViewController, ChartViewDelegate {
 
         if self.selectedAct == "월간" {
             
-            var lists: [Int] = []
+            var temp: [Int] = []
+            lists = []
+            
+            // 월간 가장 큰 데이터 저장
+            
+            if isCommon(year: selectedYear) {
+                for i in 0..<12 {
+                    
+                    var num: Int = 0
+
+                    for v in 1...commonYear[i] {
+                        
+                        db.child(p_id).child("chart").child(selectedType).child("주간").child(String(selectedYear)).child(months[i]).child("\(String(format: "%02d", Int(v)))").observeSingleEvent(of: .value) { snapshot in
+                            if let value = snapshot.value as? [Int] {
+                                if value.count == 0 {
+                                    
+                                } else {
+                                    num = max(num, value.max()!)
+                                }
+                            } else {
+                                
+                            }
+                            
+                            if v == commonYear[i] {
+                                self.db.child(p_id).child("chart").child(self.selectedType).child("월간").child(String(self.selectedYear)).child(self.months[i]).setValue(num)
+                           
+                            }
+                        }
+                        
+                    }
+   
+                }
+                
+            } else {
+                
+                for i in 0..<12 {
+                    
+                    var num: Int = 0
+
+                    for v in 1...leapYear[i] {
+                        
+                        db.child(p_id).child("chart").child(selectedType).child("주간").child(String(selectedYear)).child(months[i]).child("\(String(format: "%02d", Int(v)))").observeSingleEvent(of: .value) { snapshot in
+                            if let value = snapshot.value as? [Int] {
+                                if value.count == 0 {
+                                    
+                                } else {
+                                    num = max(num, value.max()!)
+                                }
+                            } else {
+                                
+                            }
+                            
+                            if v == leapYear[i] {
+                                self.db.child(p_id).child("chart").child(self.selectedType).child("월간").child(String(self.selectedYear)).child(self.months[i]).setValue(num)
+                           
+                            }
+                        }
+                        
+                    }
+   
+                }
+                
+            }
+     
+            //makingChart(datas: lists, x: months)
+            
             
             
             for i in 0..<months.count {
@@ -199,6 +268,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                 //왜 그런지 모르겠는 데 db 찾은 정보가 리스트에 넣어도 밖에선 싹다 사라진다... ??? 왜 그러지 ???
                 print(lists)
             }
+            
 
         } else {  // 주간
             
