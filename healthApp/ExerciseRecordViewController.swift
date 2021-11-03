@@ -12,15 +12,15 @@ var history = ""
 var setCount = 0
 var nowExerciseType = "운동 종류"
 var weightCount = 0
+var exerciseHistory: [String] = []
 
 class ExerciseRecordViewController: UIViewController {
     
     // 추가 빼기 제어
     var plus = true
     
-    
     var historyTable = UITableView()
-    var exerciseHistory = [""]
+    
         
     private let db = Database.database().reference()
 
@@ -169,6 +169,8 @@ class ExerciseRecordViewController: UIViewController {
         tenKiloBarbellButton.addTarget(self, action: #selector(tenKiloBarbellButtonTapped), for: .touchUpInside)
         twentyKiloBarbellButton.addTarget(self, action: #selector(twentyKiloBarbellButtonTapped), for: .touchUpInside)
         
+        
+        
 
     }
     
@@ -180,8 +182,10 @@ class ExerciseRecordViewController: UIViewController {
         setButton.setTitle("\(setCount) 세트", for: .normal)
         setButton.setTitleColor(.black, for: .normal)
         
+        exerciseHistory = []
+        
         // 시작할때 데이터 불러오기
-        db.child(p_id).child(cur_date).child("history").observeSingleEvent(of: .value, with: { snapshot in
+        /*db.child(p_id).child(cur_date).child("history").observeSingleEvent(of: .value, with: { snapshot in
             guard let value = snapshot.value as? String else {
                 history = ""
                 self.historyLabel.text = ""
@@ -192,6 +196,18 @@ class ExerciseRecordViewController: UIViewController {
             print(value)
             self.historyLabel.text = value
         })
+ */
+        
+        db.child(p_id).child(cur_date).child("history").observeSingleEvent(of: .value, with: { snapshot in
+            guard let value = snapshot.value as? [String] else {
+                return
+            }
+            exerciseHistory = value
+            self.historyTable.reloadData()
+        })
+        
+        print(exerciseHistory)
+      
     }
     
     @objc private func backButtonTapped() {
@@ -321,11 +337,18 @@ class ExerciseRecordViewController: UIViewController {
             return
         }
         
-        history += "\n " + "\(setCount)set " + nowExerciseType + " \(weightCount)kg"
+
+        //history += "\n " + nowExerciseType + " \(weightCount)kg" + " \(setCount)set"
         
-        print(history)
-        //let object: [String: String] = ["history" : history]
-        db.child(p_id).child(cur_date).child("history").setValue(history)
+        exerciseHistory.append(nowExerciseType + " \(weightCount)kg" + " \(setCount)set")
+        historyTable.reloadData()
+        print(exerciseHistory)
+        
+        
+        //db.child(p_id).child(cur_date).child("history").setValue(history)
+        
+        db.child(p_id).child(cur_date).child("history").setValue(exerciseHistory)
+        
         
         let y = String(cur_date.split(separator: "-")[0])
         let m = String(cur_date.split(separator: "-")[1])
@@ -446,6 +469,7 @@ extension ExerciseRecordViewController: UITableViewDelegate, UITableViewDataSour
             tableView.beginUpdates()
             exerciseHistory.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            db.child(p_id).child(cur_date).child("history").setValue(exerciseHistory)
             tableView.endUpdates()
         }
     }
