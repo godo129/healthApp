@@ -8,15 +8,16 @@
 
 let exerciseTypes: [String] = ["데드리프트","스쿼트","벤치프레스"]
 
+var exerciseTypesDataStorage: [String: [Int]] = [:]
 
 func making () -> [String: [Int]]  {
     
-    var exerciseTypesStorage: [String: [Int]] = [:]
+    var exerciseTypesDataStorage: [String: [Int]] = [:]
     
     for idx in 0..<exerciseTypes.count {
         let storage: [Int] = []
-        exerciseTypesStorage[exerciseTypes[idx]] = storage
+        exerciseTypesDataStorage[exerciseTypes[idx]] = storage
     }
     
-    return exerciseTypesStorage
+    return exerciseTypesDataStorage
 }

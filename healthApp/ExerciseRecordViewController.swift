@@ -154,7 +154,6 @@ class ExerciseRecordViewController: UIViewController {
         view.addSubview(tenKiloBarbellButton)
         view.addSubview(twentyKiloBarbellButton)
         view.addSubview(recordButton)
-        
         view.addSubview(setButton)
         
 
@@ -184,6 +183,34 @@ class ExerciseRecordViewController: UIViewController {
         
         exerciseHistory = []
         
+        exerciseTypesDataStorage = making()
+        print(exerciseTypesDataStorage)
+        
+        
+        
+        let y = String(cur_date.split(separator: "-")[0])
+        let m = String(cur_date.split(separator: "-")[1])
+        let d = String(cur_date.split(separator: "-")[2])
+        
+        
+        // 정보 가져오기
+        for i in 0..<exerciseTypes.count {
+            
+            let exerciseType = exerciseTypes[i]
+            
+            db.child(p_id).child("chart").child(exerciseType+"1").child("주간").child(y).child(m).child(d).observeSingleEvent(of: .value) { snapshot in
+                guard let value = snapshot.value as? [Int] else {
+                    return
+                }
+                
+                exerciseTypesDataStorage[exerciseType] = value
+                print(value)
+            }
+                
+            
+        }
+        
+        
         // 시작할때 데이터 불러오기
         /*db.child(p_id).child(cur_date).child("history").observeSingleEvent(of: .value, with: { snapshot in
             guard let value = snapshot.value as? String else {
@@ -206,7 +233,6 @@ class ExerciseRecordViewController: UIViewController {
             self.historyTable.reloadData()
         })
         
-        print(exerciseHistory)
       
     }
     
@@ -339,15 +365,22 @@ class ExerciseRecordViewController: UIViewController {
         
 
         //history += "\n " + nowExerciseType + " \(weightCount)kg" + " \(setCount)set"
-        
-        exerciseHistory.append(nowExerciseType + " \(weightCount)kg" + " \(setCount)set")
-        historyTable.reloadData()
         print(exerciseHistory)
+        exerciseHistory.append(nowExerciseType + " \(weightCount) kg" + " \(setCount) set")
+        historyTable.reloadData()
+
         
         
         //db.child(p_id).child(cur_date).child("history").setValue(history)
         
         db.child(p_id).child(cur_date).child("history").setValue(exerciseHistory)
+        
+        // 새로운 리스트
+        var newList = exerciseTypesDataStorage[nowExerciseType]
+        newList?.append(weightCount)
+        exerciseTypesDataStorage[nowExerciseType] = newList
+        print(exerciseTypesDataStorage)
+        
         
         
         let y = String(cur_date.split(separator: "-")[0])
@@ -361,22 +394,8 @@ class ExerciseRecordViewController: UIViewController {
         
         // 최대 무게 저장
         // 주간 3
-        db.child(p_id).child("chart").child(nowExerciseType).child("주간").child(y).child(m).child(d).observeSingleEvent(of: .value) { snapshot in
-            
-            guard let value = snapshot.value as? Int else {
-                self.db.child(p_id).child("chart").child(nowExerciseType).child("주간").child(y).child(m).child(d).setValue(weightCount)
-                print(1231)
-                return
-            }
-            print(value)
-            if weightCount > value {
-                self.db.child(p_id).child("chart").child(nowExerciseType).child("주간").child(y).child(m).child(d).setValue(weightCount)
-                print(124214124)
-            }
-            
         
-            
-        }
+        db.child(p_id).child("chart").child(nowExerciseType+"1").child("주간").child(y).child(m).child(d).setValue(newList)
 
         
         
@@ -440,6 +459,10 @@ class ExerciseRecordViewController: UIViewController {
         
         
     }
+    
+    func updateExerciseDataStorage(to: [Int], key: String) {
+        exerciseTypesDataStorage[key] = to
+    }
 
 }
 
@@ -467,9 +490,31 @@ extension ExerciseRecordViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             tableView.beginUpdates()
+            
+            let selectedWeight: Int = Int(exerciseHistory[indexPath.row].split(separator: " ")[1])!
+            let selectedType: String = String(exerciseHistory[indexPath.row].split(separator: " ")[0])
+            guard var newList = exerciseTypesDataStorage[selectedType] else {return}
+            guard let idx = newList.firstIndex(of: selectedWeight) else {return}
+            newList.remove(at: idx)
+            exerciseTypesDataStorage[selectedType] = newList
+            print(newList)
+            
+            let y = String(cur_date.split(separator: "-")[0])
+            let m = String(cur_date.split(separator: "-")[1])
+            let d = String(cur_date.split(separator: "-")[2])
+            
+            db.child(p_id).child("chart").child(selectedType+"1").child("주간").child(y).child(m).child(d).setValue(newList)
+        
+            
             exerciseHistory.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             db.child(p_id).child(cur_date).child("history").setValue(exerciseHistory)
+            
+            
+            
+  
+            print(exerciseTypesDataStorage)
+            
             tableView.endUpdates()
         }
     }
