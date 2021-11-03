@@ -375,7 +375,7 @@ class ExerciseRecordViewController: UIViewController {
         
         db.child(p_id).child(cur_date).child("history").setValue(exerciseHistory)
         
-        // 새로운 리스트
+        // 새로운 리스트, 저장
         var newList = exerciseTypesDataStorage[nowExerciseType]
         newList?.append(weightCount)
         exerciseTypesDataStorage[nowExerciseType] = newList
@@ -393,13 +393,11 @@ class ExerciseRecordViewController: UIViewController {
    
         
         // 최대 무게 저장
-        // 주간 3
+        // 주간
         
-        db.child(p_id).child("chart").child(nowExerciseType+"1").child("주간").child(y).child(m).child(d).setValue(newList)
+        db.child(p_id).child("chart").child(nowExerciseType).child("주간").child(y).child(m).child(d).setValue(newList)
 
-        
-        
-        
+
         // 월간 .. nowExerciseType 이 3번째 자식으로 가면 이상하게 오류 나서 불가
         db.child(p_id).child("chart").child(nowExerciseType).child("월간").child(y).child(m).observeSingleEvent(of: .value) { snapshot in
             guard let value = snapshot.value as? Int else {
@@ -503,7 +501,7 @@ extension ExerciseRecordViewController: UITableViewDelegate, UITableViewDataSour
             let m = String(cur_date.split(separator: "-")[1])
             let d = String(cur_date.split(separator: "-")[2])
             
-            db.child(p_id).child("chart").child(selectedType+"1").child("주간").child(y).child(m).child(d).setValue(newList)
+            db.child(p_id).child("chart").child(selectedType).child("주간").child(y).child(m).child(d).setValue(newList)
         
             
             exerciseHistory.remove(at: indexPath.row)

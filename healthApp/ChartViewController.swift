@@ -274,12 +274,18 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                 let month = "\(md[0])"
                 let date = "\(md[1])"
                 db.child(p_id).child("chart").child(selectedType).child("주간").child(String(selectedYear)).child(month).child(date).observeSingleEvent(of: .value) { snapshot in
-                    guard let value = snapshot.value as? Int else {
-                        dataLists.append(0)
-                        return
-                    }
-                    dataLists.append(value)
                     
+                    if let value = snapshot.value as? [Int] {
+                        if value.count == 0 {
+                            dataLists.append(0)
+                        } else {
+                            dataLists.append(value.max()!)
+                        }
+                    } else {
+                        dataLists.append(0)
+                    }
+        
+            
                     if dataLists.count == 7 {
                         self.makingChart(datas: dataLists, x: xLists)
                     }
