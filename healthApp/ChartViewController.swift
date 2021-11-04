@@ -97,6 +97,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         monthOrWeekButton.addTarget(self, action: #selector(monthOrWeekButtonTapped), for: .touchUpInside)
         selectTypeButton.addTarget(self, action: #selector(selectTypeButtonTapped), for: .touchUpInside)
         conformButton.addTarget(self, action: #selector(conformButtonTapped), for: .touchUpInside)
+        candiWeeksButton.addTarget(self, action: #selector(candiWeeksButtonTapped), for: .touchUpInside)
         
        
         
@@ -164,6 +165,28 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         
         self.present(alert, animated: true, completion: nil)
         
+    }
+    
+    @objc private func candiWeeksButtonTapped() {
+        
+        // 주간 날짜들 만들기
+        if isCommon(year: self.selectedYear) {
+            self.candiDates = generateWeeks(commonOrLeap: commonYear, selectedYear: self.selectedYear)
+        } else {
+            self.candiDates = generateWeeks(commonOrLeap: leapYear, selectedYear: self.selectedYear)
+        }
+        
+        
+    
+        let alert = UIAlertController(title: "", message: "기간을 선택해주세요", preferredStyle: .alert)
+        
+        for i in 0..<self.candiDates.count {
+            alert.addAction(UIAlertAction(title: self.candiDates[i], style: .default, handler: { _ in
+                self.candiWeeksButton.setTitle(self.candiDates[i], for: .normal)
+                self.conformButton.tag = i
+            }))
+        }
+        self.present(alert, animated: true, completion: nil)
     }
     
     @objc private func selectTypeButtonTapped() {
@@ -424,11 +447,11 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                                         height: 50)
         
         candiWeeksButton.frame = CGRect(x: yearButton.frame.origin.x,
-                                        y: yearButton.frame.origin.y+120,
-                                        width: 100,
+                                        y: yearButton.frame.origin.y+80,
+                                        width: 150,
                                         height: 50)
         
-        conformButton.frame = CGRect(x: candiWeeksButton.frame.origin.x+120,
+        conformButton.frame = CGRect(x: candiWeeksButton.frame.origin.x+200,
                                      y: candiWeeksButton.frame.origin.y,
                                      width: 100,
                                      height: 50)

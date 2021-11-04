@@ -149,6 +149,7 @@ class HomeController: UIViewController {
     
         if nick == "" {
             userLabel.text = p_id + "님 환영합니다!!!"
+            
         } else {
             userLabel.text = nick + "님 환영합니다!!!"
         }
@@ -223,6 +224,7 @@ class HomeController: UIViewController {
             age = 0
             height = 0.0
             weight = 0.0
+
 
         } catch {
             

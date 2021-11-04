@@ -18,7 +18,7 @@ var height = 0.0
 var age = 0
 var weight = 0.0
 
-
+let defaultPersonImage = UIImage(named: "defaultPerson")
 
 
 var Datt = 0

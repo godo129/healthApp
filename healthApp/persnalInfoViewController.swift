@@ -7,12 +7,17 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseStorage
 
 
 
 class persnalInfoViewController: UIViewController {
     
+    var notExist = false
+    
     private let db = Database.database().reference()
+    
+    private let storage = Storage.storage().reference()
     
     private let backButton: UIButton = {
         let backButton = UIButton()
@@ -30,6 +35,24 @@ class persnalInfoViewController: UIViewController {
         return titleLabel
     }()
     
+    private let imageView = UIImageView()
+    
+    private let pickImageButton: UIButton = {
+        let pickImageButton = UIButton()
+        pickImageButton.setTitle("사진 변경", for: .normal)
+        pickImageButton.setTitleColor(.black, for: .normal)
+        pickImageButton.backgroundColor = .systemBlue
+        return pickImageButton
+    }()
+    
+    private let clearImageButton: UIButton = {
+        let clearImageButton = UIButton()
+        clearImageButton.setTitle("초기화", for: .normal)
+        clearImageButton.setTitleColor(.black, for: .normal)
+        clearImageButton.backgroundColor = .orange
+        return clearImageButton
+    }()
+    
     private let nickLabel : UILabel = {
         let nickLabel = UILabel()
         nickLabel.textAlignment = .right
@@ -41,6 +64,7 @@ class persnalInfoViewController: UIViewController {
     private let nickTextField : UITextField = {
         let nickTextField = UITextField()
         nickTextField.textAlignment = .center
+        nickTextField.borderStyle = .roundedRect
         return nickTextField
     }()
     
@@ -55,6 +79,7 @@ class persnalInfoViewController: UIViewController {
     private let ageTextField : UITextField = {
         let ageTextField = UITextField()
         ageTextField.textAlignment = .center
+        ageTextField.borderStyle = .roundedRect
         return ageTextField
     }()
     
@@ -70,6 +95,7 @@ class persnalInfoViewController: UIViewController {
         let heightTextField = UITextField()
         heightTextField.textAlignment = .center
         heightTextField.tintColor = .black
+        heightTextField.borderStyle = .roundedRect
         return heightTextField
     }()
     
@@ -84,6 +110,7 @@ class persnalInfoViewController: UIViewController {
     private let weightTextField : UITextField = {
         let weightTextField = UITextField()
         weightTextField.textAlignment = .center
+        weightTextField.borderStyle = .roundedRect
         return weightTextField
     }()
     
@@ -97,8 +124,13 @@ class persnalInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        imageView.contentMode = .scaleAspectFit
+        
         view.addSubview(backButton)
         view.addSubview(titleLabel)
+        view.addSubview(imageView)
+        view.addSubview(pickImageButton)
+        view.addSubview(clearImageButton)
         view.addSubview(nickLabel)
         view.addSubview(nickTextField)
         view.addSubview(ageLabel)
@@ -110,6 +142,14 @@ class persnalInfoViewController: UIViewController {
         view.addSubview(recordButton)
         
         
+        
+        // 이미지 불러오기
+        
+        
+        
+        
+        
+        
         nickTextField.text = nick
         ageTextField.text = "\(age)"
         heightTextField.text = "\(height)"
@@ -117,8 +157,84 @@ class persnalInfoViewController: UIViewController {
         
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         recordButton.addTarget(self, action: #selector(recordButtonTapped), for: .touchUpInside)
+        pickImageButton.addTarget(self, action: #selector(pickImageButtonTapped), for: .touchUpInside)
+        
+        
+        storage.child("\(p_id)/images/profileImage\(p_id).png").downloadURL { url, error in
+            guard let url = url, error == nil else {
+                
+                guard let image = defaultPersonImage else {
+                    return
+                }
+                
+                guard let data = image.pngData() else {
+                    return
+                }
+                
+                self.storage.child("\(p_id)/images/profileImage\(p_id).png").putData(data)
+                self.imageView.image = image
+                
+                self.notExist = true
+                
+                return
+            }
+            
+            
+            let urls = URL(string: url.absoluteString)!
+            
+            let task = URLSession.shared.dataTask(with: urls) { data, _, error in
+                guard let data = data, error == nil else {
+                    return
+                }
+                
+                let image = UIImage(data: data)
+                
+                DispatchQueue.main.sync {
+                    self.imageView.image = image
+                }
+            }
+            
+            task.resume()
+            
 
+        }
+        /*
+        if notExist {
+            self.imageView.image = defaultPersonImage
+        } else {
+            guard let urlString = UserDefaults.standard.value(forKey: "url") as? String,
+                  let url = URL(string: urlString) else {
+                return
+            }
+       
+            let task = URLSession.shared.dataTask(with: url) { data, _, error in
+                guard let data = data, error == nil else {
+                    return
+                }
+                
+                let image = UIImage(data: data)
+                
+                DispatchQueue.main.sync {
+                    self.imageView.image = image
+                }
+            }
+            
+            task.resume()
+            
+        }
+        
+       */
         // Do any additional setup after loading the view.
+    }
+    
+    
+    // 이미지 피커 컨트롤러 통해서 이미지 선택
+    @objc private func pickImageButtonTapped () {
+        let pick = UIImagePickerController()
+        pick.allowsEditing = true
+        pick.delegate = self
+        pick.sourceType = .photoLibrary
+        self.present(pick, animated: true, completion: nil)
     }
     
     
@@ -211,20 +327,66 @@ class persnalInfoViewController: UIViewController {
                                   y: 35,
                                   width: view.frame.size.width-300,
                                   height: 20)
-        titleLabel.frame = CGRect(x: 100, y: 160, width: view.frame.size.width-200, height: 50)
-        nickLabel.frame = CGRect(x: 30, y: titleLabel.frame.origin.y+100, width: 50, height: 50)
-        nickTextField.frame = CGRect(x: nickLabel.frame.origin.x+70, y: titleLabel.frame.origin.y+75, width: 200, height: 100)
-        ageLabel.frame = CGRect(x: 30, y: nickLabel.frame.origin.y+50, width: 50, height: 50)
-        ageTextField.frame = CGRect(x: nickLabel.frame.origin.x+70, y: nickTextField.frame.origin.y+50, width: 200, height: 100)
-        heightLabel.frame = CGRect(x: 30, y: ageLabel.frame.origin.y+50, width: 50, height: 50)
-        heightTextField.frame = CGRect(x: nickLabel.frame.origin.x+70, y: ageTextField.frame.origin.y+50, width: 200, height: 100)
-        weightLabel.frame = CGRect(x: 30, y: heightLabel.frame.origin.y+50, width: 50, height: 50)
-        weightTextField.frame = CGRect(x: nickLabel.frame.origin.x+70, y: heightTextField.frame.origin.y+50, width: 200, height: 100)
+        titleLabel.frame = CGRect(x: 100, y: 100, width: view.frame.size.width-200, height: 50)
         
-        recordButton.frame = CGRect(x: view.frame.maxX/2-40, y: weightTextField.frame.origin.y+200, width: 100, height: 50)
+        imageView.frame = CGRect(x: 50, y: titleLabel.frame.origin.y + 50, width: view.frame.size.width-100, height: 300)
+        pickImageButton.frame = CGRect(x: 80, y: imageView.frame.origin.y + 300, width: 80, height: 50)
+        clearImageButton.frame = CGRect(x:240, y: imageView.frame.origin.y + 300, width: 80, height: 50 )
+        nickLabel.frame = CGRect(x: 30, y: clearImageButton.frame.origin.y+100, width: 50, height: 50)
+        nickTextField.frame = CGRect(x: nickLabel.frame.origin.x+100, y: clearImageButton.frame.origin.y+100, width: 200, height: 40)
+        ageLabel.frame = CGRect(x: 30, y: nickLabel.frame.origin.y+50, width: 50, height: 50)
+        ageTextField.frame = CGRect(x: nickLabel.frame.origin.x+100, y: nickLabel.frame.origin.y+50, width: 200, height: 40)
+        heightLabel.frame = CGRect(x: 30, y: ageLabel.frame.origin.y+50, width: 50, height: 50)
+        heightTextField.frame = CGRect(x: nickLabel.frame.origin.x+100, y: ageLabel.frame.origin.y+50, width: 200, height: 40)
+        weightLabel.frame = CGRect(x: 30, y: heightLabel.frame.origin.y+50, width: 50, height: 50)
+        weightTextField.frame = CGRect(x: nickLabel.frame.origin.x+100, y: heightLabel.frame.origin.y+50, width: 200, height: 40)
+        
+        recordButton.frame = CGRect(x: view.frame.maxX/2-60, y: weightTextField.frame.origin.y+80, width: 100, height: 50)
         
     }
     
 
 
+}
+
+
+extension persnalInfoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
+            
+            return
+        }
+        
+        guard let data = image.pngData() else {
+            return
+        }
+        
+        storage.child("\(p_id)/images/profileImage\(p_id).png").putData(data, metadata: nil) { _, error in
+            guard error == nil else {
+                return
+            }
+            
+            self.storage.child("\(p_id)/images/profileImage\(p_id).png").downloadURL { url, error in
+                guard let url = url, error == nil else {
+                    return
+                }
+                let urlStirng = url.absoluteString
+                
+                DispatchQueue.main.async {
+                    let image = UIImage(data: data)
+                    self.imageView.image = image
+                }
+                
+                UserDefaults.standard.setValue(urlStirng, forKey: "url")  // 개인 저장소에 저장
+            }
+        }
+    }
 }
