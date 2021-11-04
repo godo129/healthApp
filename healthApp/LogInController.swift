@@ -85,6 +85,7 @@ class LogInController: UIViewController {
             return
         }
         
+        
         Firebase.Auth.auth().signIn(withEmail: Id+"@healthApp.com", password: password) { [weak self] result, error in
             
             guard let strongSelf = self else {
@@ -112,6 +113,8 @@ class LogInController: UIViewController {
             
             // 로그인 됬을 때 환영 인사주기 위해 email 정보 얻어오기
             guard let name = Firebase.Auth.auth().currentUser?.email else {
+                
+                print("정보 못 받음")
                 return
             }
             p_id = String(name.split(separator: "@")[0])
@@ -147,25 +150,26 @@ class LogInController: UIViewController {
             // 개인 정보 불러오기
             self?.db.child(p_id).child("PersonalInfo").child("Nick").observeSingleEvent(of: .value) { snapshot in
                 guard let value = snapshot.value as? String  else {
-                    return
                     
-                }
-                
-                nick = value
-                
-                if nick == "" {
-                    // 닉네임 없을 땐 아이디로 환영
-                    let LogInSuccessed = UIAlertController(title: " " , message: p_id+"님 환영합니다!", preferredStyle: .alert)
-                    LogInSuccessed.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+                    // 닉네임 없는 경우
+                    let LogInSuccessed2 = UIAlertController(title: " " , message: p_id+"님 환영합니다!", preferredStyle: .alert)
+                    LogInSuccessed2.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
                         let vc = strongSelf.storyboard?.instantiateViewController(withIdentifier: "HomeView")
                         vc?.modalPresentationStyle = .fullScreen
                         vc?.modalTransitionStyle = .coverVertical
                         strongSelf.present(vc!, animated: true, completion: nil)
                     }))
                     
-                    strongSelf.present(LogInSuccessed, animated: true)
+                    strongSelf.present(LogInSuccessed2, animated: true)
+                    
+                    return
+                    
+                }
                 
-                } else {
+                nick = value
+                
+       
+                
                     // 닉네임 있을 땐 닉네임으로 환영
                     let LogInSuccessed = UIAlertController(title: " " , message: nick+"님 환영합니다!", preferredStyle: .alert)
                     LogInSuccessed.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
@@ -178,17 +182,11 @@ class LogInController: UIViewController {
                     }))
                     
                     strongSelf.present(LogInSuccessed, animated: true)
-                }
                 
-                
-                
-                
+ 
                 
             }
-            
-            
-            
-            
+    
             
         }
     }
