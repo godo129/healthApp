@@ -154,10 +154,12 @@ class persnalInfoViewController: UIViewController {
         ageTextField.text = "\(age)"
         heightTextField.text = "\(height)"
         weightTextField.text = "\(weight)"
+        imageView.contentMode = .scaleToFill
         
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         recordButton.addTarget(self, action: #selector(recordButtonTapped), for: .touchUpInside)
         pickImageButton.addTarget(self, action: #selector(pickImageButtonTapped), for: .touchUpInside)
+        clearImageButton.addTarget(self, action: #selector(clearImageButtonTapped), for: .touchUpInside)
         
         
         storage.child("\(p_id)/images/profileImage\(p_id).png").downloadURL { url, error in
@@ -174,8 +176,7 @@ class persnalInfoViewController: UIViewController {
                 self.storage.child("\(p_id)/images/profileImage\(p_id).png").putData(data)
                 self.imageView.image = image
                 
-                self.notExist = true
-                
+
                 return
             }
             
@@ -235,6 +236,20 @@ class persnalInfoViewController: UIViewController {
         pick.delegate = self
         pick.sourceType = .photoLibrary
         self.present(pick, animated: true, completion: nil)
+    }
+    
+    @objc private func clearImageButtonTapped() {
+        
+        guard let image = defaultPersonImage else {
+            return
+        }
+        
+        guard let data = image.pngData() else {
+            return
+        }
+        
+        self.storage.child("\(p_id)/images/profileImage\(p_id).png").putData(data)
+        self.imageView.image = image
     }
     
     
@@ -329,7 +344,7 @@ class persnalInfoViewController: UIViewController {
                                   height: 20)
         titleLabel.frame = CGRect(x: 100, y: 100, width: view.frame.size.width-200, height: 50)
         
-        imageView.frame = CGRect(x: 50, y: titleLabel.frame.origin.y + 50, width: view.frame.size.width-100, height: 300)
+        imageView.frame = CGRect(x: 50, y: titleLabel.frame.origin.y + 50, width: view.frame.size.width-100, height: 270)
         pickImageButton.frame = CGRect(x: 80, y: imageView.frame.origin.y + 300, width: 80, height: 50)
         clearImageButton.frame = CGRect(x:240, y: imageView.frame.origin.y + 300, width: 80, height: 50 )
         nickLabel.frame = CGRect(x: 30, y: clearImageButton.frame.origin.y+100, width: 50, height: 50)

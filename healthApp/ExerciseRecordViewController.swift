@@ -14,12 +14,18 @@ var nowExerciseType = "운동 종류"
 var weightCount = 0
 var exerciseHistory: [String] = []
 
+
+
 class ExerciseRecordViewController: UIViewController {
     
     // 추가 빼기 제어
     var plus = true
     
+    var intervalTime = 0
+    
     var historyTable = UITableView()
+    
+    let noti = UNUserNotificationCenter.current()
     
         
     private let db = Database.database().reference()
@@ -38,6 +44,21 @@ class ExerciseRecordViewController: UIViewController {
         return nowDateLabel
     }()
     
+    private let intervalTimeField: UITextField = {
+        let intervalTimeField = UITextField()
+        intervalTimeField.textColor = .black
+        intervalTimeField.borderStyle = .roundedRect
+        intervalTimeField.textAlignment = .center
+        
+        return intervalTimeField
+    }()
+    
+    private let intervalAlertButton: UIButton = {
+        let intervalAlertButton = UIButton()
+        intervalAlertButton.setImage(UIImage(named: "interval"), for: .normal)
+        return intervalAlertButton
+    }()
+    
     private let memoButton: UIButton = {
         
         let memoButton = UIButton()
@@ -54,7 +75,7 @@ class ExerciseRecordViewController: UIViewController {
         calendarButton.backgroundColor = .blue
         return calendarButton
     }()
-     
+  /*
     private let historyLabel: UILabel = {
         var historyLabel = UILabel()
         historyLabel.textColor = .black
@@ -62,7 +83,7 @@ class ExerciseRecordViewController: UIViewController {
         historyLabel.textAlignment = .natural
         return historyLabel
     }()
-    
+    */
     private let setLabel : UILabel = {
         let setLabel = UILabel()
         return setLabel
@@ -138,10 +159,17 @@ class ExerciseRecordViewController: UIViewController {
         historyTable.dataSource = self
         
         
+        
+        
         view.addSubview(backButton)
         view.addSubview(memoButton)
         view.addSubview(calendarButton)
-        view.addSubview(historyLabel)
+       // view.addSubview(historyLabel)
+        view.addSubview(intervalTimeField)
+        // 텍스트 필드 숫자만입력 되게 권한 부여
+        intervalTimeField.delegate = self
+        
+        view.addSubview(intervalAlertButton)
         
         view.addSubview(historyTable)
         
@@ -156,8 +184,10 @@ class ExerciseRecordViewController: UIViewController {
         view.addSubview(recordButton)
         view.addSubview(setButton)
         
+        notiAuth()
 
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        intervalAlertButton.addTarget(self, action: #selector(intervalAlertButtonTapped), for: .touchUpInside)
         memoButton.addTarget(self, action: #selector(memoButtonTapped), for: .touchUpInside)
         calendarButton.addTarget(self, action: #selector(calendarButtonTapped), for: .touchUpInside)
         recordButton.addTarget(self, action: #selector(recordButtonTapped), for: .touchUpInside)
@@ -173,13 +203,17 @@ class ExerciseRecordViewController: UIViewController {
 
     }
     
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         nowDateLabel.text = cur_date
-        historyLabel.text = history
+       // historyLabel.text = history
         weightLable.text = "\(weightCount) kg"
         //setLabel.text = "\(setCount) 세트"
         setButton.setTitle("\(setCount) 세트", for: .normal)
         setButton.setTitleColor(.black, for: .normal)
+        
+        intervalTimeField.text = String(intervalTime)
         
         exerciseHistory = []
         
@@ -234,6 +268,54 @@ class ExerciseRecordViewController: UIViewController {
         })
         
       
+    }
+    
+    func notiAuth() {
+        
+        let AuthOption = UNAuthorizationOptions(arrayLiteral: [.badge, .sound, .alert])
+        noti.requestAuthorization(options: AuthOption) { success, error in
+            guard error == nil else {
+
+                print("권한 부여 오류")
+                return
+            }
+            
+            if !success {
+                let alert = UIAlertController(title: "주의", message: "선택을 취소하셔서 알림을 사용할 수 없습니다", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    @objc private func intervalAlertButtonTapped() {
+        
+        guard let time = intervalTimeField.text, !time.isEmpty else {
+            return
+        }
+        
+        intervalTime = Int(time)!
+        
+        // 0초의 알림은 불가
+        if intervalTime <= 0 {
+            return
+        }
+        
+        let content = UNMutableNotificationContent()
+        content.title = "쉬는 시간 끝!!"
+        content.body = "운동을 다시 시작해주세요!!"
+        content.sound = UNNotificationSound.defaultCriticalSound(withAudioVolume: 10.0)
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(time)!, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        noti.add(request) {error in
+            guard error == nil else {
+                
+                return
+            }
+        }
+        
     }
     
     @objc private func backButtonTapped() {
@@ -364,6 +446,8 @@ class ExerciseRecordViewController: UIViewController {
         }
         
 
+        intervalTimeField.text = String(intervalTime)
+        
         //history += "\n " + nowExerciseType + " \(weightCount)kg" + " \(setCount)set"
         print(exerciseHistory)
         exerciseHistory.append(nowExerciseType + " \(weightCount) kg" + " \(setCount) set")
@@ -413,7 +497,7 @@ class ExerciseRecordViewController: UIViewController {
         db.child(p_id).child("chart").child(nowExerciseType).child("월간").child(y).child(m).setValue(weightCount)
         
         
-        historyLabel.text = history
+       // historyLabel.text = history
         
         setCount = 0
         weightCount = 0
@@ -429,6 +513,9 @@ class ExerciseRecordViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         backButton.frame = CGRect(x: 20, y: 40, width: 50, height: 30)
+        
+        intervalTimeField.frame = CGRect(x: 20, y: backButton.frame.origin.y+50, width: 100, height: 40)
+        intervalAlertButton.frame = CGRect(x: 120, y: backButton.frame.origin.y+50, width: 50, height: 40)
         nowDateLabel.frame = CGRect(x: self.view.bounds.maxX/2-50, y: 100, width: 200, height: 100)
         historyTable.frame = CGRect(x: 50 , y: nowDateLabel.frame.origin.y + 100, width: view.frame.size.width-100, height: 300)
         calendarButton.frame = CGRect(x: 350, y: 100, width: 50, height: 30)
@@ -436,13 +523,13 @@ class ExerciseRecordViewController: UIViewController {
                                   y: calendarButton.frame.origin.y+50,
                                   width:  50,
                                   height: 30)
-        historyLabel.frame = CGRect(x: 50,
+      /*  historyLabel.frame = CGRect(x: 50,
                                     y: nowDateLabel.frame.origin.y+50,
                                     width: view.frame.size.width-70,
                                     height: 350)
-        
-        recordButton.frame = CGRect(x: self.view.bounds.maxX-70, y: historyLabel.frame.origin.y+350, width: 50, height: 50)
-        nowExTypeButton.frame = CGRect(x: self.view.bounds.maxX/2-50, y: historyLabel.frame.origin.y+350, width: 100, height: 50)
+      */
+        recordButton.frame = CGRect(x: self.view.bounds.maxX-70, y: nowDateLabel.frame.origin.y+400, width: 50, height: 50)
+        nowExTypeButton.frame = CGRect(x: self.view.bounds.maxX/2-50, y: nowDateLabel.frame.origin.y+400, width: 100, height: 50)
         
         
         weightButton.frame = CGRect(x: self.view.bounds.maxX-40, y: nowExTypeButton.frame.origin.y+90, width: 20, height: 20)
@@ -517,4 +604,23 @@ extension ExerciseRecordViewController: UITableViewDelegate, UITableViewDataSour
         }
     }
     
+}
+
+// 텍스트 필드에 숫자만 입력되게 함
+extension ExerciseRecordViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        
+        guard !string.isEmpty else {
+
+               // Backspace detected, allow text change, no need to process the text any further
+               return true
+           }
+        if let a = string.rangeOfCharacter(from: NSCharacterSet.decimalDigits) {
+            return true
+        } else {
+            return false
+        }
+    }
 }

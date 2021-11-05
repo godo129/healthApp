@@ -312,7 +312,7 @@ class HomeController: UIViewController {
                                   width: view.frame.size.width-100,
                                   height: 200)
         
-        chartViewButton.frame = CGRect(x: 60,
+        chartViewButton.frame = CGRect(x: 80,
                                   y: recordViewButton.frame.origin.y+300,
                                   width: view.frame.size.width-150,
                                   height: 200)
