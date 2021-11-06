@@ -44,5 +44,11 @@ https://user-images.githubusercontent.com/76652929/140608005-5c5dc357-856f-405d-
 
 https://user-images.githubusercontent.com/76652929/140608237-8895ad42-17fa-4b41-a5ff-ad601573f428.mov
 
+# 운동 타이머 팝업 창
+
+
+https://user-images.githubusercontent.com/76652929/140609769-6ab2aeb2-8574-472e-9aef-183cb7b37dd9.mov
+
+
 
 
