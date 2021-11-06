@@ -30,10 +30,10 @@ https://user-images.githubusercontent.com/76652929/140608186-93de42ed-1287-4dce-
 
 # 운동/메모 기록 기능 
 
-- 운동 기록 
+
 https://user-images.githubusercontent.com/76652929/140608005-5c5dc357-856f-405d-bff8-09d0782d453d.mov
 
-- 메모 기록 
+
 
 
 # 기록 열람 기능 
