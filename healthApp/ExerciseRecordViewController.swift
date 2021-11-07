@@ -17,10 +17,11 @@ var weightCount = 0
 var exerciseHistory: [String] = []
 
 
-
 class ExerciseRecordViewController: UIViewController {
     
     var tappedReset = false
+    
+    
     
     private let counter: SRCountdownTimer = {
         let counter = SRCountdownTimer()
@@ -255,7 +256,8 @@ class ExerciseRecordViewController: UIViewController {
         counterResumeButton.addTarget(self, action: #selector(counterResumeButtonTapped), for: .touchUpInside)
         counterPauseButton.addTarget(self, action: #selector(counterPauseButtonTapped), for: .touchUpInside)
         counterResetButton.addTarget(self, action: #selector(counterResetButtonTapped), for: .touchUpInside)
-
+        
+        
     }
     
     
@@ -270,10 +272,11 @@ class ExerciseRecordViewController: UIViewController {
         
         intervalTimeField.text = String(intervalTime)
         
+        
+        
         exerciseHistory = []
         
         exerciseTypesDataStorage = making()
-        print(exerciseTypesDataStorage)
         
         
         
@@ -287,17 +290,22 @@ class ExerciseRecordViewController: UIViewController {
             
             let exerciseType = exerciseTypes[i]
             
-            db.child(p_id).child("chart").child(exerciseType+"1").child("주간").child(y).child(m).child(d).observeSingleEvent(of: .value) { snapshot in
+            db.child(p_id).child("chart").child(exerciseType).child("주간").child(y).child(m).child(d).observeSingleEvent(of: .value) { snapshot in
                 guard let value = snapshot.value as? [Int] else {
                     return
                 }
                 
                 exerciseTypesDataStorage[exerciseType] = value
-                print(value)
+                
+                UserDefaults.standard.setValue(exerciseTypesDataStorage, forKey: "exerciseTypesDataStorage")
+                exerciseTypesDataStorage = UserDefaults.standard.value(forKey: "exerciseTypesDataStorage") as! [String : [Int]]
             }
                 
             
         }
+        print(exerciseTypesDataStorage)
+        
+        
         
         
         // 시작할때 데이터 불러오기
@@ -316,13 +324,19 @@ class ExerciseRecordViewController: UIViewController {
         
         db.child(p_id).child(cur_date).child("history").observeSingleEvent(of: .value, with: { snapshot in
             guard let value = snapshot.value as? [String] else {
+                let value: [String] = []
+                UserDefaults.standard.setValue(value, forKey: "exerciseHistory")
+                print("역사부르기오류")
                 return
             }
-            exerciseHistory = value
+            
+            UserDefaults.standard.setValue(value, forKey: "exerciseHistory")
+            exerciseHistory = UserDefaults.standard.value(forKey: "exerciseHistory") as! [String]
             self.historyTable.reloadData()
         })
         
-      
+        
+        print(exerciseHistory)
     }
     
     func notiAuth() {
@@ -546,6 +560,8 @@ class ExerciseRecordViewController: UIViewController {
         //history += "\n " + nowExerciseType + " \(weightCount)kg" + " \(setCount)set"
         print(exerciseHistory)
         exerciseHistory.append(nowExerciseType + " \(weightCount) kg" + " \(setCount) set")
+        
+        UserDefaults.standard.setValue(exerciseHistory, forKey: "exerciseHistory")
         historyTable.reloadData()
 
         
@@ -560,6 +576,7 @@ class ExerciseRecordViewController: UIViewController {
         exerciseTypesDataStorage[nowExerciseType] = newList
         print(exerciseTypesDataStorage)
         
+        UserDefaults.standard.setValue(exerciseTypesDataStorage, forKey: "exerciseTypesDataStorage")
         
         
         let y = String(cur_date.split(separator: "-")[0])
@@ -590,6 +607,8 @@ class ExerciseRecordViewController: UIViewController {
         }
         
         db.child(p_id).child("chart").child(nowExerciseType).child("월간").child(y).child(m).setValue(weightCount)
+        
+        
         
         
        // historyLabel.text = history
@@ -735,6 +754,8 @@ extension ExerciseRecordViewController: UITableViewDelegate, UITableViewDataSour
                 
             }
             
+            UserDefaults.standard.setValue(exerciseTypesDataStorage, forKey: "exerciseTypesDataStorage")
+            UserDefaults.standard.setValue(exerciseHistory, forKey: "exerciseHistory")
             
             
             

@@ -8,11 +8,14 @@
 import UIKit
 import FSCalendar
 import Foundation
+import Firebase
 
 
 class CalendarViewController: UIViewController,FSCalendarDataSource, FSCalendarDelegate {
  
     var t_date = ""
+    
+    var db = Database.database().reference()
 
 
     override func viewDidLoad() {
@@ -69,6 +72,13 @@ class CalendarViewController: UIViewController,FSCalendarDataSource, FSCalendarD
             weightCount = 0
         }
         cur_date = t_date
+        
+        let value: [String] = []
+        UserDefaults.standard.setValue(value, forKey: "exerciseHistory")
+        
+        let emptyStorage = making()
+        UserDefaults.standard.setValue(emptyStorage, forKey: "exerciseTypesDataStorage")
+        
     }
     
     
@@ -78,6 +88,8 @@ class CalendarViewController: UIViewController,FSCalendarDataSource, FSCalendarD
        vc?.modalTransitionStyle = .coverVertical
        self.present(vc!, animated: true, completion: nil)
         //self.dismiss(animated: false, completion: nil)
+        
+        
     }
     
     
