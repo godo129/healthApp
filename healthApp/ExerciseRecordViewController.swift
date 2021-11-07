@@ -20,6 +20,8 @@ var exerciseHistory: [String] = []
 
 class ExerciseRecordViewController: UIViewController {
     
+    var tappedReset = false
+    
     private let counter: SRCountdownTimer = {
         let counter = SRCountdownTimer()
         counter.labelTextColor = .black
@@ -33,9 +35,25 @@ class ExerciseRecordViewController: UIViewController {
     private let counterResumeButton : UIButton = {
         let counterResumeButton = UIButton()
         counterResumeButton.setTitle("resume", for: .normal)
-        counterResumeButton.setTitleColor(.systemBlue, for: .normal)
+        counterResumeButton.setTitleColor(.black, for: .normal)
         return counterResumeButton
     }()
+    
+    private let counterPauseButton : UIButton = {
+        let counterPauseButton = UIButton()
+        counterPauseButton.setTitle("pause", for: .normal)
+        counterPauseButton.setTitleColor(.black, for: .normal)
+        return counterPauseButton
+    }()
+    
+    private let counterResetButton : UIButton = {
+        let counterResetButton = UIButton()
+        counterResetButton.setTitle("reset", for: .normal)
+        counterResetButton.setTitleColor(.black, for: .normal)
+        return counterResetButton
+    }()
+    
+    
     
     // 추가 빼기 제어
     var plus = true
@@ -206,6 +224,14 @@ class ExerciseRecordViewController: UIViewController {
         
         view.addSubview(counter)
         counter.delegate = self
+        
+        view.addSubview(counterResumeButton)
+        view.addSubview(counterPauseButton)
+        view.addSubview(counterResetButton)
+        
+        counterResetButton.isHidden = true
+        counterResumeButton.isHidden = true
+        counterPauseButton.isHidden = true
 
         view.addSubview(intervalTimeField)
         // 텍스트 필드 숫자만입력 되게 권한 부여
@@ -226,8 +252,9 @@ class ExerciseRecordViewController: UIViewController {
         tenKiloBarbellButton.addTarget(self, action: #selector(tenKiloBarbellButtonTapped), for: .touchUpInside)
         twentyKiloBarbellButton.addTarget(self, action: #selector(twentyKiloBarbellButtonTapped), for: .touchUpInside)
         
-        
-        
+        counterResumeButton.addTarget(self, action: #selector(counterResumeButtonTapped), for: .touchUpInside)
+        counterPauseButton.addTarget(self, action: #selector(counterPauseButtonTapped), for: .touchUpInside)
+        counterResetButton.addTarget(self, action: #selector(counterResetButtonTapped), for: .touchUpInside)
 
     }
     
@@ -309,11 +336,30 @@ class ExerciseRecordViewController: UIViewController {
             }
             
             if !success {
-                let alert = UIAlertController(title: "주의", message: "선택을 취소하셔서 알림을 사용할 수 없습니다", preferredStyle: .alert)
+                let alert = UIAlertController(title: "주의", message: "선택을 취소하셔서 휴식 종료 알림을 사용할 수 없습니다", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
         }
+    }
+    
+    
+    @objc private func  counterResetButtonTapped() {
+        tappedReset = true
+        counter.end()
+    }
+    
+    
+    @objc private func counterResumeButtonTapped() {
+        counterPauseButton.isHidden = false
+        counterResumeButton.isHidden = true
+        counter.resume()
+    }
+    
+    @objc private func counterPauseButtonTapped() {
+        counterPauseButton.isHidden = true
+        counterResumeButton.isHidden = false
+        counter.pause()
     }
     
     @objc private func intervalAlertButtonTapped() {
@@ -325,14 +371,24 @@ class ExerciseRecordViewController: UIViewController {
         
         intervalTime = Int(time)!
         
+        // 0초의 알림은 불가
+        if intervalTime <= 0 {
+            return
+        }
+        
         counter.start(beginingValue: intervalTime, interval: 1)
         
         intervalTimeField.isHidden = true
+        intervalAlertButton.isHidden = true
+        
+        counterPauseButton.isHidden = false
+        counterResumeButton.isHidden = true
+        counterResetButton.isHidden = false
         
         
         
        /*
-        // 0초의 알림은 불가
+        
         if intervalTime <= 0 {
             return
         }
@@ -344,7 +400,7 @@ class ExerciseRecordViewController: UIViewController {
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(time)!, repeats: false)
         
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content3, trigger: trigger)
         noti.add(request) {error in
             guard error == nil else {
                 
@@ -354,6 +410,8 @@ class ExerciseRecordViewController: UIViewController {
  */
         
     }
+    
+    
     
     @objc private func backButtonTapped() {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeView")
@@ -581,6 +639,10 @@ class ExerciseRecordViewController: UIViewController {
         intervalTimeField.frame = CGRect(x: fiveKiloBarbellButton.frame.origin.x+60, y: tenKiloBarbellButton.frame.origin.y + 140, width: 80, height: 30)
         intervalAlertButton.frame = CGRect(x: intervalTimeField.frame.origin.x+100, y: tenKiloBarbellButton.frame.origin.y + 140, width: 50, height: 40)
         
+        counterPauseButton.frame = CGRect(x: intervalTimeField.frame.origin.x+150, y: tenKiloBarbellButton.frame.origin.y + 140, width: 80, height: 40)
+        counterResumeButton.frame = CGRect(x: intervalTimeField.frame.origin.x+150, y: tenKiloBarbellButton.frame.origin.y + 140, width: 80, height: 40)
+        counterResetButton.frame = CGRect(x: intervalTimeField.frame.origin.x+200, y: tenKiloBarbellButton.frame.origin.y + 140, width: 100, height: 40)
+        
     }
     
     func updateExerciseDataStorage(to: [Int], key: String) {
@@ -694,8 +756,17 @@ extension ExerciseRecordViewController: UITextFieldDelegate, SRCountdownTimerDel
     }
     
     func timerDidEnd(sender: SRCountdownTimer, elapsedTime: TimeInterval) {
-        breakEndPopup()
-        self.intervalTimeField.isHidden = false
-        self.counter.reset()
+        
+        if !tappedReset {
+            breakEndPopup()
+        }
+        tappedReset = false
+        intervalTimeField.isHidden = false
+        intervalAlertButton.isHidden = false
+        counter.reset()
+        counterPauseButton.isHidden = true
+        counterResumeButton.isHidden = true
+        counterResetButton.isHidden = true
+        
     }
 }
