@@ -64,22 +64,14 @@ class RecordViewController: UIViewController {
         
         
         // 메모정보 가져오기
-        db.child(p_id).observeSingleEvent(of: .value, with: { snapshot in
-            guard let value = snapshot.value as? [String:[String:String]] else {
+        db.child(p_id).child(cur_date).child("memo").observeSingleEvent(of: .value, with: { snapshot in
+            guard let value = snapshot.value as? String else {
                 return
             }
             // 정보 가져오기
-            guard let date = value[cur_date] else {
-                self.textView.text = ""
-
-                return
-            }
-            guard let info = date["memo"] else {
-                self.textView.text = ""
-                return
-            }
             
-            self.textView.text = info
+            
+            self.textView.text = value
         })
         
         view.addSubview(backButton)
@@ -116,12 +108,11 @@ class RecordViewController: UIViewController {
         
 
         guard let memo = textView.text, !memo.isEmpty else {
-            let object: [String:String] = ["memo":""]
-            db.child(p_id).child(cur_date).setValue(object)
+          //  let object: [String:String] = ["memo":""]
+            db.child(p_id).child(cur_date).child("memo").setValue("")
             return
         }
-        
-        print(db.child(p_id).child(cur_date))
+
         //let object: [String:String] = ["memo":memo]
         db.child(p_id).child(cur_date).child("memo").setValue(memo)
 
