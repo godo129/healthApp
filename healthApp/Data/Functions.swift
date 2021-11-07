@@ -153,3 +153,35 @@ func generateWeeks(commonOrLeap: [Int], selectedYear: Int) -> [String] {
     return candiDates
 }
 
+
+
+// 분을 >> 시간분초 형태로 리턴 
+func timeToString(time: Int) -> String {
+    
+    var h:String = ""
+    var m:String = ""
+    var s:String = ""
+    
+    var convertedTime: String = ""
+    
+    var times = time
+    
+    if times >= 3600 {
+        h = "\(times/60)"
+        times %= 60
+        m = "\(times/60)"
+        times %= 60
+        s = "\(times)"
+        convertedTime = "\(h)시간 \(m)분 \(s)초"
+    } else if times >= 60 {
+        m = "\(times/60)"
+        times %= 60
+        s = "\(times)"
+        convertedTime = "\(m)분 \(s)초"
+    } else {
+        s = "\(times)"
+        convertedTime = "\(s)초"
+    }
+    
+    return convertedTime
+}

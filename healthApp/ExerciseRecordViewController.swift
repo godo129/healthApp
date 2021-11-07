@@ -707,24 +707,35 @@ extension ExerciseRecordViewController: UITableViewDelegate, UITableViewDataSour
         if editingStyle == .delete {
             tableView.beginUpdates()
             
-            let selectedWeight: Int = Int(exerciseHistory[indexPath.row].split(separator: " ")[1])!
-            let selectedType: String = String(exerciseHistory[indexPath.row].split(separator: " ")[0])
-            guard var newList = exerciseTypesDataStorage[selectedType] else {return}
-            guard let idx = newList.firstIndex(of: selectedWeight) else {return}
-            newList.remove(at: idx)
-            exerciseTypesDataStorage[selectedType] = newList
-            print(newList)
+            if String(exerciseHistory[indexPath.row].split(separator: " ")[0]) == "휴식" {
+                
+                exerciseHistory.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                
+            } else {
+                let selectedWeight: Int = Int(exerciseHistory[indexPath.row].split(separator: " ")[1])!
+                let selectedType: String = String(exerciseHistory[indexPath.row].split(separator: " ")[0])
+                guard var newList = exerciseTypesDataStorage[selectedType] else {return}
+                guard let idx = newList.firstIndex(of: selectedWeight) else {return}
+                newList.remove(at: idx)
+                exerciseTypesDataStorage[selectedType] = newList
+                print(newList)
+                
+                let y = String(cur_date.split(separator: "-")[0])
+                let m = String(cur_date.split(separator: "-")[1])
+                let d = String(cur_date.split(separator: "-")[2])
+                
+                db.child(p_id).child("chart").child(selectedType).child("주간").child(y).child(m).child(d).setValue(newList)
             
-            let y = String(cur_date.split(separator: "-")[0])
-            let m = String(cur_date.split(separator: "-")[1])
-            let d = String(cur_date.split(separator: "-")[2])
+                
+                exerciseHistory.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                db.child(p_id).child(cur_date).child("history").setValue(exerciseHistory)
+                
+                
+            }
             
-            db.child(p_id).child("chart").child(selectedType).child("주간").child(y).child(m).child(d).setValue(newList)
-        
             
-            exerciseHistory.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            db.child(p_id).child(cur_date).child("history").setValue(exerciseHistory)
             
             
             
@@ -759,6 +770,9 @@ extension ExerciseRecordViewController: UITextFieldDelegate, SRCountdownTimerDel
         
         if !tappedReset {
             breakEndPopup()
+            
+            exerciseHistory.append( "휴식" + " \(timeToString(time: intervalTime))")
+            historyTable.reloadData()
         }
         tappedReset = false
         intervalTimeField.isHidden = false
