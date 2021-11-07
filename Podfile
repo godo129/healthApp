@@ -11,6 +11,8 @@ pod 'Firebase/Database'
 pod 'FSCalendar'
 pod 'Charts'
 pod 'Firebase/Storage'
+pod 'SRCountdownTimer'
+
   # Pods for healthApp
 
 end

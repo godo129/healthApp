@@ -7,11 +7,16 @@
 
 import UIKit
 import FirebaseDatabase
+
+
+
 var big: [[String: [String:String]]] = []
 
 class RecordViewController: UIViewController {
     
     private let db = Database.database().reference()
+    
+    
     
     private let dateLabel: UILabel = {
         let dateLabel = UILabel()
@@ -54,6 +59,7 @@ class RecordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    
         
         
         
@@ -81,6 +87,8 @@ class RecordViewController: UIViewController {
         view.addSubview(calendarButton)
         view.addSubview(recordButton)
         view.addSubview(textView)
+        
+        
         
         
         calendarButton.addTarget(self, action: #selector(calendarButtonTapped), for: .touchUpInside)

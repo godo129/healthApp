@@ -8,6 +8,8 @@
 import UIKit
 import FirebaseDatabase
 
+import SRCountdownTimer
+
 var history = ""
 var setCount = 0
 var nowExerciseType = "운동 종류"
@@ -17,6 +19,23 @@ var exerciseHistory: [String] = []
 
 
 class ExerciseRecordViewController: UIViewController {
+    
+    private let counter: SRCountdownTimer = {
+        let counter = SRCountdownTimer()
+        counter.labelTextColor = .black
+        counter.trailLineColor = .white
+        counter.lineWidth = 10.0
+        counter.lineColor = .orange
+        counter.backgroundColor = .white
+        return counter
+    }()
+    
+    private let counterResumeButton : UIButton = {
+        let counterResumeButton = UIButton()
+        counterResumeButton.setTitle("resume", for: .normal)
+        counterResumeButton.setTitleColor(.systemBlue, for: .normal)
+        return counterResumeButton
+    }()
     
     // 추가 빼기 제어
     var plus = true
@@ -144,6 +163,7 @@ class ExerciseRecordViewController: UIViewController {
         
         
         
+        
         // 날짜 정보 없을 시 처리
         if cur_date == "" {
             let c_date = DateFormatter()
@@ -165,9 +185,8 @@ class ExerciseRecordViewController: UIViewController {
         view.addSubview(memoButton)
         view.addSubview(calendarButton)
        // view.addSubview(historyLabel)
-        view.addSubview(intervalTimeField)
-        // 텍스트 필드 숫자만입력 되게 권한 부여
-        intervalTimeField.delegate = self
+        
+        
         
         view.addSubview(intervalAlertButton)
         
@@ -183,6 +202,15 @@ class ExerciseRecordViewController: UIViewController {
         view.addSubview(twentyKiloBarbellButton)
         view.addSubview(recordButton)
         view.addSubview(setButton)
+        
+        
+        view.addSubview(counter)
+        counter.delegate = self
+
+        view.addSubview(intervalTimeField)
+        // 텍스트 필드 숫자만입력 되게 권한 부여
+        intervalTimeField.delegate = self
+        
         
         notiAuth()
 
@@ -290,17 +318,25 @@ class ExerciseRecordViewController: UIViewController {
     
     @objc private func intervalAlertButtonTapped() {
         
+        
         guard let time = intervalTimeField.text, !time.isEmpty else {
             return
         }
         
         intervalTime = Int(time)!
         
+        counter.start(beginingValue: intervalTime, interval: 1)
+        
+        intervalTimeField.isHidden = true
+        
+        
+        
+       /*
         // 0초의 알림은 불가
         if intervalTime <= 0 {
             return
         }
-        
+       
         let content = UNMutableNotificationContent()
         content.title = "쉬는 시간 끝!!"
         content.body = "운동을 다시 시작해주세요!!"
@@ -315,6 +351,7 @@ class ExerciseRecordViewController: UIViewController {
                 return
             }
         }
+ */
         
     }
     
@@ -514,8 +551,7 @@ class ExerciseRecordViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         backButton.frame = CGRect(x: 20, y: 40, width: 50, height: 30)
         
-        intervalTimeField.frame = CGRect(x: 20, y: backButton.frame.origin.y+50, width: 100, height: 40)
-        intervalAlertButton.frame = CGRect(x: 120, y: backButton.frame.origin.y+50, width: 50, height: 40)
+        
         nowDateLabel.frame = CGRect(x: self.view.bounds.maxX/2-50, y: 100, width: 200, height: 100)
         historyTable.frame = CGRect(x: 50 , y: nowDateLabel.frame.origin.y + 100, width: view.frame.size.width-100, height: 300)
         calendarButton.frame = CGRect(x: 350, y: 100, width: 50, height: 30)
@@ -537,16 +573,49 @@ class ExerciseRecordViewController: UIViewController {
         //setLabel.frame = CGRect(x: 50, y: nowExTypeButton.frame.origin.y+80, width: 60, height: 40)
         setButton.frame = CGRect(x: 50, y: nowExTypeButton.frame.origin.y+80, width: 60, height: 40)
         weightLable.frame = CGRect(x: self.view.bounds.maxX/2-15, y: nowExTypeButton.frame.origin.y+80, width: 100, height: 40)
-        fiveKiloBarbellButton.frame = CGRect(x: 30, y: weightLable.frame.origin.y+100, width: 80, height: 80)
-        tenKiloBarbellButton.frame = CGRect(x: fiveKiloBarbellButton.frame.origin.x+150, y: weightLable.frame.origin.y+100, width: 80, height: 80)
-        twentyKiloBarbellButton.frame = CGRect(x: tenKiloBarbellButton.frame.origin.x+150, y: weightLable.frame.origin.y+100, width: 80, height: 80)
+        fiveKiloBarbellButton.frame = CGRect(x: 30, y: weightLable.frame.origin.y+60, width: 80, height: 80)
+        tenKiloBarbellButton.frame = CGRect(x: fiveKiloBarbellButton.frame.origin.x+150, y: weightLable.frame.origin.y+60, width: 80, height: 80)
+        twentyKiloBarbellButton.frame = CGRect(x: tenKiloBarbellButton.frame.origin.x+150, y: weightLable.frame.origin.y+60, width: 80, height: 80)
+        counter.frame = CGRect(x: fiveKiloBarbellButton.frame.origin.x+45, y: tenKiloBarbellButton.frame.origin.y + 100, width: 110, height: 110)
         
-        
+        intervalTimeField.frame = CGRect(x: fiveKiloBarbellButton.frame.origin.x+60, y: tenKiloBarbellButton.frame.origin.y + 140, width: 80, height: 30)
+        intervalAlertButton.frame = CGRect(x: intervalTimeField.frame.origin.x+100, y: tenKiloBarbellButton.frame.origin.y + 140, width: 50, height: 40)
         
     }
     
     func updateExerciseDataStorage(to: [Int], key: String) {
         exerciseTypesDataStorage[key] = to
+    }
+    
+    private func breakEndPopup() {
+        
+        /*
+        guard let time = intervalTimeField.text, !time.isEmpty else {
+            return
+        }
+        
+        intervalTime = Int(time)!
+        
+        // 0초의 알림은 불가
+        if intervalTime <= 0 {
+            return
+        }
+       */
+        let content = UNMutableNotificationContent()
+        content.title = "쉬는 시간 끝!!"
+        content.body = "운동을 다시 시작해주세요!!"
+        content.sound = UNNotificationSound.defaultCriticalSound(withAudioVolume: 10.0)
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(1), repeats: false)
+        
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        noti.add(request) {error in
+            guard error == nil else {
+                
+                return
+            }
+        }
+        
     }
 
 }
@@ -607,20 +676,26 @@ extension ExerciseRecordViewController: UITableViewDelegate, UITableViewDataSour
 }
 
 // 텍스트 필드에 숫자만 입력되게 함
-extension ExerciseRecordViewController: UITextFieldDelegate {
+extension ExerciseRecordViewController: UITextFieldDelegate, SRCountdownTimerDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        
+        // 백스페이스 감지
         guard !string.isEmpty else {
 
-               // Backspace detected, allow text change, no need to process the text any further
                return true
            }
-        if let a = string.rangeOfCharacter(from: NSCharacterSet.decimalDigits) {
+        // 숫자만 가능하게
+        if let _ = string.rangeOfCharacter(from: NSCharacterSet.decimalDigits) {
             return true
         } else {
             return false
         }
+    }
+    
+    func timerDidEnd(sender: SRCountdownTimer, elapsedTime: TimeInterval) {
+        breakEndPopup()
+        self.intervalTimeField.isHidden = false
+        self.counter.reset()
     }
 }
