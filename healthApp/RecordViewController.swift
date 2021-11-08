@@ -74,14 +74,10 @@ class RecordViewController: UIViewController {
         return textView
     }()
     
-    //선택날짜
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-
         
         
         // 메모정보 가져오기
@@ -89,7 +85,6 @@ class RecordViewController: UIViewController {
             guard let value = snapshot.value as? String else {
                 return
             }
-            // 정보 가져오기
             
             
             self.textView.text = value
@@ -127,8 +122,7 @@ class RecordViewController: UIViewController {
     
     @objc private func calendarButtonTapped() {
         
-        
-        
+
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "CalendarView")
         vc?.modalPresentationStyle = .overCurrentContext
         self.present(vc!, animated: false, completion: nil)

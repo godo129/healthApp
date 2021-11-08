@@ -203,41 +203,7 @@ class persnalInfoViewController: UIViewController {
                 }
             }
         
-        /*
-        storage.child("\(p_id)/images/profileImage\(p_id).png").downloadURL { url, error in
-            guard let url = url, error == nil else {
-                
-                guard let image = defaultPersonImage else {
-                    return
-                }
-                
-                guard let data = image.pngData() else {
-                    return
-                }
-                
-                self.storage.child("\(p_id)/images/profileImage\(p_id).png").putData(data)
-                self.imageView.image = image
-                
-
-                return
-            }
-            
-            
-            let urls = URL(string: url.absoluteString)!
-            
-            let task = URLSession.shared.dataTask(with: urls) { data, _, error in
-                guard let data = data, error == nil else {
-                    return
-                }
-                
-                let image = UIImage(data: data)
-                
-                DispatchQueue.main.sync {
-                    self.imageView.image = image
-                }
-            }
-            
-            */
+        
             
             task.resume()
             
@@ -441,6 +407,7 @@ extension persnalInfoViewController: UIImagePickerControllerDelegate, UINavigati
                 
                 DispatchQueue.main.async {
                     let image = UIImage(data: data)
+                    profileImage = image
                     self.imageView.image = image
                 }
                 

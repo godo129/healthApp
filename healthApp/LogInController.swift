@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
+
 class LogInController: UIViewController {
     
     private let db = Database.database().reference()
@@ -129,8 +130,52 @@ class LogInController: UIViewController {
                 } else {
                     age = 0
                 }
+
                 
             })
+            
+            
+            self?.storage.child("\(p_id)/images/profileImage\(p_id).png").downloadURL { url, error in
+                guard let url = url, error == nil else {
+                    
+                    profileImage = defaultPersonImage!
+                    
+                    guard let image = defaultPersonImage else {
+                        return
+                    }
+                    
+                    guard let data = image.pngData() else {
+                        return
+                    }
+                    
+                    self?.storage.child("\(p_id)/images/profileImage\(p_id).png").putData(data)
+                    
+                    
+                    return
+                }
+                
+                
+                let urls = URL(string: url.absoluteString)!
+                
+                let task = URLSession.shared.dataTask(with: urls) { data, _, error in
+                    guard let data = data, error == nil else {
+                        return
+                    }
+                    
+                    let image = UIImage(data: data)
+                    
+                    
+                    
+                    DispatchQueue.main.sync {
+                        
+                        profileImage = image!
+                    }
+                }
+            
+            
+                
+                task.resume()
+            }
             
             self?.db.child(p_id).child("PersonalInfo").child("Weight").observeSingleEvent(of: .value, with: { snapshot in
                 if let value = snapshot.value as? Double {
@@ -185,10 +230,7 @@ class LogInController: UIViewController {
                     
                     strongSelf.present(LogInSuccessed, animated: true)
                 
-                
-            
-                
-                
+   
                 
             }
             

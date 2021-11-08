@@ -13,9 +13,14 @@ class SideMenuViewController: UIViewController {
     private var profileImageView: UIButton = {
         let profileImageView = UIButton()
 
+        //버튼 형태 변환
+        profileImageView.layer.cornerRadius = 95
+        profileImageView.clipsToBounds = true
         return profileImageView
     }()
+    
     let storage = Storage.storage().reference()
+    
     
     private let nickLabel: UILabel = {
         let nickLabel = UILabel()
@@ -32,7 +37,7 @@ class SideMenuViewController: UIViewController {
         view.addSubview(nickLabel)
         nickLabel.text = nick
         
-
+/*
         storage.child("\(p_id)/images/profileImage\(p_id).png").downloadURL { url, error in
             guard let url = url, error == nil else {
                 
@@ -72,11 +77,58 @@ class SideMenuViewController: UIViewController {
             task.resume()
         }
         
-        
-        
+        */
         
         view.backgroundColor = .systemGray
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        profileImageView.setImage(profileImage, for: .normal)
+        nickLabel.text = nick 
+        
+        /*
+        
+        storage.child("\(p_id)/images/profileImage\(p_id).png").downloadURL { url, error in
+            guard let url = url, error == nil else {
+                
+                profileImage = defaultPersonImage!
+                
+                guard let image = defaultPersonImage else {
+                    return
+                }
+                
+                guard let data = image.pngData() else {
+                    return
+                }
+                
+                self.storage.child("\(p_id)/images/profileImage\(p_id).png").putData(data)
+                self.profileImageView.setImage(image, for: .normal)
+                
+                return
+            }
+            
+            
+            let urls = URL(string: url.absoluteString)!
+            
+            let task = URLSession.shared.dataTask(with: urls) { data, _, error in
+                guard let data = data, error == nil else {
+                    return
+                }
+                
+                let image = UIImage(data: data)
+                
+                
+                
+                DispatchQueue.main.sync {
+                    self.profileImageView.setImage(image, for: .normal)
+                    profileImage = image!
+                }
+            }
+            task.resume()
+        }
+ */
     }
     
     
@@ -89,3 +141,5 @@ class SideMenuViewController: UIViewController {
     
 
 }
+
+

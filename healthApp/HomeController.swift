@@ -119,7 +119,6 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
         SideMenuManager.default.addPanGestureToPresent(toView: view.self)
         SideMenuManager.default.leftMenuNavigationController = sideBar
         sideBar.isNavigationBarHidden = true
-        sideBar.delegate = self
         sideBar.menuWidth = 300
         
         
@@ -247,6 +246,7 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
             age = 0
             height = 0.0
             weight = 0.0
+            profileImage = defaultPersonImage
             
             
             // 저장 공간 초기화 
