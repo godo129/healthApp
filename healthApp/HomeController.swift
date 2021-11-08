@@ -14,7 +14,7 @@ import SideMenu
 
 class HomeController: UIViewController, UINavigationControllerDelegate {
     
-    var logined = false
+    
     
     
     let moveViewButton = CircleMenu(

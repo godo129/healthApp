@@ -22,8 +22,10 @@ var weight = 0.0
 
 let defaultPersonImage = UIImage(named: "defaultPerson")
 
-
 var profileImage: UIImage!
+
+
+var logined = false
 
 // 버튼 초기화 
 let moveViewButton = CircleMenu(

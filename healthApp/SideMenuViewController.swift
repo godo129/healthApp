@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseStorage
 
+
 class SideMenuViewController: UIViewController {
     
     private var profileImageView: UIButton = {
@@ -18,6 +19,7 @@ class SideMenuViewController: UIViewController {
         profileImageView.clipsToBounds = true
         return profileImageView
     }()
+    
     
     let storage = Storage.storage().reference()
     
@@ -36,7 +38,7 @@ class SideMenuViewController: UIViewController {
         view.addSubview(profileImageView)
         view.addSubview(nickLabel)
         nickLabel.text = nick
-        
+    
 /*
         storage.child("\(p_id)/images/profileImage\(p_id).png").downloadURL { url, error in
             guard let url = url, error == nil else {
@@ -86,7 +88,13 @@ class SideMenuViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         profileImageView.setImage(profileImage, for: .normal)
-        nickLabel.text = nick 
+        nickLabel.text = nick
+        
+        profileImageView.addTarget(self, action: #selector(profileImageViewTapped), for: .touchUpInside)
+        
+        
+            
+        }
         
         /*
         
@@ -129,8 +137,11 @@ class SideMenuViewController: UIViewController {
             task.resume()
         }
  */
-    }
     
+    
+    @objc private func profileImageViewTapped() {
+        
+    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

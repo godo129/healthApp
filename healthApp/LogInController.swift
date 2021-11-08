@@ -106,6 +106,8 @@ class LogInController: UIViewController {
                 return
             }
             
+            logined = true
+            
             //현재 날짜 넣어주기 
             let c_date = DateFormatter()
             c_date.dateFormat = "yyyy-MM-dd"
@@ -156,6 +158,7 @@ class LogInController: UIViewController {
                 
                 
                 let urls = URL(string: url.absoluteString)!
+                
                 
                 let task = URLSession.shared.dataTask(with: urls) { data, _, error in
                     guard let data = data, error == nil else {

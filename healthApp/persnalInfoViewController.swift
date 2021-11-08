@@ -9,8 +9,6 @@ import UIKit
 import FirebaseDatabase
 import FirebaseStorage
 
-
-
 class persnalInfoViewController: UIViewController {
     
     var notExist = false
@@ -165,7 +163,11 @@ class persnalInfoViewController: UIViewController {
         pickImageButton.addTarget(self, action: #selector(pickImageButtonTapped), for: .touchUpInside)
         clearImageButton.addTarget(self, action: #selector(clearImageButtonTapped), for: .touchUpInside)
         
-    
+        
+        imageView.image = profileImage
+        
+        
+    /*
         storage.child("\(p_id)/images/profileImage\(p_id).png").downloadURL { url, error in
             guard let url = url, error == nil else {
                 
@@ -188,6 +190,11 @@ class persnalInfoViewController: UIViewController {
             
             let urls = URL(string: url.absoluteString)!
             
+        }
+            
+            
+ */
+            /*
             let task = URLSession.shared.dataTask(with: urls) { data, _, error in
                 guard let data = data, error == nil else {
                     return
@@ -207,8 +214,9 @@ class persnalInfoViewController: UIViewController {
             
             task.resume()
             
+ */
 
-        }
+    
         /*
         if notExist {
             self.imageView.image = defaultPersonImage
@@ -390,6 +398,9 @@ extension persnalInfoViewController: UIImagePickerControllerDelegate, UINavigati
             return
         }
         
+        profileImage = image
+        imageView.image = profileImage
+        
         guard let data = image.pngData() else {
             return
         }
@@ -404,7 +415,7 @@ extension persnalInfoViewController: UIImagePickerControllerDelegate, UINavigati
                     return
                 }
                 let urlStirng = url.absoluteString
-                
+      
                 DispatchQueue.main.async {
                     let image = UIImage(data: data)
                     profileImage = image
