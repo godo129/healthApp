@@ -9,11 +9,13 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import CircleMenu
+import SideMenu
 
 
-class HomeController: UIViewController {
+class HomeController: UIViewController, UINavigationControllerDelegate {
     
     var logined = false
+    
     
     let moveViewButton = CircleMenu(
       frame: CGRect(x: 380, y: 400, width: 50, height: 50),
@@ -107,9 +109,19 @@ class HomeController: UIViewController {
         view.addSubview(chartViewButton)
         view.addSubview(questionButton)
         
-        
+        // 원형 메뉴
         moveViewButton.delegate = self
         view.addSubview(moveViewButton)
+        
+        
+        //사이드 메뉴 옵션 
+        sideBar.leftSide = true
+        SideMenuManager.default.addPanGestureToPresent(toView: view.self)
+        SideMenuManager.default.leftMenuNavigationController = sideBar
+        sideBar.isNavigationBarHidden = true
+        sideBar.delegate = self
+        sideBar.menuWidth = 300
+        
         
         if Firebase.Auth.auth().currentUser != nil {
             logined = true
@@ -344,5 +356,4 @@ class HomeController: UIViewController {
     
 
 }
-
 

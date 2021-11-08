@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		15377C7CC6334E2911E92E02 /* Pods_healthApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49D5AA402D1400C467BFAECB /* Pods_healthApp.framework */; };
+		F128D9EB273961980000ED90 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F128D9EA273961980000ED90 /* SideMenuViewController.swift */; };
 		F129FA82272F5C8900D0DCCA /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F129FA81272F5C8900D0DCCA /* ChartViewController.swift */; };
 		F129FAA827314C1E00D0DCCA /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F129FAA727314C1E00D0DCCA /* Functions.swift */; };
 		F129FB0A2733072200D0DCCA /* ExerciseDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = F129FB092733072200D0DCCA /* ExerciseDatas.swift */; };
@@ -35,6 +36,7 @@
 		12F869CB34B708981064FC3C /* Pods-healthApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-healthApp.debug.xcconfig"; path = "Target Support Files/Pods-healthApp/Pods-healthApp.debug.xcconfig"; sourceTree = "<group>"; };
 		49D5AA402D1400C467BFAECB /* Pods_healthApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_healthApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA6A1B00F37048543C768F45 /* Pods-healthApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-healthApp.release.xcconfig"; path = "Target Support Files/Pods-healthApp/Pods-healthApp.release.xcconfig"; sourceTree = "<group>"; };
+		F128D9EA273961980000ED90 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		F129FA81272F5C8900D0DCCA /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		F129FAA727314C1E00D0DCCA /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		F129FB092733072200D0DCCA /* ExerciseDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDatas.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				F12E1B972726CC54001CB6F4 /* LogInController.swift */,
 				F12E1B992726CCAF001CB6F4 /* SignUpController.swift */,
 				F12E1B9527269CEA001CB6F4 /* HomeController.swift */,
+				F128D9EA273961980000ED90 /* SideMenuViewController.swift */,
 				F12E1B8527269B11001CB6F4 /* Main.storyboard */,
 				F13220062728294D00E69FEE /* Data */,
 				F12E1B8827269B13001CB6F4 /* Assets.xcassets */,
@@ -275,6 +278,7 @@
 				F132200C272829EB00E69FEE /* CalendarViewController.swift in Sources */,
 				F13220052728265800E69FEE /* personInfo.swift in Sources */,
 				F12E1B9A2726CCAF001CB6F4 /* SignUpController.swift in Sources */,
+				F128D9EB273961980000ED90 /* SideMenuViewController.swift in Sources */,
 				F1DBE2F42728F0AF0015EE27 /* ExerciseRecordViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

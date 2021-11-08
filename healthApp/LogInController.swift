@@ -12,6 +12,7 @@ import FirebaseDatabase
 class LogInController: UIViewController {
     
     private let db = Database.database().reference()
+    let storage = Storage.storage().reference()
     
     private let backButton: UIButton = {
         let backButton = UIButton()
@@ -118,6 +119,7 @@ class LogInController: UIViewController {
                 return
             }
             p_id = String(name.split(separator: "@")[0])
+            nick = p_id
             
             
             // 로그인 시 개인정보 가져오기
@@ -183,10 +185,13 @@ class LogInController: UIViewController {
                     
                     strongSelf.present(LogInSuccessed, animated: true)
                 
- 
+                
+            
+                
+                
                 
             }
-    
+            
             
         }
     }

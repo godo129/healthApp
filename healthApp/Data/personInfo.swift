@@ -7,6 +7,7 @@
 
 import  UIKit
 import CircleMenu
+import SideMenu
 
 
 
@@ -14,7 +15,7 @@ var p_id: String = ""
 var cur_date: String = ""
 var today : String = ""
 
-var nick = ""
+var nick = p_id
 var height = 0.0
 var age = 0
 var weight = 0.0
@@ -22,8 +23,7 @@ var weight = 0.0
 let defaultPersonImage = UIImage(named: "defaultPerson")
 
 
-var Datt = 0
-
+var profileImage: UIImage!
 
 // 버튼 초기화 
 let moveViewButton = CircleMenu(
@@ -46,3 +46,7 @@ let viewItems: [(icon: String, color: UIColor, viewName: String)] = [
     ("exerciseIcon", UIColor(ciColor: .clear), "ExerciseRecordView"),
     ("personInfoIcon", UIColor(ciColor: .clear), "PersonalInfoView")
     ]
+ 
+
+var sideBar = SideMenuNavigationController(rootViewController: SideMenuViewController())
+

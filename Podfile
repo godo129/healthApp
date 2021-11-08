@@ -13,6 +13,8 @@ pod 'Charts'
 pod 'Firebase/Storage'
 pod 'SRCountdownTimer'
 pod 'CircleMenu'
+pod 'SideMenu'
+
   # Pods for healthApp
 
 end

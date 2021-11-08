@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseDatabase
 import CircleMenu
+import SideMenu
 
 
 
@@ -104,6 +105,13 @@ class RecordViewController: UIViewController {
         view.addSubview(moveViewButton)
   
         
+        //사이드 메뉴 옵션
+        sideBar.leftSide = true
+        SideMenuManager.default.addPanGestureToPresent(toView: view.self)
+        SideMenuManager.default.leftMenuNavigationController = sideBar
+        sideBar.isNavigationBarHidden = true
+
+        sideBar.menuWidth = 300
         
         
         calendarButton.addTarget(self, action: #selector(calendarButtonTapped), for: .touchUpInside)

@@ -9,6 +9,7 @@ import UIKit
 import Charts
 import FirebaseDatabase
 import CircleMenu
+import SideMenu
 
 
 var lists: [Int] = []
@@ -98,6 +99,14 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         
         chart.delegate = self
         chart.noDataText = "데이터가 없습니다"
+        
+        //사이드 메뉴 옵션
+        sideBar.leftSide = true
+        SideMenuManager.default.addPanGestureToPresent(toView: view.self)
+        SideMenuManager.default.leftMenuNavigationController = sideBar
+        sideBar.isNavigationBarHidden = true
+
+        sideBar.menuWidth = 300
         
         yearButton.setTitle("\(selectedYear)년", for: .normal)
         monthOrWeekButton.setTitle(selectedAct, for: .normal)

@@ -165,7 +165,45 @@ class persnalInfoViewController: UIViewController {
         pickImageButton.addTarget(self, action: #selector(pickImageButtonTapped), for: .touchUpInside)
         clearImageButton.addTarget(self, action: #selector(clearImageButtonTapped), for: .touchUpInside)
         
+    
+        storage.child("\(p_id)/images/profileImage\(p_id).png").downloadURL { url, error in
+            guard let url = url, error == nil else {
+                
+                profileImage = defaultPersonImage!
+                
+                guard let image = defaultPersonImage else {
+                    return
+                }
+                
+                guard let data = image.pngData() else {
+                    return
+                }
+                
+                self.storage.child("\(p_id)/images/profileImage\(p_id).png").putData(data)
+                self.imageView.image = image
+                
+                return
+            }
+            
+            
+            let urls = URL(string: url.absoluteString)!
+            
+            let task = URLSession.shared.dataTask(with: urls) { data, _, error in
+                guard let data = data, error == nil else {
+                    return
+                }
+                
+                let image = UIImage(data: data)
+                
+                
+                
+                DispatchQueue.main.sync {
+                    self.imageView.image = image
+                    profileImage = image!
+                }
+            }
         
+        /*
         storage.child("\(p_id)/images/profileImage\(p_id).png").downloadURL { url, error in
             guard let url = url, error == nil else {
                 
@@ -198,6 +236,8 @@ class persnalInfoViewController: UIViewController {
                     self.imageView.image = image
                 }
             }
+            
+            */
             
             task.resume()
             

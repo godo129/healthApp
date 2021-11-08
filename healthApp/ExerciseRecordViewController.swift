@@ -9,6 +9,7 @@ import UIKit
 import FirebaseDatabase
 import SRCountdownTimer
 import CircleMenu
+import SideMenu
 
 var history = ""
 var setCount = 0
@@ -246,6 +247,14 @@ class ExerciseRecordViewController: UIViewController {
         
         moveViewButton.delegate = self
         view.addSubview(moveViewButton)
+        
+        //사이드 메뉴 옵션
+        sideBar.leftSide = true
+        SideMenuManager.default.addPanGestureToPresent(toView: view.self)
+        SideMenuManager.default.leftMenuNavigationController = sideBar
+        sideBar.isNavigationBarHidden = true
+
+        sideBar.menuWidth = 300
         
         
         notiAuth()
