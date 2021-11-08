@@ -6,6 +6,7 @@
 //
 
 import  UIKit
+import CircleMenu
 
 
 
@@ -22,3 +23,26 @@ let defaultPersonImage = UIImage(named: "defaultPerson")
 
 
 var Datt = 0
+
+
+// 버튼 초기화 
+let moveViewButton = CircleMenu(
+  frame: CGRect(x: 380, y: 400, width: 50, height: 50),
+  normalIcon:"bar",
+  selectedIcon:"close",
+  buttonsCount: 8,
+  duration: 1,
+  distance: 100)
+
+// 뷰 아이템
+
+let viewItems: [(icon: String, color: UIColor, viewName: String)] = [
+    ("homeIcon", UIColor(ciColor: .clear), "HomeView"),
+    ("", UIColor(ciColor: .clear), "ChartView"),
+    ("", UIColor(ciColor: .clear), "ChartView"),
+    ("", UIColor(ciColor: .clear), "ChartView"),
+    ("chartIcon", UIColor(ciColor: .clear), "ChartView"),
+    ("memoIcon", UIColor(ciColor: .clear), "RecordView"),
+    ("exerciseIcon", UIColor(ciColor: .clear), "ExerciseRecordView"),
+    ("personInfoIcon", UIColor(ciColor: .clear), "PersonalInfoView")
+    ]

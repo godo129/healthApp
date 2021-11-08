@@ -12,7 +12,7 @@ pod 'FSCalendar'
 pod 'Charts'
 pod 'Firebase/Storage'
 pod 'SRCountdownTimer'
-
+pod 'CircleMenu'
   # Pods for healthApp
 
 end

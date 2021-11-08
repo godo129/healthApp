@@ -8,11 +8,20 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import CircleMenu
 
 
 class HomeController: UIViewController {
     
     var logined = false
+    
+    let moveViewButton = CircleMenu(
+      frame: CGRect(x: 380, y: 400, width: 50, height: 50),
+      normalIcon:"bar",
+      selectedIcon:"close",
+      buttonsCount: 8,
+      duration: 1,
+      distance: 100)
     
     private let db = Database.database().reference()
     
@@ -98,7 +107,9 @@ class HomeController: UIViewController {
         view.addSubview(chartViewButton)
         view.addSubview(questionButton)
         
-     
+        
+        moveViewButton.delegate = self
+        view.addSubview(moveViewButton)
         
         if Firebase.Auth.auth().currentUser != nil {
             logined = true
@@ -224,6 +235,14 @@ class HomeController: UIViewController {
             age = 0
             height = 0.0
             weight = 0.0
+            
+            
+            // 저장 공간 초기화 
+            let value: [String] = []
+            UserDefaults.standard.setValue(value, forKey: "exerciseHistory")
+            
+            let emptyStorage = making()
+            UserDefaults.standard.setValue(emptyStorage, forKey: "exerciseTypesDataStorage")
 
 
         } catch {
@@ -325,3 +344,5 @@ class HomeController: UIViewController {
     
 
 }
+
+

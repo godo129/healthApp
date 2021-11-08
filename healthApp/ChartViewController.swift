@@ -8,12 +8,21 @@
 import UIKit
 import Charts
 import FirebaseDatabase
+import CircleMenu
 
 
 var lists: [Int] = []
 var candi: [Int] = []
 
 class ChartViewController: UIViewController, ChartViewDelegate {
+    
+    let moveViewButton = CircleMenu(
+      frame: CGRect(x: 380, y: 100, width: 50, height: 50),
+      normalIcon:"bar",
+      selectedIcon:"close",
+      buttonsCount: 8,
+      duration: 1,
+      distance: 100)
     
     var candiDates: [String] = []
     
@@ -83,6 +92,9 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         view.addSubview(selectTypeButton)
         view.addSubview(candiWeeksButton)
         view.addSubview(conformButton)
+        
+        moveViewButton.delegate = self
+        view.addSubview(moveViewButton)
         
         chart.delegate = self
         chart.noDataText = "데이터가 없습니다"

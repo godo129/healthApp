@@ -143,6 +143,10 @@ class persnalInfoViewController: UIViewController {
         
         
         
+        
+        moveViewButton.delegate = self
+        view.addSubview(moveViewButton)
+        
         // 이미지 불러오기
         
         

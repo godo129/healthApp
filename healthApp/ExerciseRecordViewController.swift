@@ -7,8 +7,8 @@
 
 import UIKit
 import FirebaseDatabase
-
 import SRCountdownTimer
+import CircleMenu
 
 var history = ""
 var setCount = 0
@@ -21,8 +21,14 @@ class ExerciseRecordViewController: UIViewController {
     
     var tappedReset = false
     
-    
-    
+    let moveViewButton = CircleMenu(
+      frame: CGRect(x: 380, y: 400, width: 50, height: 50),
+      normalIcon:"bar",
+      selectedIcon:"close",
+      buttonsCount: 8,
+      duration: 1,
+      distance: 100)
+
     private let counter: SRCountdownTimer = {
         let counter = SRCountdownTimer()
         counter.labelTextColor = .black
@@ -237,6 +243,9 @@ class ExerciseRecordViewController: UIViewController {
         view.addSubview(intervalTimeField)
         // 텍스트 필드 숫자만입력 되게 권한 부여
         intervalTimeField.delegate = self
+        
+        moveViewButton.delegate = self
+        view.addSubview(moveViewButton)
         
         
         notiAuth()
@@ -730,6 +739,7 @@ extension ExerciseRecordViewController: UITableViewDelegate, UITableViewDataSour
                 
                 exerciseHistory.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
+                db.child(p_id).child(cur_date).child("history").setValue(exerciseHistory)
                 
             } else {
                 let selectedWeight: Int = Int(exerciseHistory[indexPath.row].split(separator: " ")[1])!
@@ -794,6 +804,7 @@ extension ExerciseRecordViewController: UITextFieldDelegate, SRCountdownTimerDel
             
             exerciseHistory.append( "휴식" + " \(timeToString(time: intervalTime))")
             historyTable.reloadData()
+            db.child(p_id).child(cur_date).child("history").setValue(exerciseHistory)
         }
         tappedReset = false
         intervalTimeField.isHidden = false
@@ -805,3 +816,5 @@ extension ExerciseRecordViewController: UITextFieldDelegate, SRCountdownTimerDel
         
     }
 }
+
+

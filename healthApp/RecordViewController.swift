@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseDatabase
+import CircleMenu
 
 
 
@@ -16,6 +17,25 @@ class RecordViewController: UIViewController {
     
     private let db = Database.database().reference()
     
+    let moveViewButton = CircleMenu(
+      frame: CGRect(x: 380, y: 400, width: 50, height: 50),
+      normalIcon:"bar",
+      selectedIcon:"close",
+      buttonsCount: 8,
+      duration: 1,
+      distance: 100)
+
+    
+    let normalImage = UIImage(named: "bar")
+    
+    private let oneButton: UIButton = {
+        let oneButton = UIButton()
+        oneButton.setTitle("기록", for: .normal)
+        oneButton.backgroundColor = .link
+
+        return oneButton
+    }()
+
     
     
     private let dateLabel: UILabel = {
@@ -59,8 +79,8 @@ class RecordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    
         
+
         
         
         // 메모정보 가져오기
@@ -80,6 +100,9 @@ class RecordViewController: UIViewController {
         view.addSubview(recordButton)
         view.addSubview(textView)
         
+        moveViewButton.delegate = self
+        view.addSubview(moveViewButton)
+  
         
         
         
@@ -135,3 +158,5 @@ class RecordViewController: UIViewController {
         
     }
 }
+
+

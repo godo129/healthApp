@@ -5,6 +5,8 @@
 //  Created by hong on 2021/11/04.
 //
 
+import CircleMenu
+
 
 let exerciseTypes: [String] = ["데드리프트","스쿼트","벤치프레스"]
 
@@ -21,3 +23,5 @@ func making () -> [String: [Int]]  {
     
     return exerciseTypesDataStorage
 }
+
+

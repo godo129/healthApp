@@ -12,6 +12,7 @@
 		F129FAA827314C1E00D0DCCA /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F129FAA727314C1E00D0DCCA /* Functions.swift */; };
 		F129FB0A2733072200D0DCCA /* ExerciseDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = F129FB092733072200D0DCCA /* ExerciseDatas.swift */; };
 		F129FB522733EBE700D0DCCA /* StorageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F129FB512733EBE700D0DCCA /* StorageExtension.swift */; };
+		F12BB53C2739358C00090884 /* circleMenuExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12BB53B2739358C00090884 /* circleMenuExtension.swift */; };
 		F12E1B8027269B11001CB6F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12E1B7F27269B11001CB6F4 /* AppDelegate.swift */; };
 		F12E1B8227269B11001CB6F4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12E1B8127269B11001CB6F4 /* SceneDelegate.swift */; };
 		F12E1B8427269B11001CB6F4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12E1B8327269B11001CB6F4 /* ViewController.swift */; };
@@ -38,6 +39,7 @@
 		F129FAA727314C1E00D0DCCA /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		F129FB092733072200D0DCCA /* ExerciseDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDatas.swift; sourceTree = "<group>"; };
 		F129FB512733EBE700D0DCCA /* StorageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageExtension.swift; sourceTree = "<group>"; };
+		F12BB53B2739358C00090884 /* circleMenuExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = circleMenuExtension.swift; sourceTree = "<group>"; };
 		F12E1B7C27269B11001CB6F4 /* healthApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = healthApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F12E1B7F27269B11001CB6F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F12E1B8127269B11001CB6F4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -114,7 +116,6 @@
 				F135093B272BBA7A00F0E1CC /* QuestionViewController.swift */,
 				F129FA81272F5C8900D0DCCA /* ChartViewController.swift */,
 				F1350939272A2E4100F0E1CC /* persnalInfoViewController.swift */,
-				F129FB512733EBE700D0DCCA /* StorageExtension.swift */,
 				F1DBE2F32728F0AF0015EE27 /* ExerciseRecordViewController.swift */,
 				F132200B272829EB00E69FEE /* CalendarViewController.swift */,
 				F132200227281FE500E69FEE /* RecordViewController.swift */,
@@ -134,9 +135,11 @@
 		F13220062728294D00E69FEE /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				F129FB512733EBE700D0DCCA /* StorageExtension.swift */,
 				F13220042728265800E69FEE /* personInfo.swift */,
 				F129FB092733072200D0DCCA /* ExerciseDatas.swift */,
 				F129FAA727314C1E00D0DCCA /* Functions.swift */,
+				F12BB53B2739358C00090884 /* circleMenuExtension.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				F129FA82272F5C8900D0DCCA /* ChartViewController.swift in Sources */,
 				F12E1B982726CC54001CB6F4 /* LogInController.swift in Sources */,
 				F132200327281FE500E69FEE /* RecordViewController.swift in Sources */,
+				F12BB53C2739358C00090884 /* circleMenuExtension.swift in Sources */,
 				F12E1B8027269B11001CB6F4 /* AppDelegate.swift in Sources */,
 				F12E1B8227269B11001CB6F4 /* SceneDelegate.swift in Sources */,
 				F129FB0A2733072200D0DCCA /* ExerciseDatas.swift in Sources */,
