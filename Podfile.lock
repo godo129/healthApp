@@ -107,6 +107,7 @@ PODS:
   - GTMSessionFetcher/Core (1.7.0)
   - Kingfisher (6.3.1)
   - leveldb-library (1.22.1)
+  - lottie-ios (3.2.3)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
@@ -125,6 +126,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - FSCalendar
   - Kingfisher
+  - lottie-ios
   - SideMenu
   - SRCountdownTimer
 
@@ -147,6 +149,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - Kingfisher
     - leveldb-library
+    - lottie-ios
     - nanopb
     - PromisesObjC
     - SideMenu
@@ -170,11 +173,12 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
   Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
+  lottie-ios: c058aeafa76daa4cf64d773554bccc8385d0150e
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
   SRCountdownTimer: b7f833a51cd33003d55df17667b71d26ee17357f
 
-PODFILE CHECKSUM: e156e58367f87e21d7ff7ca1de0d2dd3c9b89375
+PODFILE CHECKSUM: 80eb8654f8ff96cb5d730c9d99a1206afa08921d
 
 COCOAPODS: 1.10.2

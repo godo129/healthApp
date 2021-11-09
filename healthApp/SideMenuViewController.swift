@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseStorage
+import Lottie
 
 
 class SideMenuViewController: UIViewController {
@@ -18,6 +19,15 @@ class SideMenuViewController: UIViewController {
         profileImageView.layer.cornerRadius = 95
         profileImageView.clipsToBounds = true
         return profileImageView
+    }()
+    
+    private let dogAnimation: AnimationView = {
+        var dogAnimation = AnimationView()
+        dogAnimation = .init(name: "runDog")
+        dogAnimation.loopMode = .loop
+        dogAnimation.animationSpeed = 0.7
+        dogAnimation.play()
+        return dogAnimation
     }()
     
     
@@ -39,6 +49,7 @@ class SideMenuViewController: UIViewController {
         view.addSubview(nickLabel)
         nickLabel.text = nick
     
+        view.addSubview(dogAnimation)
 /*
         storage.child("\(p_id)/images/profileImage\(p_id).png").downloadURL { url, error in
             guard let url = url, error == nil else {
@@ -148,6 +159,8 @@ class SideMenuViewController: UIViewController {
         
         profileImageView.frame = CGRect(x: 20, y: 200, width: 260, height: 200)
         nickLabel.frame = CGRect(x: 100, y: profileImageView.frame.origin.y+200, width: 100, height: 50)
+        
+        dogAnimation.frame = CGRect(x: 0, y: nickLabel.frame.origin.y + 70, width: view.frame.size.width, height: view.frame.size.width)
     }
     
 

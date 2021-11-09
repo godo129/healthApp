@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		15377C7CC6334E2911E92E02 /* Pods_healthApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49D5AA402D1400C467BFAECB /* Pods_healthApp.framework */; };
+		F125D6C12739EEF500CFD36E /* snowFlake.json in Resources */ = {isa = PBXBuildFile; fileRef = F125D6C02739EEF500CFD36E /* snowFlake.json */; };
+		F125D6C32739F26600CFD36E /* runDog.json in Resources */ = {isa = PBXBuildFile; fileRef = F125D6C22739F26600CFD36E /* runDog.json */; };
 		F128D9EB273961980000ED90 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F128D9EA273961980000ED90 /* SideMenuViewController.swift */; };
 		F129FA82272F5C8900D0DCCA /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F129FA81272F5C8900D0DCCA /* ChartViewController.swift */; };
 		F129FAA827314C1E00D0DCCA /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F129FAA727314C1E00D0DCCA /* Functions.swift */; };
@@ -36,6 +38,8 @@
 		12F869CB34B708981064FC3C /* Pods-healthApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-healthApp.debug.xcconfig"; path = "Target Support Files/Pods-healthApp/Pods-healthApp.debug.xcconfig"; sourceTree = "<group>"; };
 		49D5AA402D1400C467BFAECB /* Pods_healthApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_healthApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA6A1B00F37048543C768F45 /* Pods-healthApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-healthApp.release.xcconfig"; path = "Target Support Files/Pods-healthApp/Pods-healthApp.release.xcconfig"; sourceTree = "<group>"; };
+		F125D6C02739EEF500CFD36E /* snowFlake.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = snowFlake.json; path = ../../../images/snowFlake.json; sourceTree = "<group>"; };
+		F125D6C22739F26600CFD36E /* runDog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = runDog.json; path = ../../../images/runDog.json; sourceTree = "<group>"; };
 		F128D9EA273961980000ED90 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		F129FA81272F5C8900D0DCCA /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		F129FAA727314C1E00D0DCCA /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
@@ -138,6 +142,8 @@
 		F13220062728294D00E69FEE /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				F125D6C22739F26600CFD36E /* runDog.json */,
+				F125D6C02739EEF500CFD36E /* snowFlake.json */,
 				F129FB512733EBE700D0DCCA /* StorageExtension.swift */,
 				F13220042728265800E69FEE /* personInfo.swift */,
 				F129FB092733072200D0DCCA /* ExerciseDatas.swift */,
@@ -206,7 +212,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F125D6C12739EEF500CFD36E /* snowFlake.json in Resources */,
 				F12E1B8C27269B13001CB6F4 /* LaunchScreen.storyboard in Resources */,
+				F125D6C32739F26600CFD36E /* runDog.json in Resources */,
 				F1DBE2F227284B3E0015EE27 /* GoogleService-Info.plist in Resources */,
 				F12E1B8927269B13001CB6F4 /* Assets.xcassets in Resources */,
 				F12E1B8727269B11001CB6F4 /* Main.storyboard in Resources */,

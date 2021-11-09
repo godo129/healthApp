@@ -10,6 +10,7 @@ import Firebase
 import FirebaseDatabase
 import CircleMenu
 import SideMenu
+import Lottie
 
 
 class HomeController: UIViewController, UINavigationControllerDelegate {
@@ -26,6 +27,18 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
       distance: 100)
     
     private let db = Database.database().reference()
+    
+    
+    // 애니메이션 배경
+    private var backgroundAnimation: AnimationView = {
+        var backgroundAnimation = AnimationView()
+        backgroundAnimation = .init(name: "snowFlake")
+        backgroundAnimation.loopMode = .loop
+        backgroundAnimation.animationSpeed = 0.6
+        backgroundAnimation.contentMode = .scaleAspectFit
+        backgroundAnimation.play()
+        return backgroundAnimation
+    }()
     
     private let titleLabel: UILabel = {
         let titleLablel = UILabel()
@@ -97,6 +110,7 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.addSubview(backgroundAnimation)
         
         view.addSubview(titleLabel)
         view.addSubview(userLabel)
@@ -112,6 +126,8 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
         // 원형 메뉴
         moveViewButton.delegate = self
         view.addSubview(moveViewButton)
+        
+        
         
         
         //사이드 메뉴 옵션 
@@ -309,6 +325,7 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
     
     
     override func viewDidLayoutSubviews() {
+        backgroundAnimation.frame = view.bounds
         titleLabel.frame = CGRect(x: 50,
                                   y: 50,
                                   width: view.frame.size.width-100,

@@ -14,6 +14,7 @@ pod 'Firebase/Storage'
 pod 'SRCountdownTimer'
 pod 'CircleMenu'
 pod 'SideMenu'
+pod 'lottie-ios'
 pod 'Kingfisher'
   # Pods for healthApp
 
