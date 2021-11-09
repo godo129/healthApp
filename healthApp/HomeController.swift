@@ -15,8 +15,22 @@ import Lottie
 
 class HomeController: UIViewController, UINavigationControllerDelegate {
     
+    private let exerciseRecordView: AnimationView = {
+        var exerciseRecordView = AnimationView()
+        exerciseRecordView = .init(name: "exerciseViewAnimation")
+        exerciseRecordView.loopMode = .loop
+        exerciseRecordView.animationSpeed = 1.0
+        return exerciseRecordView
+    }()
     
-    
+    private let chartRecordView: AnimationView = {
+        var chartRecordView = AnimationView()
+        chartRecordView = .init(name: "chartAnimation")
+        chartRecordView.loopMode = .loop
+        chartRecordView.contentMode = .scaleAspectFit
+        chartRecordView.animationSpeed = 1.0
+        return chartRecordView
+    }()
     
     let moveViewButton = CircleMenu(
       frame: CGRect(x: 380, y: 400, width: 50, height: 50),
@@ -110,8 +124,12 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //애니메이션
         view.addSubview(backgroundAnimation)
+        view.addSubview(exerciseRecordView)
+        view.addSubview(chartRecordView)
         
+        // 그외
         view.addSubview(titleLabel)
         view.addSubview(userLabel)
         view.addSubview(logInButton)
@@ -127,14 +145,7 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
         moveViewButton.delegate = self
         view.addSubview(moveViewButton)
         
-        if logined {
-            moveViewButton.isHidden = false
-            personalInfoButton.isHidden = false
-        } else {
-            moveViewButton.isHidden = true
-            personalInfoButton.isHidden = true
-        }
-
+        
         
         //사이드 메뉴 옵션 
         sideBar.leftSide = true
@@ -171,6 +182,14 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
         chartViewButton.addTarget(self, action: #selector(chartViewButtonTapped), for: .touchUpInside)
         questionButton.addTarget(self, action: #selector(questionButtonTapped), for: .touchUpInside)
         
+        
+        // 차트뷰에 제스처 추가
+        
+        let gotoExerciseView = UITapGestureRecognizer(target: self, action: #selector(recordViewButtonTapped))
+        exerciseRecordView.addGestureRecognizer(gotoExerciseView)
+        
+        let gotoChartView = UITapGestureRecognizer(target: self, action: #selector(chartViewButtonTapped))
+        chartRecordView.addGestureRecognizer(gotoChartView)
         
        
         // 로그인 됬을 때 환영 인사주기 위해 email 정보 얻어오기
@@ -228,8 +247,19 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        
+        print(logined)
+        if logined {
+            moveViewButton.isHidden = false
+            personalInfoButton.isHidden = false
+            exerciseRecordView.play()
+            chartRecordView.play()
+        } else {
+            moveViewButton.isHidden = true
+            personalInfoButton.isHidden = true
+            exerciseRecordView.stop()
+            chartRecordView.stop()
+        }
+
     }
     
     
@@ -259,6 +289,7 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
             logInButton.isHidden = false
             SignUpButton.isHidden = false
             personalInfoButton.isHidden = true
+            moveViewButton.isHidden = true 
             
             // 로그 아웃 하면 연결 끊어진 것 표시, 데이터 초기화
             logined = false
@@ -270,6 +301,8 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
             weight = 0.0
             profileImage = defaultPersonImage
             
+            exerciseRecordView.stop()
+            chartRecordView.stop()
             
             // 저장 공간 초기화 
             let value: [String] = []
@@ -314,10 +347,19 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
     }
     
     @objc private func chartViewButtonTapped(){
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChartView")
-        vc?.modalPresentationStyle = .fullScreen
-        vc?.modalTransitionStyle = .coverVertical
-        self.present(vc!, animated: true, completion: nil)
+        if !logined {
+            let alert = UIAlertController(title: "", message: "로그인해주세요", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: { _ in
+                
+            }))
+            self.present(alert, animated: true, completion: nil)
+            
+        } else {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChartView")
+            vc?.modalPresentationStyle = .fullScreen
+            vc?.modalTransitionStyle = .coverVertical
+            self.present(vc!, animated: true, completion: nil)
+        }
     }
     
     
@@ -360,16 +402,27 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
                                           y: titleLabel.frame.origin.y+50,
                                           width: 100,
                                           height: 50)
-        
+        /*
         recordViewButton.frame = CGRect(x: 50,
                                   y: titleLabel.frame.origin.y+200,
                                   width: view.frame.size.width-100,
                                   height: 200)
+ */
         
-        chartViewButton.frame = CGRect(x: 80,
-                                  y: recordViewButton.frame.origin.y+300,
+        exerciseRecordView.frame = CGRect(x: 50,
+                                          y: titleLabel.frame.origin.y+200,
+                                          width: view.frame.size.width-100,
+                                          height: 200)
+        
+        chartRecordView.frame = CGRect(x: 80,
+                                  y: recordViewButton.frame.origin.y+500,
                                   width: view.frame.size.width-150,
                                   height: 200)
+        
+       // chartViewButton.frame = CGRect(x: 80,
+        //                          y: recordViewButton.frame.origin.y+300,
+        //                          width: view.frame.size.width-150,
+        //                          height: 200)
         
         questionButton.frame = CGRect(x: view.frame.maxX-70,
                                       y: view.frame.maxY-70,
