@@ -16,6 +16,7 @@ pod 'CircleMenu'
 pod 'SideMenu'
 pod 'lottie-ios'
 pod 'Kingfisher'
+pod 'TextFieldEffects'
   # Pods for healthApp
 
 end

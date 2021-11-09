@@ -7,9 +7,12 @@
 
 import UIKit
 import Firebase
-
+import TextFieldEffects
+var cols = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1)
 
 class SignUpController: UIViewController {
+    
+    
     
     private let backButton: UIButton = {
         let backButton = UIButton()
@@ -27,26 +30,34 @@ class SignUpController: UIViewController {
         return Label
     }()
     
-    private let IdField: UITextField = {
-        let IdField = UITextField()
+    private let IdField: YoshikoTextField = {
+        let IdField = YoshikoTextField()
         IdField.placeholder = "ID"
+        IdField.placeholderColor = .darkGray
+        IdField.inactiveBorderColor = cols
+        IdField.activeBorderColor = .orange
         IdField.autocapitalizationType = .none
-        
         return IdField
     }()
     
-    private let passwordField: UITextField = {
-        let passwordField = UITextField()
+    private let passwordField: YoshikoTextField = {
+        let passwordField = YoshikoTextField()
         passwordField.placeholder = "pasword"
         passwordField.isSecureTextEntry = true
+        passwordField.placeholderColor = .darkGray
+        passwordField.inactiveBorderColor = cols
+        passwordField.activeBorderColor = .orange
         passwordField.autocapitalizationType = .none
         return passwordField
     }()
     
-    private let checkPasswordField: UITextField = {
-        let checkPasswordField = UITextField()
+    private let checkPasswordField: YoshikoTextField = {
+        let checkPasswordField = YoshikoTextField()
         checkPasswordField.placeholder = "check pasword"
         checkPasswordField.isSecureTextEntry = true
+        checkPasswordField.placeholderColor = .darkGray
+        checkPasswordField.inactiveBorderColor = cols
+        checkPasswordField.activeBorderColor = .orange
         checkPasswordField.autocapitalizationType = .none
         return checkPasswordField
     }()
@@ -185,11 +196,11 @@ class SignUpController: UIViewController {
                                height: 50)
         
         passwordField.frame = CGRect(x: 50,
-                                     y: IdField.frame.origin.y+30,
+                                     y: IdField.frame.origin.y+50,
                                      width: view.frame.size.width-100,
                                      height: 50)
         checkPasswordField.frame = CGRect(x: 50,
-                                          y: passwordField.frame.origin.y+30,
+                                          y: passwordField.frame.origin.y+50,
                                           width: view.frame.size.width-100,
                                           height: 50)
         

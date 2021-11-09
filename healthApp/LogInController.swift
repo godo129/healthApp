@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import Kingfisher
+import TextFieldEffects
 
 
 class LogInController: UIViewController {
@@ -34,17 +35,23 @@ class LogInController: UIViewController {
         
     }()
     
-    private let IdField: UITextField = {
-        let IdField = UITextField()
+    private let IdField: YoshikoTextField = {
+        let IdField = YoshikoTextField()
         IdField.placeholder = "ID"
+        IdField.placeholderColor = .darkGray
+        IdField.inactiveBorderColor = cols
+        IdField.activeBorderColor = .orange
         IdField.autocapitalizationType = .none
         return IdField
     }()
     
-    private let passwordField: UITextField = {
-        let passwordField = UITextField()
+    private let passwordField: YoshikoTextField = {
+        let passwordField = YoshikoTextField()
         passwordField.placeholder = "password"
         passwordField.isSecureTextEntry = true
+        passwordField.placeholderColor = .darkGray
+        passwordField.inactiveBorderColor = cols
+        passwordField.activeBorderColor = .orange
         passwordField.autocapitalizationType = .none
         return passwordField
     }()
@@ -264,7 +271,7 @@ class LogInController: UIViewController {
                                height: 50)
         
         passwordField.frame = CGRect(x: 50,
-                                     y: IdField.frame.origin.y+30,
+                                     y: IdField.frame.origin.y+50,
                                      width: view.frame.size.width-100,
                                      height: 50)
         
