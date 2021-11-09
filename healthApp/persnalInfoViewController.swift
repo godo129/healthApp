@@ -33,7 +33,7 @@ class persnalInfoViewController: UIViewController {
         return titleLabel
     }()
     
-    private let imageView = UIImageView()
+    private let imageView = profileImageView
     
     private let pickImageButton: UIButton = {
         let pickImageButton = UIButton()
@@ -126,7 +126,7 @@ class persnalInfoViewController: UIViewController {
         
         view.addSubview(backButton)
         view.addSubview(titleLabel)
-        view.addSubview(imageView)
+        
         view.addSubview(pickImageButton)
         view.addSubview(clearImageButton)
         view.addSubview(nickLabel)
@@ -164,7 +164,7 @@ class persnalInfoViewController: UIViewController {
         clearImageButton.addTarget(self, action: #selector(clearImageButtonTapped), for: .touchUpInside)
         
         
-        imageView.image = profileImage
+    //    imageView.image = profileImage
         
         
     /*
@@ -244,6 +244,11 @@ class persnalInfoViewController: UIViewController {
         
        */
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        view.addSubview(imageView)
     }
     
     
@@ -409,7 +414,7 @@ extension persnalInfoViewController: UIImagePickerControllerDelegate, UINavigati
             guard error == nil else {
                 return
             }
-            
+            /*
             self.storage.child("\(p_id)/images/profileImage\(p_id).png").downloadURL { url, error in
                 guard let url = url, error == nil else {
                     return
@@ -421,9 +426,12 @@ extension persnalInfoViewController: UIImagePickerControllerDelegate, UINavigati
                     profileImage = image
                     self.imageView.image = image
                 }
+ 
+ */
                 
-                UserDefaults.standard.setValue(urlStirng, forKey: "url")  // 개인 저장소에 저장
-            }
+             //   UserDefaults.standard.setValue(urlStirng, forKey: "url")  // 개인 저장소에 저장
+        //    }
+        
         }
     }
 }

@@ -127,8 +127,14 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
         moveViewButton.delegate = self
         view.addSubview(moveViewButton)
         
-        
-        
+        if logined {
+            moveViewButton.isHidden = false
+            personalInfoButton.isHidden = false
+        } else {
+            moveViewButton.isHidden = true
+            personalInfoButton.isHidden = true
+        }
+
         
         //사이드 메뉴 옵션 
         sideBar.leftSide = true

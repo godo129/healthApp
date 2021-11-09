@@ -24,6 +24,15 @@ let defaultPersonImage = UIImage(named: "defaultPerson")
 
 var profileImage: UIImage!
 
+var profileImageView: UIImageView = {
+    
+    let profileImageView = UIImageView()
+    profileImageView.layer.cornerRadius = 95
+    profileImageView.clipsToBounds = true
+    return profileImageView
+}()
+
+
 
 var logined = false
 

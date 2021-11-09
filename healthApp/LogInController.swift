@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import Kingfisher
 
 
 class LogInController: UIViewController {
@@ -160,6 +161,10 @@ class LogInController: UIViewController {
                 let urls = URL(string: url.absoluteString)!
                 
                 
+                // 킹피셔 사용해서 이미지 빨리 불러오기
+                profileImageView.kf.setImage(with: urls)
+                
+                /*
                 let task = URLSession.shared.dataTask(with: urls) { data, _, error in
                     guard let data = data, error == nil else {
                         return
@@ -178,6 +183,7 @@ class LogInController: UIViewController {
             
                 
                 task.resume()
+                */
             }
             
             self?.db.child(p_id).child("PersonalInfo").child("Weight").observeSingleEvent(of: .value, with: { snapshot in

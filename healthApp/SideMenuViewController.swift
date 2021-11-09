@@ -12,6 +12,7 @@ import Lottie
 
 class SideMenuViewController: UIViewController {
     
+    /*
     private var profileImageView: UIButton = {
         let profileImageView = UIButton()
 
@@ -20,13 +21,13 @@ class SideMenuViewController: UIViewController {
         profileImageView.clipsToBounds = true
         return profileImageView
     }()
+ */
     
     private let dogAnimation: AnimationView = {
         var dogAnimation = AnimationView()
         dogAnimation = .init(name: "runDog")
         dogAnimation.loopMode = .loop
         dogAnimation.animationSpeed = 0.7
-        dogAnimation.play()
         return dogAnimation
     }()
     
@@ -45,11 +46,11 @@ class SideMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(profileImageView)
+        //view.addSubview(profileImageView)
         view.addSubview(nickLabel)
         nickLabel.text = nick
-    
-        view.addSubview(dogAnimation)
+
+        
 /*
         storage.child("\(p_id)/images/profileImage\(p_id).png").downloadURL { url, error in
             guard let url = url, error == nil else {
@@ -98,13 +99,22 @@ class SideMenuViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        profileImageView.setImage(profileImage, for: .normal)
+        
+        
+        view.addSubview(profileImageView)
+        // 화면 동그랗게 
+
+
+        
+     //   profileImageView.setImage(profileImage, for: .normal)
         nickLabel.text = nick
         
-        profileImageView.addTarget(self, action: #selector(profileImageViewTapped), for: .touchUpInside)
+   //     profileImageView.addTarget(self, action: #selector(profileImageViewTapped), for: .touchUpInside)
         
         
-            
+        view.addSubview(dogAnimation)
+        dogAnimation.play()
+
         }
         
         /*
@@ -158,6 +168,8 @@ class SideMenuViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         profileImageView.frame = CGRect(x: 20, y: 200, width: 260, height: 200)
+        
+       // profileImageView.frame = CGRect(x: 20, y: 200, width: 260, height: 200)
         nickLabel.frame = CGRect(x: 100, y: profileImageView.frame.origin.y+200, width: 100, height: 50)
         
         dogAnimation.frame = CGRect(x: 0, y: nickLabel.frame.origin.y + 70, width: view.frame.size.width, height: view.frame.size.width)
