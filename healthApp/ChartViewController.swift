@@ -38,9 +38,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     var month:[String:Int] = [:]
     var week:[String:Int] = [:]
     var selectedWeek = "9-16" + " ~ " + "9-23"
-    
-    let test = [["1월","100"],["2월","100"],["3월","100"],["4월","113"],["5월","90.6"],["6월","100"],["7월","100"],["8월","100"],["9월","100"],["10월","100"],["11월","100"],["12월","100"]]
-    
+
     let months = ["01","02","03","04","05","06","07","08","09","10","11","12"]
     
     
@@ -267,6 +265,86 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     @objc private func conformButtonTapped(sender: UIButton) {
         
         
+        // 워킹은 저장하고 불러와서 두번 선택해야 하니 그냥 아무거나 선택했을 때 다 만들어주고 하면 그런 두번 클릭할게 처음 한번으로 다 설정 되어서
+        // 그런식으로 함 
+        if selectedType == "워킹" {
+            
+            
+            // 월간 가장 큰 데이터 저장
+            
+            if isCommon(year: selectedYear) {
+                for i in 0..<12 {
+                    
+                    var num: Int = 0
+
+                    for v in 1...commonYear[i] {
+                        
+                        db.child(p_id).child("chart").child(selectedType).child("주간").child(String(selectedYear)).child(months[i]).child("\(String(format: "%02d", Int(v)))").observeSingleEvent(of: .value) { snapshot in
+                            if let value = snapshot.value as? [Int] {
+                                if value.count == 0 {
+                          
+                                } else {
+                                    num = max(num, value.max()!)
+                                }
+                            } else {
+                                
+                                
+                                
+                                if self.selectedType == "워킹" {
+                                    healthAuth(Year: self.selectedYear, Month: Int(self.months[i])!, Date: v)
+                                }
+                          
+                            
+                            }
+                            
+                            if v == commonYear[i] {
+                                self.db.child(p_id).child("chart").child(self.selectedType).child("월간").child(String(self.selectedYear)).child(self.months[i]).setValue(num)
+                           
+                            }
+                        }
+                        
+                    }
+   
+                }
+                
+            } else {
+                
+                for i in 0..<12 {
+                    
+                    var num: Int = 0
+
+                    for v in 1...leapYear[i] {
+                        
+                        db.child(p_id).child("chart").child(selectedType).child("주간").child(String(selectedYear)).child(months[i]).child("\(String(format: "%02d", Int(v)))").observeSingleEvent(of: .value) { snapshot in
+                            if let value = snapshot.value as? [Int] {
+                                if value.count == 0 {
+                                    
+                                } else {
+                                    num = max(num, value.max()!)
+                                }
+                            } else {
+                              
+                                if self.selectedType == "워킹" {
+                                    healthAuth(Year: self.selectedYear, Month: Int(self.months[i])!, Date: v)
+                                }
+                                        
+                            }
+             
+                            if v == leapYear[i] {
+                                self.db.child(p_id).child("chart").child(self.selectedType).child("월간").child(String(self.selectedYear)).child(self.months[i]).setValue(num)
+                           
+                            }
+                        }
+                        
+                    }
+   
+                }
+                
+            }
+            
+        }
+        
+        
 
         if self.selectedAct == "월간" {
             
@@ -413,7 +491,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                     
                     if isCommon(year: selectedYear) {
                         
-                        for date in Int(firstDate)!...commonYear[Int(firstDate)!-1] {
+                        for date in Int(firstDate)!...commonYear[Int(firstMonth)!-1] {
                             xLists.append("\(firstMonth)-\(String(format: "%02d", date))")
                         }
                         for date in 1...Int(lastDate)! {
@@ -458,15 +536,6 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                         if self.selectedType == "워킹" {
                             healthAuth(Year: self.selectedYear, Month: Int(month)!, Date: Int(date)!)
                            
-                        
-                            self.db.child(p_id).child("chart").child(self.selectedType).child("주간").child(String(self.selectedYear)).child(month).child(date).observeSingleEvent(of: .value) { snapshot in
-                                
-                                guard let value = snapshot.value as? [Int] else {
-                        
-                                    return
-                                }
-                                dataLists.append(value[0])
-                            }
                             
                         }
                         
@@ -477,19 +546,22 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                         }
      
                     }
-            
+                    
                     if dataLists.count == xLists.count {
-                        
                        
                         self.makingChart(datas: dataLists, x: xLists)
                     }
                 }
+                
             }
-     
+            
+            
         }
         
         
     }
+    
+    
     
     func pr(lists: [String]) {
         // 주간 차트 만들기 !!
