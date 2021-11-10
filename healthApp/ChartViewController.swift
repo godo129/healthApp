@@ -122,6 +122,8 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         SideMenuManager.default.addPanGestureToPresent(toView: view.self)
         SideMenuManager.default.leftMenuNavigationController = sideBar
         sideBar.isNavigationBarHidden = true
+        candiWeeksBack.isHidden = true
+        candiWeeksForward.isHidden = true
 
         sideBar.menuWidth = 300
         
@@ -172,11 +174,16 @@ class ChartViewController: UIViewController, ChartViewDelegate {
             self.selectedAct = "월간"
             self.monthOrWeekButton.setTitle("월간", for: .normal)
             self.candiWeeksButton.isHidden = true
+            self.candiWeeksForward.isHidden = true
+            self.candiWeeksBack.isHidden = true
         }))
         alert.addAction(UIAlertAction(title: "주간", style: .default, handler: { _ in
             self.selectedAct = "주간"
             self.monthOrWeekButton.setTitle("주간", for: .normal)
             self.candiWeeksButton.isHidden = false
+            self.candiWeeksForward.isHidden = false
+            self.candiWeeksBack.isHidden = false
+            
             
             self.candiDates = []
             
@@ -227,6 +234,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
             }))
         }
         self.present(alert, animated: true, completion: nil)
+        
     }
     
     @objc private func candiWeeksForwardTapped() {
@@ -266,7 +274,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         
         
         // 워킹은 저장하고 불러와서 두번 선택해야 하니 그냥 아무거나 선택했을 때 다 만들어주고 하면 그런 두번 클릭할게 처음 한번으로 다 설정 되어서
-        // 그런식으로 함 
+        // 그런식으로 함
         if selectedType == "워킹" {
             
             
