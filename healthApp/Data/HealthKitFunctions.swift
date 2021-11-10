@@ -6,9 +6,12 @@
 //
 import UIKit
 import HealthKit
+import FirebaseDatabase
 
 
 var healthStore = HKHealthStore()
+
+private let db = Database.database().reference()
 
 
 func healthAuth(Year:Int, Month: Int, Date: Int) {
@@ -25,12 +28,12 @@ func healthAuth(Year:Int, Month: Int, Date: Int) {
                 
                                     
             } else {
-                healthAuth(Year: Year, Month: Month, Date: Date)
+   
             }
         }
     }
     
-func getSteps(Year: Int, Month: Int, Date: Int){
+func getSteps(Year: Int, Month: Int, Date: Int) {
         
     guard let sampleType = HKCategoryType.quantityType(forIdentifier: .stepCount) else {return }
     let dateformatter = DateFormatter()
@@ -40,7 +43,6 @@ func getSteps(Year: Int, Month: Int, Date: Int){
     let endDate = dateformatter.date(from: DateStirng2)!
     let startDate = dateformatter.date(from: DateStirng1)!
  
-    print(type(of: endDate))
     
   //  let startDate = Calendar.current.startOfDay(for: day)
         
@@ -56,19 +58,21 @@ func getSteps(Year: Int, Month: Int, Date: Int){
             
         if let myresult = result {
             myresult.enumerateStatistics(from: startDate, to: endDate) { (statistics, value) in
-                
-                print(statistics)
-                    
+
                 if let count = statistics.sumQuantity() {
                     let val = count.doubleValue(for: HKUnit.count())
                         
                     UserDefaults.standard.setValue(Int(val), forKey: "steps")
+                   
                     
-                    print(val)
+                    db.child(p_id).child("chart").child("워킹").child("주간").child(String(Year)).child(String(format: "%02d", Month)).child((String(format: "%02d", Date))).setValue([Int(val)])
+
                         
                 } else {
                     UserDefaults.standard.setValue(0, forKey: "steps")
-                    print(0)
+                    
+                    db.child(p_id).child("chart").child("워킹").child("주간").child(String(Year)).child(String(format: "%02d", Month)).child((String(format: "%02d", Date))).setValue([0])
+ 
                 }
             }
         }

@@ -120,7 +120,7 @@ class SideMenuViewController: UIViewController {
         
         
         // 자동으로 함수 계속
-       Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(restartAnimation), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(restartAnimation), userInfo: nil, repeats: true)
 
         
     }

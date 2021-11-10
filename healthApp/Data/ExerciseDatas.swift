@@ -8,7 +8,7 @@
 import CircleMenu
 
 
-let exerciseTypes: [String] = ["데드리프트","스쿼트","벤치프레스"]
+let exerciseTypes: [String] = ["데드리프트","스쿼트","벤치프레스","워킹"]
 
 var exerciseTypesDataStorage: [String: [Int]] = [:]
 

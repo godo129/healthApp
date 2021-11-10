@@ -12,10 +12,13 @@ import CircleMenu
 import SideMenu
 
 
+
 var lists: [Int] = []
 var candi: [Int] = []
 
 class ChartViewController: UIViewController, ChartViewDelegate {
+    
+    var oneMore = true
     
     let moveViewButton = CircleMenu(
       frame: CGRect(x: 380, y: 100, width: 50, height: 50),
@@ -75,6 +78,20 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         return candiWeeksButton
     }()
     
+    private let candiWeeksForward: UIButton = {
+        let candiWeeksForward = UIButton()
+        candiWeeksForward.setTitleColor(.black, for: .normal)
+        candiWeeksForward.setTitle("다음주", for: .normal)
+        return candiWeeksForward
+    }()
+    
+    private let candiWeeksBack: UIButton = {
+        let candiWeeksBack = UIButton()
+        candiWeeksBack.setTitleColor(.black, for: .normal)
+        candiWeeksBack.setTitle("전주", for: .normal)
+        return candiWeeksBack
+    }()
+    
     private let conformButton: UIButton = {
         let conformButton = UIButton()
         conformButton.setTitleColor(.white, for: .normal)
@@ -93,6 +110,8 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         view.addSubview(selectTypeButton)
         view.addSubview(candiWeeksButton)
         view.addSubview(conformButton)
+        view.addSubview(candiWeeksForward)
+        view.addSubview(candiWeeksBack)
         
         moveViewButton.delegate = self
         view.addSubview(moveViewButton)
@@ -119,6 +138,9 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         selectTypeButton.addTarget(self, action: #selector(selectTypeButtonTapped), for: .touchUpInside)
         conformButton.addTarget(self, action: #selector(conformButtonTapped), for: .touchUpInside)
         candiWeeksButton.addTarget(self, action: #selector(candiWeeksButtonTapped), for: .touchUpInside)
+        candiWeeksForward.addTarget(self, action: #selector(candiWeeksForwardTapped), for: .touchUpInside)
+        candiWeeksBack.addTarget(self, action: #selector(candiWeeksBackTapped), for: .touchUpInside)
+        
         
        
         
@@ -197,8 +219,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
             self.candiDates = generateWeeks(commonOrLeap: leapYear, selectedYear: self.selectedYear)
         }
         
-        
-    
+
         let alert = UIAlertController(title: "", message: "기간을 선택해주세요", preferredStyle: .alert)
         
         for i in 0..<self.candiDates.count {
@@ -209,6 +230,25 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         }
         self.present(alert, animated: true, completion: nil)
     }
+    
+    @objc private func candiWeeksForwardTapped() {
+        var idx = self.conformButton.tag
+        idx = (idx+1) % self.candiDates.count
+        self.candiWeeksButton.setTitle(self.candiDates[idx], for: .normal)
+        self.conformButton.tag = idx
+    }
+    
+    @objc private func candiWeeksBackTapped() {
+        var idx = self.conformButton.tag
+        if idx-1 < 0 {
+            idx = self.candiDates.count-1
+        } else {
+            idx = (idx-1) % self.candiDates.count
+        }
+        self.candiWeeksButton.setTitle(self.candiDates[idx], for: .normal)
+        self.conformButton.tag = idx
+    }
+    
     
     @objc private func selectTypeButtonTapped() {
         
@@ -225,11 +265,15 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     }
     
     @objc private func conformButtonTapped(sender: UIButton) {
+        
+        
 
         if self.selectedAct == "월간" {
             
-            var temp: [Int] = []
+            
             lists = []
+            
+            
             
             // 월간 가장 큰 데이터 저장
             
@@ -243,12 +287,19 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                         db.child(p_id).child("chart").child(selectedType).child("주간").child(String(selectedYear)).child(months[i]).child("\(String(format: "%02d", Int(v)))").observeSingleEvent(of: .value) { snapshot in
                             if let value = snapshot.value as? [Int] {
                                 if value.count == 0 {
-                                    
+                          
                                 } else {
                                     num = max(num, value.max()!)
                                 }
                             } else {
                                 
+                                
+                                
+                                if self.selectedType == "워킹" {
+                                    healthAuth(Year: self.selectedYear, Month: Int(self.months[i])!, Date: v)
+                                }
+                          
+                            
                             }
                             
                             if v == commonYear[i] {
@@ -277,9 +328,14 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                                     num = max(num, value.max()!)
                                 }
                             } else {
+                              
+                                if self.selectedType == "워킹" {
+                                    healthAuth(Year: self.selectedYear, Month: Int(self.months[i])!, Date: v)
+                                }
+                               
                                 
                             }
-                            
+             
                             if v == leapYear[i] {
                                 self.db.child(p_id).child("chart").child(self.selectedType).child("월간").child(String(self.selectedYear)).child(self.months[i]).setValue(num)
                            
@@ -309,7 +365,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                     }
                 }
                 
-                //왜 그런지 모르겠는 데 db 찾은 정보가 리스트에 넣어도 밖에선 싹다 사라진다... ??? 왜 그러지 ???
+                //왜 그런지 모르겠는 데 db 찾은 정보가 리스트에 넣어도 밖에선 싹다 사라진다... ??? 왜 그러지 ??? ... 보안 이유로 database 메서드 안에서만 값이 존재
                 print(lists)
             }
             
@@ -384,9 +440,11 @@ class ChartViewController: UIViewController, ChartViewDelegate {
             
             // 주간 차트 만들기 !!
             for idx in 0..<xLists.count {
+                
                 let md = xLists[idx].split(separator: "-")
                 let month = "\(md[0])"
                 let date = "\(md[1])"
+               
                 db.child(p_id).child("chart").child(selectedType).child("주간").child(String(selectedYear)).child(month).child(date).observeSingleEvent(of: .value) { snapshot in
                     
                     if let value = snapshot.value as? [Int] {
@@ -396,19 +454,52 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                             dataLists.append(value.max()!)
                         }
                     } else {
-                        dataLists.append(0)
+                      
+                        if self.selectedType == "워킹" {
+                            healthAuth(Year: self.selectedYear, Month: Int(month)!, Date: Int(date)!)
+                           
+                        
+                            self.db.child(p_id).child("chart").child(self.selectedType).child("주간").child(String(self.selectedYear)).child(month).child(date).observeSingleEvent(of: .value) { snapshot in
+                                
+                                guard let value = snapshot.value as? [Int] else {
+                        
+                                    return
+                                }
+                                dataLists.append(value[0])
+                            }
+                            
+                        }
+                        
+                        else {
+                            
+                            dataLists.append(0)
+                            
+                        }
+     
                     }
-        
             
-                    if dataLists.count == 7 {
+                    if dataLists.count == xLists.count {
+                        
+                       
                         self.makingChart(datas: dataLists, x: xLists)
                     }
-
                 }
             }
-            
+     
         }
         
+        
+    }
+    
+    func pr(lists: [String]) {
+        // 주간 차트 만들기 !!
+        for idx in 0..<lists.count {
+            let md = lists[idx].split(separator: "-")
+            let month = "\(md[0])"
+            let date = "\(md[1])"
+            healthAuth(Year: self.selectedYear, Month: Int(month)!, Date: Int(date)!)
+
+        }
     }
     
 
@@ -472,10 +563,15 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                                         width: 150,
                                         height: 50)
         
+        candiWeeksBack.frame = CGRect(x: 30, y: candiWeeksButton.frame.origin.y, width: 30, height: 50)
+        candiWeeksForward.frame = CGRect(x: candiWeeksButton.frame.origin.x + 150, y: candiWeeksButton.frame.origin.y, width: 30, height: 50)
+        
         conformButton.frame = CGRect(x: candiWeeksButton.frame.origin.x+200,
                                      y: candiWeeksButton.frame.origin.y,
                                      width: 100,
                                      height: 50)
+        
+        
     }
 
 }

@@ -308,6 +308,7 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
             weight = 0.0
             profileImage = defaultPersonImage
             
+            
             exerciseRecordView.stop()
             chartRecordView.stop()
             
