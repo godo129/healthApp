@@ -119,10 +119,8 @@ class SideMenuViewController: UIViewController {
         dogAnimation.backgroundBehavior = .pauseAndRestore
         
         
-        // 자동으로 함수 계속 
-        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(restartAnimation), userInfo: nil, repeats: true)
-
-        
+        // 자동으로 함수 계속
+       Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(restartAnimation), userInfo: nil, repeats: true)
 
         
     }
@@ -151,6 +149,7 @@ class SideMenuViewController: UIViewController {
         
         print(toY,toM,toD)
         healthAuth(Year: toY, Month: toM, Date: toD)
+        
         
         
         stepsLabel.text = "\(UserDefaults.standard.value(forKey: "steps")!) 걸음"

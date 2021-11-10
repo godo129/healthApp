@@ -151,13 +151,8 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
         
         
         todayString()
-        let toY = Int(today.split(separator: "-")[0])!
-        let toM = Int(today.split(separator: "-")[1])!
-        let toD = Int(today.split(separator: "-")[2])!
         
-        healthAuth(Year: toY, Month: toM, Date: toD)
-        
-
+      
         //사이드 메뉴 옵션 
         sideBar.leftSide = true
         SideMenuManager.default.addPanGestureToPresent(toView: view.self)

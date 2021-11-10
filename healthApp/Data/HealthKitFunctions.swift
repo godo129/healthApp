@@ -24,6 +24,8 @@ func healthAuth(Year:Int, Month: Int, Date: Int) {
                 getSteps(Year: Year, Month: Month, Date: Date)
                 
                                     
+            } else {
+                healthAuth(Year: Year, Month: Month, Date: Date)
             }
         }
     }
@@ -31,18 +33,18 @@ func healthAuth(Year:Int, Month: Int, Date: Int) {
 func getSteps(Year: Int, Month: Int, Date: Int){
         
     guard let sampleType = HKCategoryType.quantityType(forIdentifier: .stepCount) else {return }
-        
     let dateformatter = DateFormatter()
-    dateformatter.dateFormat = "yyyy년MM월dd일 HH시mm분ss초 ZZZ"
-    let DateStirng1 = "\(Year)년\(Month)월\(Date)일 00시00분00초 +0000"
-    let DateStirng2 = "\(Year)년\(Month)월\(Date)일 23시59분59초 +0000"
+    dateformatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
+    let DateStirng1 = "\(Year)-\(Month)-\(Date) 00:00:00"
+    let DateStirng2 = "\(Year)-\(Month)-\(Date) 23:59:59"
     let endDate = dateformatter.date(from: DateStirng2)!
-    //let startDate = dateformatter.date(from: DateStirng1)!
+    let startDate = dateformatter.date(from: DateStirng1)!
  
+    print(type(of: endDate))
     
-    let startDate = Calendar.current.startOfDay(for: day)
+  //  let startDate = Calendar.current.startOfDay(for: day)
         
-    let predicate = HKQuery.predicateForSamples(withStart: startDate, end: day, options: .strictEndDate)
+    let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictEndDate)
     var interval = DateComponents()
     interval.day = 1
         
@@ -53,7 +55,7 @@ func getSteps(Year: Int, Month: Int, Date: Int){
         query, result , error in
             
         if let myresult = result {
-            myresult.enumerateStatistics(from: startDate, to: day) { (statistics, value) in
+            myresult.enumerateStatistics(from: startDate, to: endDate) { (statistics, value) in
                 
                 print(statistics)
                     
