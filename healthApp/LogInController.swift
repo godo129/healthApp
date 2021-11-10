@@ -148,7 +148,7 @@ class LogInController: UIViewController {
             self?.storage.child("\(p_id)/images/profileImage\(p_id).png").downloadURL { url, error in
                 guard let url = url, error == nil else {
                     
-                    profileImage = defaultPersonImage!
+                    profileImageView.image = defaultPersonImage!
                     
                     guard let image = defaultPersonImage else {
                         return
@@ -231,8 +231,18 @@ class LogInController: UIViewController {
                 
                 nick = value
                 
-       
-                
+                if nick == "" {
+                    // 닉네임 없는 경우
+                    let LogInSuccessed2 = UIAlertController(title: " " , message: p_id+"님 환영합니다!", preferredStyle: .alert)
+                    LogInSuccessed2.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+                        let vc = strongSelf.storyboard?.instantiateViewController(withIdentifier: "HomeView")
+                        vc?.modalPresentationStyle = .fullScreen
+                        vc?.modalTransitionStyle = .coverVertical
+                        strongSelf.present(vc!, animated: true, completion: nil)
+                    }))
+                    
+                    strongSelf.present(LogInSuccessed2, animated: true)
+                } else {
                     // 닉네임 있을 땐 닉네임으로 환영
                     let LogInSuccessed = UIAlertController(title: " " , message: nick+"님 환영합니다!", preferredStyle: .alert)
                     LogInSuccessed.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
@@ -245,8 +255,9 @@ class LogInController: UIViewController {
                     }))
                     
                     strongSelf.present(LogInSuccessed, animated: true)
-                
-   
+                    
+                }
+  
                 
             }
             

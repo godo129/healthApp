@@ -120,7 +120,10 @@ class SideMenuViewController: UIViewController {
         
         
         // 자동으로 함수 계속
-        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(restartAnimation), userInfo: nil, repeats: true)
+        //let timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(restartAnimation), userInfo: nil, repeats: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+            self.restartAnimation()
+        }
 
         
     }
@@ -202,7 +205,7 @@ class SideMenuViewController: UIViewController {
             task.resume()
         }
  */
-    
+
     
     @objc private func profileImageViewTapped() {
         
