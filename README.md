@@ -62,5 +62,20 @@ https://user-images.githubusercontent.com/76652929/140733679-b6421a87-2c3c-413c-
 
 https://user-images.githubusercontent.com/76652929/140787249-86b68fff-9198-4408-a29f-6b480b1a2738.mov
 
+# 텍스트 필드 변경
+
+
+
+https://user-images.githubusercontent.com/76652929/141186829-dc8c41e3-55a0-405c-bdb0-90921771116e.mov
+
+
+
+# 애니메이션 추가 , 걸음 수 아는 기능 
+
+
+
+
+https://user-images.githubusercontent.com/76652929/141186850-c65dbc60-ce54-4b7b-af9d-9409f486d098.mov
+
 
 
