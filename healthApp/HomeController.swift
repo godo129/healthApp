@@ -145,8 +145,19 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
         moveViewButton.delegate = self
         view.addSubview(moveViewButton)
         
+        // 애니메이션 백그라운드 에서도 돌아가게 
+        exerciseRecordView.backgroundBehavior = .pauseAndRestore
+        chartRecordView.backgroundBehavior = .pauseAndRestore
         
         
+        todayString()
+        let toY = Int(today.split(separator: "-")[0])!
+        let toM = Int(today.split(separator: "-")[1])!
+        let toD = Int(today.split(separator: "-")[2])!
+        
+        healthAuth(Year: toY, Month: toM, Date: toD)
+        
+
         //사이드 메뉴 옵션 
         sideBar.leftSide = true
         SideMenuManager.default.addPanGestureToPresent(toView: view.self)
@@ -242,12 +253,13 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
                 height = 0
             }
         })
-
+        
+        
+        
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
-        print(logined)
         if logined {
             moveViewButton.isHidden = false
             personalInfoButton.isHidden = false
@@ -256,9 +268,9 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
         } else {
             moveViewButton.isHidden = true
             personalInfoButton.isHidden = true
-            exerciseRecordView.stop()
-            chartRecordView.stop()
+      
         }
+
 
     }
     

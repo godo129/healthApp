@@ -15,6 +15,17 @@ var p_id: String = ""
 var cur_date: String = ""
 var today : String = ""
 
+let day = Date()
+
+
+func todayString() {
+    
+    let c_date = DateFormatter()
+    c_date.dateFormat = "yyyy-MM-dd"
+    today = c_date.string(from: Date())
+    
+}
+
 var nick = p_id
 var height = 0.0
 var age = 0
