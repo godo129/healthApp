@@ -493,6 +493,12 @@ class ExerciseRecordViewController: UIViewController {
     }
     
     @objc private func nowExTypeButtonTapped() {
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ExerciseListView")
+        vc!.modalPresentationStyle = .fullScreen
+        present(vc!, animated: true, completion: nil)
+        
+        /*
         let alert = UIAlertController(title: "운동 종류", message: "어떤 운동을 했는지 선택해주세요", preferredStyle: .alert)
         
         for i in 0..<exerciseTypes.count {
@@ -504,7 +510,7 @@ class ExerciseRecordViewController: UIViewController {
         }
         
         self.present(alert, animated: true, completion: nil)
-        
+        */
         
     }
     
@@ -577,7 +583,7 @@ class ExerciseRecordViewController: UIViewController {
         
         //history += "\n " + nowExerciseType + " \(weightCount)kg" + " \(setCount)set"
         print(exerciseHistory)
-        exerciseHistory.append(nowExerciseType + " \(weightCount) kg" + " \(setCount) set")
+        exerciseHistory.append(nowExerciseType + " \(weightCount) kg" + " \(setCount) 회")
         
         UserDefaults.standard.setValue(exerciseHistory, forKey: "exerciseHistory")
         historyTable.reloadData()
@@ -660,7 +666,7 @@ class ExerciseRecordViewController: UIViewController {
                                     height: 350)
       */
         recordButton.frame = CGRect(x: self.view.bounds.maxX-70, y: nowDateLabel.frame.origin.y+400, width: 50, height: 50)
-        nowExTypeButton.frame = CGRect(x: self.view.bounds.maxX/2-50, y: nowDateLabel.frame.origin.y+400, width: 100, height: 50)
+        nowExTypeButton.frame = CGRect(x: self.view.bounds.maxX/2-100, y: nowDateLabel.frame.origin.y+400, width: 200, height: 50)
         
         
         weightButton.frame = CGRect(x: self.view.bounds.maxX-40, y: nowExTypeButton.frame.origin.y+90, width: 20, height: 20)

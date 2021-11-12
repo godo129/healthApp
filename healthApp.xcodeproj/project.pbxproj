@@ -35,6 +35,8 @@
 		F151376E273C05410061C6A2 /* HealthKitFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F151376D273C05410061C6A2 /* HealthKitFunctions.swift */; };
 		F1513771273C058F0061C6A2 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1513770273C058F0061C6A2 /* HealthKit.framework */; };
 		F15137B5273E791F0061C6A2 /* bannerViewDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15137B4273E791F0061C6A2 /* bannerViewDatas.swift */; };
+		F15137DD273EE3220061C6A2 /* ExerciseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15137DC273EE3220061C6A2 /* ExerciseCollectionViewCell.swift */; };
+		F15137DF273EE7EC0061C6A2 /* ExerciseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15137DE273EE7EC0061C6A2 /* ExerciseListViewController.swift */; };
 		F1DBE2F227284B3E0015EE27 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F1DBE2F127284B3D0015EE27 /* GoogleService-Info.plist */; };
 		F1DBE2F42728F0AF0015EE27 /* ExerciseRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DBE2F32728F0AF0015EE27 /* ExerciseRecordViewController.swift */; };
 /* End PBXBuildFile section */
@@ -73,6 +75,8 @@
 		F151376F273C058F0061C6A2 /* healthApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = healthApp.entitlements; sourceTree = "<group>"; };
 		F1513770273C058F0061C6A2 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		F15137B4273E791F0061C6A2 /* bannerViewDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bannerViewDatas.swift; sourceTree = "<group>"; };
+		F15137DC273EE3220061C6A2 /* ExerciseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCollectionViewCell.swift; sourceTree = "<group>"; };
+		F15137DE273EE7EC0061C6A2 /* ExerciseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListViewController.swift; sourceTree = "<group>"; };
 		F1DBE2F127284B3D0015EE27 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F1DBE2F32728F0AF0015EE27 /* ExerciseRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRecordViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -156,6 +160,7 @@
 				F12E1B9527269CEA001CB6F4 /* HomeController.swift */,
 				F128D9EA273961980000ED90 /* SideMenuViewController.swift */,
 				F12E1B8527269B11001CB6F4 /* Main.storyboard */,
+				F15137DE273EE7EC0061C6A2 /* ExerciseListViewController.swift */,
 				F13220062728294D00E69FEE /* Data */,
 				F12E1B8827269B13001CB6F4 /* Assets.xcassets */,
 				F12E1B8A27269B13001CB6F4 /* LaunchScreen.storyboard */,
@@ -171,6 +176,7 @@
 				F129FB512733EBE700D0DCCA /* StorageExtension.swift */,
 				F13220042728265800E69FEE /* personInfo.swift */,
 				F129FB092733072200D0DCCA /* ExerciseDatas.swift */,
+				F15137DC273EE3220061C6A2 /* ExerciseCollectionViewCell.swift */,
 				F129FAA727314C1E00D0DCCA /* Functions.swift */,
 				F151376D273C05410061C6A2 /* HealthKitFunctions.swift */,
 				F12BB53B2739358C00090884 /* circleMenuExtension.swift */,
@@ -300,6 +306,7 @@
 			files = (
 				F12E1B9627269CEA001CB6F4 /* HomeController.swift in Sources */,
 				F12E1B8427269B11001CB6F4 /* ViewController.swift in Sources */,
+				F15137DD273EE3220061C6A2 /* ExerciseCollectionViewCell.swift in Sources */,
 				F135093C272BBA7A00F0E1CC /* QuestionViewController.swift in Sources */,
 				F129FB522733EBE700D0DCCA /* StorageExtension.swift in Sources */,
 				F129FAA827314C1E00D0DCCA /* Functions.swift in Sources */,
@@ -315,6 +322,7 @@
 				F132200C272829EB00E69FEE /* CalendarViewController.swift in Sources */,
 				F13220052728265800E69FEE /* personInfo.swift in Sources */,
 				F12E1B9A2726CCAF001CB6F4 /* SignUpController.swift in Sources */,
+				F15137DF273EE7EC0061C6A2 /* ExerciseListViewController.swift in Sources */,
 				F151376E273C05410061C6A2 /* HealthKitFunctions.swift in Sources */,
 				F128D9EB273961980000ED90 /* SideMenuViewController.swift in Sources */,
 				F1DBE2F42728F0AF0015EE27 /* ExerciseRecordViewController.swift in Sources */,
