@@ -64,14 +64,19 @@ func getSteps(Year: Int, Month: Int, Date: Int) {
                         
                     UserDefaults.standard.setValue(Int(val), forKey: "steps")
                    
-                    
-                    db.child(p_id).child("chart").child("워킹").child("주간").child(String(Year)).child(String(format: "%02d", Month)).child((String(format: "%02d", Date))).setValue([Int(val)])
+                    if logined {
+                        db.child(p_id).child("chart").child("워킹").child("주간").child(String(Year)).child(String(format: "%02d", Month)).child((String(format: "%02d", Date))).setValue([Int(val)])
+                    }
 
                         
                 } else {
                     UserDefaults.standard.setValue(0, forKey: "steps")
                     
-                    db.child(p_id).child("chart").child("워킹").child("주간").child(String(Year)).child(String(format: "%02d", Month)).child((String(format: "%02d", Date))).setValue([0])
+                    if logined{
+                        db.child(p_id).child("chart").child("워킹").child("주간").child(String(Year)).child(String(format: "%02d", Month)).child((String(format: "%02d", Date))).setValue([0])
+                        
+                    }
+
  
                 }
             }
