@@ -70,12 +70,16 @@ https://user-images.githubusercontent.com/76652929/141186829-dc8c41e3-55a0-405c-
 
 
 
-# 애니메이션 추가 , 걸음 수 아는 기능 
+# 애니메이션 추가 , 걸음 수 아는 기능 및 기록 보기  
 
 
 
 
 https://user-images.githubusercontent.com/76652929/141186850-c65dbc60-ce54-4b7b-af9d-9409f486d098.mov
+
+
+
+https://user-images.githubusercontent.com/76652929/141194569-35ed6e52-d56d-49eb-8d45-8f196f6ce590.mov
 
 
 
