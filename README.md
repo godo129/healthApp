@@ -82,4 +82,19 @@ https://user-images.githubusercontent.com/76652929/141186850-c65dbc60-ce54-4b7b-
 https://user-images.githubusercontent.com/76652929/141194569-35ed6e52-d56d-49eb-8d45-8f196f6ce590.mov
 
 
+# 홈 화면 배너 
+
+
+
+https://user-images.githubusercontent.com/76652929/141536726-3889d199-8691-472b-b168-171dd1f5ceba.mov
+
+
+# 다양한 운동 추가 및 검색 기능 
+
+
+
+https://user-images.githubusercontent.com/76652929/141536992-5a4c762c-57d1-4982-a7fc-14b292066fb5.mov
+
+
+
 
