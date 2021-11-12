@@ -61,6 +61,7 @@ PODS:
     - FirebaseCore (~> 8.0)
     - GTMSessionFetcher/Core (~> 1.5)
   - FSCalendar (2.8.2)
+  - FSPagerView (0.8.3)
   - GoogleAppMeasurement (8.8.0):
     - GoogleAppMeasurement/AdIdSupport (= 8.8.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
@@ -126,6 +127,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - FSCalendar
+  - FSPagerView
   - Kingfisher
   - lottie-ios
   - SideMenu
@@ -145,6 +147,7 @@ SPEC REPOS:
     - FirebaseInstallations
     - FirebaseStorage
     - FSCalendar
+    - FSPagerView
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
@@ -170,6 +173,7 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 2563cb18a723ef9c6ef18318a49519b75dce613c
   FirebaseStorage: 54ff752ecbd27f1c354c3f5e8c55f6ad5783699b
   FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
+  FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   GoogleAppMeasurement: 5ba1164e3c844ba84272555e916d0a6d3d977e91
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleUtilities: 684ee790a24f73ebb2d1d966e9711c203f2a4237
@@ -183,6 +187,6 @@ SPEC CHECKSUMS:
   SRCountdownTimer: b7f833a51cd33003d55df17667b71d26ee17357f
   TextFieldEffects: 529b8aff706fb40f82c41c780c0777941a893796
 
-PODFILE CHECKSUM: 15e6a76ca7e6854165cf02b66e6757eeb102438c
+PODFILE CHECKSUM: c7e9ca2fd8d3da5d12442cb61e4370e1eef5bdf7
 
 COCOAPODS: 1.10.2

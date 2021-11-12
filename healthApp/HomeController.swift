@@ -11,9 +11,30 @@ import FirebaseDatabase
 import CircleMenu
 import SideMenu
 import Lottie
+import FSPagerView
+
 
 
 class HomeController: UIViewController, UINavigationControllerDelegate {
+    
+    let storage = Storage.storage().reference()
+    
+    private let bannerView: FSPagerView = {
+        var bannerView = FSPagerView()
+        bannerView.transformer = FSPagerViewTransformer(type: .cubic)
+        bannerView.isInfinite = true
+        return bannerView
+    }()
+    
+    private let bannerPageController: FSPageControl = {
+        let bannerPageController = FSPageControl()
+        bannerPageController.setFillColor(.white , for: .normal)
+        bannerPageController.setFillColor(.black, for: .selected)
+        bannerPageController.setStrokeColor(.black, for: .normal)
+        bannerPageController.setStrokeColor(.black, for: .selected)
+        
+        return bannerPageController
+    }()
     
     private let exerciseRecordView: AnimationView = {
         var exerciseRecordView = AnimationView()
@@ -124,6 +145,7 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         //애니메이션
         view.addSubview(backgroundAnimation)
         view.addSubview(exerciseRecordView)
@@ -140,6 +162,9 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
         view.addSubview(recordViewButton)
         view.addSubview(chartViewButton)
         view.addSubview(questionButton)
+        
+        
+        
         
         // 원형 메뉴
         moveViewButton.delegate = self
@@ -255,6 +280,17 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
     
     
     override func viewWillAppear(_ animated: Bool) {
+       
+        // 배너
+        
+        view.addSubview(bannerView)
+        view.addSubview(bannerPageController)
+
+        bannerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "bannerCell")
+        bannerView.dataSource = self
+        bannerView.delegate = self
+        bannerPageController.numberOfPages = 5
+        
         if logined {
             moveViewButton.isHidden = false
             personalInfoButton.isHidden = false
@@ -387,6 +423,10 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
                                   width: view.frame.size.width-100,
                                   height: 100)
         
+        bannerView.frame = CGRect(x: 60, y: titleLabel.frame.origin.y + 120, width: 300, height: 130)
+        
+        bannerPageController.frame = CGRect(x: bannerView.frame.origin.x-20, y: bannerView.frame.origin.y+70 , width: 100, height: 100)
+        
         userLabel.frame = CGRect(x: 20,
                                  y: titleLabel.frame.origin.y+80,
                                  width: view.frame.size.width,
@@ -418,12 +458,12 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
  */
         
         exerciseRecordView.frame = CGRect(x: 50,
-                                          y: titleLabel.frame.origin.y+200,
+                                          y: bannerView.frame.origin.y+140,
                                           width: view.frame.size.width-100,
                                           height: 200)
         
         chartRecordView.frame = CGRect(x: 80,
-                                  y: recordViewButton.frame.origin.y+500,
+                                  y: exerciseRecordView.frame.origin.y+200,
                                   width: view.frame.size.width-150,
                                   height: 200)
         
@@ -441,3 +481,23 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
 
 }
 
+extension HomeController: FSPagerViewDelegate, FSPagerViewDataSource {
+
+    func numberOfItems(in pagerView: FSPagerView) -> Int {
+        
+        return 5
+        
+    }
+    
+    func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
+        let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "bannerCell", at: index)
+        
+        cell.imageView?.kf.setImage(with: URL(string: viewDatas[index]))
+        
+        bannerPageController.currentPage = index
+        return cell
+    }
+    
+ 
+    
+}

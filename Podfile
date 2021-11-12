@@ -17,6 +17,7 @@ pod 'SideMenu'
 pod 'lottie-ios'
 pod 'Kingfisher'
 pod 'TextFieldEffects'
+pod 'FSPagerView'
   # Pods for healthApp
 
 end
