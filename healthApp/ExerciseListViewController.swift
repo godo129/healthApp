@@ -79,10 +79,12 @@ class ExerciseListViewController: UIViewController {
         // 위치 설정
         searchController.searchBar.frame.size.width = view.frame.size.width
         searchController.searchBar.frame.origin.y = 100
-        exerciseCollectionView.frame = view.bounds
-        exerciseCollectionView.frame.origin.y = searchController.searchBar.frame.origin.y+38
+        
+        //직접 지정해준 이유 그냥 놔두면 끝이 안 보여서 그걸 직접 조정해줘야 끝까지 잘 보임
+        exerciseCollectionView.frame = CGRect(x: 0, y: searchController.searchBar.frame.origin.y+38, width: view.frame.size.width, height: view.frame.size.height-searchController.searchBar.frame.size.height-60)
+       // exerciseCollectionView.frame.origin.y = searchController.searchBar.frame.origin.y+38
 
-        // Do any additional setup after loading the view.
+        
     }
     
     private func configureSearchController() {
@@ -112,7 +114,7 @@ class ExerciseListViewController: UIViewController {
         for exercisePart in exerciseParts {
             let types = exerciseAll[exercisePart]!
             for type in types {
-                let data = ExerciseData(eType: exercisePart, eName: type, eImage: "chart")
+                let data = ExerciseData(eType: exercisePart, eName: type, eImage: type)
                 exerciseList.append(data)
             }
         }
@@ -217,9 +219,7 @@ extension ExerciseListViewController: UICollectionViewDelegate, UICollectionView
         searched = false
         scopeButtonTapped = false
         
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ExerciseRecordView")
-        vc!.modalPresentationStyle = .fullScreen
-        present(vc!, animated: true, completion: nil)
+        dismiss(animated: false, completion: nil)
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {

@@ -15,14 +15,16 @@ class ExerciseCollectionViewCell: UICollectionViewCell {
         let ExerciseImage = UIImageView()
         ExerciseImage.backgroundColor = .white
         ExerciseImage.clipsToBounds = true
-        ExerciseImage.contentMode = .scaleAspectFit
+        ExerciseImage.contentMode = .scaleAspectFill
         return ExerciseImage
     }()
     
     var ExerciseLabel: UILabel = {
         let ExerciseLabel = UILabel()
-        ExerciseLabel.backgroundColor = .green
+        ExerciseLabel.backgroundColor = .gray
         ExerciseLabel.textAlignment = .center
+        ExerciseLabel.textColor = .white
+        ExerciseLabel.font = .systemFont(ofSize: 24, weight: .semibold)
         return ExerciseLabel
         
     }()
@@ -72,12 +74,12 @@ class ExerciseCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        ExerciseImage.frame = CGRect(x: 5, y: 0, width: contentView.frame.size.width-10, height: contentView.frame.size.height-50)
+        ExerciseImage.frame = contentView.bounds
         
         ExerciseLabel.frame = CGRect(x: 5,
-                                     y: contentView.frame.size.height-50,
-                                     width: contentView.frame.size.width-10,
-                                     height: 50)
+                                     y: contentView.frame.size.height-30,
+                                     width: contentView.frame.size.width+20,
+                                     height: 30)
     }
     
 }
