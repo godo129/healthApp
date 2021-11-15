@@ -97,4 +97,9 @@ https://user-images.githubusercontent.com/76652929/141536992-5a4c762c-57d1-4982-
 
 
 
+# 도움말 기능 
+
+
+
+https://user-images.githubusercontent.com/76652929/141785159-318fe4d9-4749-4a3d-bc68-aee0b5b89670.mov
 
