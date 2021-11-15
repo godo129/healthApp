@@ -17,7 +17,7 @@ class ExerciseListViewController: UIViewController {
             
         let instructionButton = UIButton()
         instructionButton.setImage(UIImage(named: "what"), for: .normal)
-        instructionButton.frame = CGRect(x: 20, y: 10, width: 30, height: 30)
+        instructionButton.frame = CGRect(x: 60, y: 50, width: 30, height: 30)
             
         return instructionButton
             
@@ -25,13 +25,24 @@ class ExerciseListViewController: UIViewController {
         
     private var coachDatas = [instructionDatas]()
     
+    
+    
+    private let backButton: UIButton = {
+        let backbutton = UIButton()
+        backbutton.setTitle("Back", for: .normal)
+        backbutton.setTitleColor(.systemBlue, for: .normal)
+        backbutton.frame = CGRect(x: 0, y: 50, width: 50, height: 30)
+        return backbutton
+
+    }()
+    
     // 검색 타이틀 레이블 
     private let titleLabel: UILabel = {
         let titleLable = UILabel()
         titleLable.text = "운동검색"
         titleLable.textAlignment = .center
         titleLable.font = UIFont.systemFont(ofSize: 27, weight: .heavy)
-        titleLable.frame = CGRect(x: 0, y: 0, width: 420, height: 40)
+        titleLable.frame = CGRect(x: 0, y: 50, width: 420, height: 40)
         return titleLable
     }()
     
@@ -50,6 +61,9 @@ class ExerciseListViewController: UIViewController {
         view.backgroundColor = .white
         
         view.addSubview(titleLabel)
+        view.addSubview(backButton)
+        
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
        
        
         
@@ -91,7 +105,7 @@ class ExerciseListViewController: UIViewController {
         
         // 위치 설정
         searchController.searchBar.frame.size.width = view.frame.size.width
-        searchController.searchBar.frame.origin.y = 50
+        searchController.searchBar.frame.origin.y = titleLabel.frame.origin.y+40
 
         
         //직접 지정해준 이유 그냥 놔두면 끝이 안 보여서 그걸 직접 조정해줘야 끝까지 잘 보임
@@ -116,6 +130,10 @@ class ExerciseListViewController: UIViewController {
 
 
         
+    }
+    
+    @objc private func backButtonTapped() {
+        dismiss(animated: true, completion: nil)
     }
     
     
@@ -273,15 +291,20 @@ extension ExerciseListViewController: UICollectionViewDelegate, UICollectionView
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         
+        backButton.isHidden = true
+        titleLabel.isHidden = true
+        instructionButton.isHidden = true
         
-        
-        exerciseCollectionView?.frame = CGRect(x: 0, y: searchController.searchBar.frame.origin.y+100, width: view.frame.size.width, height: view.frame.size.height-120)
+        //exerciseCollectionView?.frame = CGRect(x: 0, y: searchController.searchBar.frame.origin.y+100, width: view.frame.size.width, height: view.frame.size.height-120)
         
     }
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         
         
-        exerciseCollectionView?.frame = CGRect(x: 0, y: searchController.searchBar.frame.origin.y+50, width: view.frame.size.width, height: view.frame.size.height-searchController.searchBar.frame.size.height)
+        backButton.isHidden = false
+        titleLabel.isHidden = false
+        instructionButton.isHidden = false
+        //exerciseCollectionView?.frame = CGRect(x: 0, y: searchController.searchBar.frame.origin.y+50, width: view.frame.size.width, height: view.frame.size.height-searchController.searchBar.frame.size.height)
         
     }
     

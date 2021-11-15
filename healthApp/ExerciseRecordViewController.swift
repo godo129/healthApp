@@ -320,7 +320,6 @@ class ExerciseRecordViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         
-        
         nowDateLabel.text = cur_date
        // historyLabel.text = history
         weightLable.text = "\(weightCount) kg"

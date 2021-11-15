@@ -178,9 +178,10 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+      
         selectedType = nowExerciseType
+        
+        print(selectedType)
         
         selectTypeButton.setTitle("\(selectedType)", for: .normal)
     }
@@ -344,7 +345,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
  */
         
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ExerciseListView")
-        vc!.modalPresentationStyle = .automatic
+        vc!.modalPresentationStyle = .fullScreen
         present(vc!, animated: true, completion: nil)
         
         
@@ -713,9 +714,9 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                                          width: 100,
                                          height: 50)
         
-        selectTypeButton.frame = CGRect(x: monthOrWeekButton.frame.origin.x+120,
+        selectTypeButton.frame = CGRect(x: monthOrWeekButton.frame.origin.x+110,
                                         y: yearButton.frame.origin.y,
-                                        width: 100,
+                                        width: 150,
                                         height: 50)
         
         candiWeeksButton.frame = CGRect(x: yearButton.frame.origin.x,
