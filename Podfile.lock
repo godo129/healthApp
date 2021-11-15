@@ -106,6 +106,7 @@ PODS:
   - GoogleUtilities/UserDefaults (7.6.0):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.7.0)
+  - Instructions (2.1.0)
   - Kingfisher (6.3.1)
   - leveldb-library (1.22.1)
   - lottie-ios (3.2.3)
@@ -128,6 +129,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - FSCalendar
   - FSPagerView
+  - Instructions
   - Kingfisher
   - lottie-ios
   - SideMenu
@@ -152,6 +154,7 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleUtilities
     - GTMSessionFetcher
+    - Instructions
     - Kingfisher
     - leveldb-library
     - lottie-ios
@@ -178,6 +181,7 @@ SPEC CHECKSUMS:
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleUtilities: 684ee790a24f73ebb2d1d966e9711c203f2a4237
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
+  Instructions: 2465e321dde23f7c8fc26fe8efddf605df80dfba
   Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   lottie-ios: c058aeafa76daa4cf64d773554bccc8385d0150e
@@ -187,6 +191,6 @@ SPEC CHECKSUMS:
   SRCountdownTimer: b7f833a51cd33003d55df17667b71d26ee17357f
   TextFieldEffects: 529b8aff706fb40f82c41c780c0777941a893796
 
-PODFILE CHECKSUM: c7e9ca2fd8d3da5d12442cb61e4370e1eef5bdf7
+PODFILE CHECKSUM: 4604e9588cbc2747a9e08665e87b009ec102901f
 
 COCOAPODS: 1.10.2

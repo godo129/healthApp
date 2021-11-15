@@ -10,6 +10,7 @@ import FirebaseDatabase
 import SRCountdownTimer
 import CircleMenu
 import SideMenu
+import Instructions
 
 var history = ""
 var setCount = 0
@@ -19,6 +20,21 @@ var exerciseHistory: [String] = []
 
 
 class ExerciseRecordViewController: UIViewController {
+    
+    private var coachMarksController = CoachMarksController()
+    
+    private let instructionButton: UIButton = {
+        
+        let instructionButton = UIButton()
+        instructionButton.setImage(UIImage(named: "what"), for: .normal)
+        instructionButton.frame = CGRect(x: 200, y: 40, width: 30, height: 30)
+        
+        return instructionButton
+        
+    }()
+    
+    private var coachDatas = [instructionDatas]()
+    
     
     var tappedReset = false
     
@@ -256,9 +272,30 @@ class ExerciseRecordViewController: UIViewController {
 
         sideBar.menuWidth = 300
         
-        
         notiAuth()
 
+        
+    
+        // 도움말
+        view.addSubview(instructionButton)
+        
+        // 도움말 데이터 넣어주기
+        fillCoachDatas()
+        coachMarksController.dataSource = self
+        //배경 눌러도 자동으로 넘어가게
+        coachMarksController.overlay.isUserInteractionEnabled = true
+        
+        //스킵 버튼
+        let skipView = CoachMarkSkipDefaultView()
+        skipView.setTitle("skip", for: .normal)
+        coachMarksController.skipView = skipView
+        
+        instructionButton.addTarget(self, action: #selector(instructionButtonTapped), for: .touchUpInside)
+        
+        
+        
+        
+        
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         intervalAlertButton.addTarget(self, action: #selector(intervalAlertButtonTapped), for: .touchUpInside)
         memoButton.addTarget(self, action: #selector(memoButtonTapped), for: .touchUpInside)
@@ -281,6 +318,8 @@ class ExerciseRecordViewController: UIViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        
         
         nowDateLabel.text = cur_date
        // historyLabel.text = history
@@ -376,6 +415,60 @@ class ExerciseRecordViewController: UIViewController {
             }
         }
     }
+    
+    
+    
+    private func fillCoachDatas() {
+            
+        
+            let item = instructionDatas(View: nowDateLabel, bodyText: "선택된 날짜입니다", nextText: "다음")
+        coachDatas.append(item)
+            let item1 = instructionDatas(View: calendarButton, bodyText: "날짜를 선택할 수 있습니다", nextText: "다음")
+            coachDatas.append(item1)
+            let item2 = instructionDatas(View: memoButton, bodyText: "메모를 기록할 수 있습니다", nextText: "다음")
+            coachDatas.append(item2)
+            let item3 = instructionDatas(View: historyTable, bodyText: "운동이 기록되는 부분입니다", nextText: "다음")
+            coachDatas.append(item3)
+            let item4 = instructionDatas(View: moveViewButton, bodyText: "다른 뷰로 갈 수 있는 버튼입니다", nextText: "다음")
+            coachDatas.append(item4)
+            let item5 = instructionDatas(View: nowExTypeButton, bodyText: "운동 종류를 선택할 수 있는 버튼입니다", nextText: "다음")
+            coachDatas.append(item5)
+            let item6 = instructionDatas(View: setButton, bodyText: "이 부분을 터치해서 세트 수를 조절할 수 있습니다.\n 1회 단위로 움직입니다", nextText: "다음")
+            coachDatas.append(item6)
+            let item6_1 = instructionDatas(View: weightLable, bodyText: "무게를 나타내는 부분입니다", nextText: "다음")
+            coachDatas.append(item6_1)
+            let item7 = instructionDatas(View: fiveKiloBarbellButton, bodyText: "5kg 단위로 기록할 수 있습니다", nextText: "다음")
+            coachDatas.append(item7)
+            let item8 = instructionDatas(View: tenKiloBarbellButton, bodyText: "10kg 단위로 기록할 수 있습니다", nextText: "다음")
+            coachDatas.append(item8)
+            let item9 = instructionDatas(View: twentyKiloBarbellButton, bodyText: "20kg 단위로 기록할 수 있습니다", nextText: "다음")
+            coachDatas.append(item9)
+            let item10 = instructionDatas(View: weightButton, bodyText: "클릭을 통해서 무게,세트를 추가, 뺌을 할 수 있습니다\n파란색이면 추가\n빨간색이면 뺌", nextText: "다음")
+            coachDatas.append(item10)
+            let item11 = instructionDatas(View: counter, bodyText: "휴식을 기록할 수 있는 부분입니다", nextText: "다음")
+            coachDatas.append(item11)
+            let item12 = instructionDatas(View: intervalTimeField, bodyText: "휴식 기간을 적는 부분입니다", nextText: "다음")
+            coachDatas.append(item12)
+            let item13 = instructionDatas(View: intervalAlertButton, bodyText: "이 버튼으로 휴식이 시작합니다.", nextText: "다음")
+            coachDatas.append(item13)
+        
+        //
+        let item16 = instructionDatas(View: counterPauseButton, bodyText: "휴식 시간을 일시정지 할 수 있습니다", nextText: "다음")
+        coachDatas.append(item16)
+        let item17 = instructionDatas(View: counterResumeButton, bodyText: "휴식을 재시작 합니다", nextText: "다음")
+        coachDatas.append(item17)
+        
+        coachDatas.append(instructionDatas(View: counterResetButton, bodyText: "휴식 시간을 초기화합니다", nextText: ""))
+        coachDatas.append(instructionDatas(View: view, bodyText: "휴식 시간을 초기화합니다", nextText: ""))
+            
+        }
+        
+    @objc private func instructionButtonTapped() {
+            
+        coachMarksController.start(in: .window(over: self))
+            
+    }
+
     
     
     @objc private func  counterResetButtonTapped() {
@@ -655,7 +748,7 @@ class ExerciseRecordViewController: UIViewController {
         backButton.frame = CGRect(x: 20, y: 40, width: 50, height: 30)
         
         
-        nowDateLabel.frame = CGRect(x: self.view.bounds.maxX/2-50, y: 100, width: 200, height: 100)
+        nowDateLabel.frame = CGRect(x: self.view.bounds.maxX/2-50, y: 100, width: 100, height: 100)
         historyTable.frame = CGRect(x: 50 , y: nowDateLabel.frame.origin.y + 100, width: view.frame.size.width-100, height: 300)
         calendarButton.frame = CGRect(x: 350, y: 100, width: 50, height: 30)
         memoButton.frame = CGRect(x: calendarButton.frame.origin.x,
@@ -675,7 +768,7 @@ class ExerciseRecordViewController: UIViewController {
         
         //setLabel.frame = CGRect(x: 50, y: nowExTypeButton.frame.origin.y+80, width: 60, height: 40)
         setButton.frame = CGRect(x: 50, y: nowExTypeButton.frame.origin.y+80, width: 60, height: 40)
-        weightLable.frame = CGRect(x: self.view.bounds.maxX/2-15, y: nowExTypeButton.frame.origin.y+80, width: 100, height: 40)
+        weightLable.frame = CGRect(x: self.view.bounds.maxX/2-15, y: nowExTypeButton.frame.origin.y+80, width: 70, height: 40)
         fiveKiloBarbellButton.frame = CGRect(x: 30, y: weightLable.frame.origin.y+60, width: 80, height: 80)
         tenKiloBarbellButton.frame = CGRect(x: fiveKiloBarbellButton.frame.origin.x+150, y: weightLable.frame.origin.y+60, width: 80, height: 80)
         twentyKiloBarbellButton.frame = CGRect(x: tenKiloBarbellButton.frame.origin.x+150, y: weightLable.frame.origin.y+60, width: 80, height: 80)
@@ -684,9 +777,9 @@ class ExerciseRecordViewController: UIViewController {
         intervalTimeField.frame = CGRect(x: fiveKiloBarbellButton.frame.origin.x+60, y: tenKiloBarbellButton.frame.origin.y + 140, width: 80, height: 30)
         intervalAlertButton.frame = CGRect(x: intervalTimeField.frame.origin.x+100, y: tenKiloBarbellButton.frame.origin.y + 140, width: 50, height: 40)
         
-        counterPauseButton.frame = CGRect(x: intervalTimeField.frame.origin.x+150, y: tenKiloBarbellButton.frame.origin.y + 140, width: 80, height: 40)
-        counterResumeButton.frame = CGRect(x: intervalTimeField.frame.origin.x+150, y: tenKiloBarbellButton.frame.origin.y + 140, width: 80, height: 40)
-        counterResetButton.frame = CGRect(x: intervalTimeField.frame.origin.x+200, y: tenKiloBarbellButton.frame.origin.y + 140, width: 100, height: 40)
+        counterPauseButton.frame = CGRect(x: intervalTimeField.frame.origin.x+150, y: tenKiloBarbellButton.frame.origin.y + 140, width: 60, height: 40)
+        counterResumeButton.frame = CGRect(x: intervalTimeField.frame.origin.x+150, y: tenKiloBarbellButton.frame.origin.y + 140, width: 60, height: 40)
+        counterResetButton.frame = CGRect(x: intervalTimeField.frame.origin.x+220, y: tenKiloBarbellButton.frame.origin.y + 140, width: 50, height: 40)
         
     }
     
@@ -797,7 +890,7 @@ extension ExerciseRecordViewController: UITableViewDelegate, UITableViewDataSour
 }
 
 // 텍스트 필드에 숫자만 입력되게 함
-extension ExerciseRecordViewController: UITextFieldDelegate, SRCountdownTimerDelegate {
+extension ExerciseRecordViewController: UITextFieldDelegate, SRCountdownTimerDelegate, CoachMarksControllerDelegate, CoachMarksControllerDataSource {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
@@ -832,6 +925,56 @@ extension ExerciseRecordViewController: UITextFieldDelegate, SRCountdownTimerDel
         counterResetButton.isHidden = true
         
     }
+    
+    
+    func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
+        return coachDatas.count
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkAt index: Int) -> CoachMark {
+        return coachMarksController.helper.makeCoachMark(for: coachDatas[index].View)
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: (UIView & CoachMarkBodyView), arrowView: (UIView & CoachMarkArrowView)?) {
+        
+        let coachView = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
+        
+        switch index {
+        case 15:
+            intervalAlertButton.isHidden = true
+            counterPauseButton.isHidden = false
+            counterResetButton.isHidden = false
+            coachView.bodyView.hintLabel.text = coachDatas[index].bodyText
+            coachView.bodyView.nextLabel.text = coachDatas[index].nextText
+            
+        case 16:
+            intervalAlertButton.isHidden = true
+            counterPauseButton.isHidden = true
+            counterResumeButton.isHidden = false
+            coachView.bodyView.hintLabel.text = coachDatas[index].bodyText
+            coachView.bodyView.nextLabel.text = coachDatas[index].nextText
+        case 17:
+            intervalAlertButton.isHidden = true
+            counterPauseButton.isHidden = false
+            counterResumeButton.isHidden = true
+            coachView.bodyView.hintLabel.text = coachDatas[index].bodyText
+            coachView.bodyView.nextLabel.text = coachDatas[index].nextText
+        case 18:
+            intervalAlertButton.isHidden = false
+            counterResetButton.isHidden = true
+            counterResumeButton.isHidden = true
+            counterPauseButton.isHidden = true
+            
+            
+        default:
+            coachView.bodyView.hintLabel.text = coachDatas[index].bodyText
+            coachView.bodyView.nextLabel.text = coachDatas[index].nextText
+        }
+        
+        return (bodyView: coachView.bodyView, arrowView: coachView.arrowView)
+        
+    }
+    
 }
 
 

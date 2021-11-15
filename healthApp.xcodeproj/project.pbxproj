@@ -37,6 +37,7 @@
 		F15137B5273E791F0061C6A2 /* bannerViewDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15137B4273E791F0061C6A2 /* bannerViewDatas.swift */; };
 		F15137DD273EE3220061C6A2 /* ExerciseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15137DC273EE3220061C6A2 /* ExerciseCollectionViewCell.swift */; };
 		F15137DF273EE7EC0061C6A2 /* ExerciseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15137DE273EE7EC0061C6A2 /* ExerciseListViewController.swift */; };
+		F1C270D4274203AB00800E2B /* InstructionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C270D3274203AB00800E2B /* InstructionData.swift */; };
 		F1DBE2F227284B3E0015EE27 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F1DBE2F127284B3D0015EE27 /* GoogleService-Info.plist */; };
 		F1DBE2F42728F0AF0015EE27 /* ExerciseRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DBE2F32728F0AF0015EE27 /* ExerciseRecordViewController.swift */; };
 /* End PBXBuildFile section */
@@ -77,6 +78,7 @@
 		F15137B4273E791F0061C6A2 /* bannerViewDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bannerViewDatas.swift; sourceTree = "<group>"; };
 		F15137DC273EE3220061C6A2 /* ExerciseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCollectionViewCell.swift; sourceTree = "<group>"; };
 		F15137DE273EE7EC0061C6A2 /* ExerciseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListViewController.swift; sourceTree = "<group>"; };
+		F1C270D3274203AB00800E2B /* InstructionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionData.swift; sourceTree = "<group>"; };
 		F1DBE2F127284B3D0015EE27 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F1DBE2F32728F0AF0015EE27 /* ExerciseRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRecordViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -181,6 +183,7 @@
 				F151376D273C05410061C6A2 /* HealthKitFunctions.swift */,
 				F12BB53B2739358C00090884 /* circleMenuExtension.swift */,
 				F15137B4273E791F0061C6A2 /* bannerViewDatas.swift */,
+				F1C270D3274203AB00800E2B /* InstructionData.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				F15137DD273EE3220061C6A2 /* ExerciseCollectionViewCell.swift in Sources */,
 				F135093C272BBA7A00F0E1CC /* QuestionViewController.swift in Sources */,
 				F129FB522733EBE700D0DCCA /* StorageExtension.swift in Sources */,
+				F1C270D4274203AB00800E2B /* InstructionData.swift in Sources */,
 				F129FAA827314C1E00D0DCCA /* Functions.swift in Sources */,
 				F135093A272A2E4100F0E1CC /* persnalInfoViewController.swift in Sources */,
 				F129FA82272F5C8900D0DCCA /* ChartViewController.swift in Sources */,

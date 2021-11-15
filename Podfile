@@ -18,6 +18,7 @@ pod 'lottie-ios'
 pod 'Kingfisher'
 pod 'TextFieldEffects'
 pod 'FSPagerView'
+pod 'Instructions'
   # Pods for healthApp
 
 end

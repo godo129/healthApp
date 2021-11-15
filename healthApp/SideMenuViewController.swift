@@ -9,10 +9,25 @@ import UIKit
 import FirebaseStorage
 import Lottie
 import HealthKit
+import Instructions
 
 
 class SideMenuViewController: UIViewController {
     
+    
+    private var coachMarksController = CoachMarksController()
+
+    private let instructionButton: UIButton = {
+            
+        let instructionButton = UIButton()
+        instructionButton.setImage(UIImage(named: "what"), for: .normal)
+        instructionButton.frame = CGRect(x: 20, y: 60, width: 30, height: 30)
+            
+        return instructionButton
+            
+    }()
+        
+    private var coachDatas = [instructionDatas]()
 
     let toY = Int(today.split(separator: "-")[0])!
     let toM = Int(today.split(separator: "-")[1])!
@@ -156,6 +171,22 @@ class SideMenuViewController: UIViewController {
         
         
         stepsLabel.text = "\(UserDefaults.standard.value(forKey: "steps")!) 걸음"
+        
+        
+        // 도움말
+        view.addSubview(instructionButton)
+                
+        // 도움말 데이터 넣어주기
+        fillCoachDatas()
+        coachMarksController.dataSource = self
+        //배경 눌러도 자동으로 넘어가게
+        coachMarksController.overlay.isUserInteractionEnabled = true
+                
+        let skipView = CoachMarkSkipDefaultView()
+        skipView.setTitle("skip", for: .normal)
+        coachMarksController.skipView = skipView
+
+        instructionButton.addTarget(self, action: #selector(instructionButtonTapped), for: .touchUpInside)
 
     }
     
@@ -205,6 +236,27 @@ class SideMenuViewController: UIViewController {
             task.resume()
         }
  */
+    
+
+        private func fillCoachDatas() {
+            
+            let item1 = instructionDatas(View: profileImageView, bodyText: "프로필 사진을 보여줍니다", nextText: "다음")
+            coachDatas.append(item1)
+            let item2 = instructionDatas(View: nickLabel, bodyText: "별명을 나타냅니다", nextText: "다음")
+            coachDatas.append(item2)
+            let item3 = instructionDatas(View: stepsLabel, bodyText: "걸음 걸이를 나타냅니다", nextText: "다음")
+            coachDatas.append(item3)
+           
+            
+            
+        }
+        
+        @objc private func instructionButtonTapped() {
+            
+            coachMarksController.start(in: .window(over: self))
+            
+        }
+
 
     
     @objc private func profileImageViewTapped() {
@@ -232,6 +284,28 @@ class SideMenuViewController: UIViewController {
 
     
 
+}
+
+extension SideMenuViewController: CoachMarksControllerDelegate, CoachMarksControllerDataSource {
+
+
+    func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
+            return coachDatas.count
+        }
+        
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkAt index: Int) -> CoachMark {
+        return coachMarksController.helper.makeCoachMark(for: coachDatas[index].View)
+    }
+        
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: (UIView & CoachMarkBodyView), arrowView: (UIView & CoachMarkArrowView)?) {
+            
+        let coachView = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation, hintText: coachDatas[index].bodyText, nextText: coachDatas[index].nextText)
+            
+        return (bodyView: coachView.bodyView, arrowView: coachView.arrowView)
+            
+    }
+
+    
 }
 
 

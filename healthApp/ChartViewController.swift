@@ -10,6 +10,7 @@ import Charts
 import FirebaseDatabase
 import CircleMenu
 import SideMenu
+import Instructions
 
 
 
@@ -19,6 +20,21 @@ var candi: [Int] = []
 class ChartViewController: UIViewController, ChartViewDelegate {
     
     var oneMore = true
+    
+    
+    private var coachMarksController = CoachMarksController()
+
+    private let instructionButton: UIButton = {
+            
+        let instructionButton = UIButton()
+        instructionButton.setImage(UIImage(named: "what"), for: .normal)
+        instructionButton.frame = CGRect(x: 200, y: 40, width: 30, height: 30)
+            
+        return instructionButton
+            
+    }()
+        
+    private var coachDatas = [instructionDatas]()
     
     let moveViewButton = CircleMenu(
       frame: CGRect(x: 380, y: 100, width: 50, height: 50),
@@ -130,6 +146,22 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         yearButton.setTitle("\(selectedYear)년", for: .normal)
         monthOrWeekButton.setTitle(selectedAct, for: .normal)
         selectTypeButton.setTitle(selectedType, for: .normal)
+        
+        
+        view.addSubview(instructionButton)
+        
+        // 도움말 데이터 넣어주기
+        fillCoachDatas()
+        coachMarksController.dataSource = self
+        //배경 눌러도 자동으로 넘어가게
+        coachMarksController.overlay.isUserInteractionEnabled = true
+        
+        let skipView = CoachMarkSkipDefaultView()
+        skipView.setTitle("skip", for: .normal)
+        coachMarksController.skipView = skipView
+
+        instructionButton.addTarget(self, action: #selector(instructionButtonTapped), for: .touchUpInside)
+        
 
         
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
@@ -141,10 +173,51 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         candiWeeksForward.addTarget(self, action: #selector(candiWeeksForwardTapped), for: .touchUpInside)
         candiWeeksBack.addTarget(self, action: #selector(candiWeeksBackTapped), for: .touchUpInside)
         
-        
-       
+
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        selectedType = nowExerciseType
+        
+        selectTypeButton.setTitle("\(selectedType)", for: .normal)
+    }
+    
+    private func fillCoachDatas() {
+            
+            let item1 = instructionDatas(View: yearButton, bodyText: "년도를 고를 수 있습니다", nextText: "다음")
+            coachDatas.append(item1)
+            let item2 = instructionDatas(View: selectTypeButton, bodyText: "운동 종류를 고르는 버튼입니다", nextText: "다음")
+            coachDatas.append(item2)
+            let item3 = instructionDatas(View: monthOrWeekButton, bodyText: "월간이나 주간 기록을 볼 범위를 고르는 버튼입니다", nextText: "다음")
+            coachDatas.append(item3)
+            let item4 = instructionDatas(View: candiWeeksButton, bodyText: "주간을 고를 수 있습니다", nextText: "다음")
+            coachDatas.append(item4)
+            let item5 = instructionDatas(View: candiWeeksBack, bodyText: "저번주로 갈 수 있습니다", nextText: "다음")
+            coachDatas.append(item5)
+        
+            let item6 = instructionDatas(View: candiWeeksForward, bodyText: "다음주로 갈 수 있습니다", nextText: "다음")
+            coachDatas.append(item6)
+            let item7 = instructionDatas(View: conformButton, bodyText: "이 버튼을 누르면 선택한 기간의 기록을 볼 수 있습니다", nextText: "다음")
+            coachDatas.append(item7)
+            let item8 = instructionDatas(View: chart, bodyText: "이곳에 기록에 관한 차트가 나옵니다", nextText: "다음")
+            coachDatas.append(item8)
+            let item9 = instructionDatas(View: moveViewButton, bodyText: "다른 뷰로 갈 수 있는 버튼입니다", nextText: "다음")
+            coachDatas.append(item9)
+            
+            
+        }
+        
+    @objc private func instructionButtonTapped() {
+            
+        coachMarksController.start(in: .window(over: self))
+            
+    }
+
+    
+    
     
     @objc private func backButtonTapped() {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeView")
@@ -258,6 +331,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     
     @objc private func selectTypeButtonTapped() {
         
+        /*
         let alert = UIAlertController(title: "", message: "운동 선택해주세요", preferredStyle: .alert)
         for i in 0..<exerciseTypes.count {
             alert.addAction(UIAlertAction(title: "\(exerciseTypes[i])", style: .default, handler: { _ in
@@ -267,6 +341,12 @@ class ChartViewController: UIViewController, ChartViewDelegate {
             }))
         }
         self.present(alert, animated: true, completion: nil)
+ */
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ExerciseListView")
+        vc!.modalPresentationStyle = .automatic
+        present(vc!, animated: true, completion: nil)
+        
         
     }
     
@@ -654,4 +734,43 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         
     }
 
+}
+
+extension ChartViewController: CoachMarksControllerDelegate, CoachMarksControllerDataSource {
+    
+    func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
+        return coachDatas.count
+    }
+        
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkAt index: Int) -> CoachMark {
+        return coachMarksController.helper.makeCoachMark(for: coachDatas[index].View)
+    }
+        
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: (UIView & CoachMarkBodyView), arrowView: (UIView & CoachMarkArrowView)?) {
+            
+        let coachView = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
+        
+        switch index {
+        case 3:
+            candiWeeksButton.isHidden = false
+            candiWeeksBack.isHidden = false
+            candiWeeksForward.isHidden = false
+            coachView.bodyView.hintLabel.text = coachDatas[index].bodyText
+            coachView.bodyView.nextLabel.text = coachDatas[index].nextText
+        case coachDatas.count-1 :
+            candiWeeksButton.isHidden = true
+            candiWeeksBack.isHidden = true
+            candiWeeksForward.isHidden = true
+            coachView.bodyView.hintLabel.text = coachDatas[index].bodyText
+            coachView.bodyView.nextLabel.text = coachDatas[index].nextText
+        default:
+            coachView.bodyView.hintLabel.text = coachDatas[index].bodyText
+            coachView.bodyView.nextLabel.text = coachDatas[index].nextText
+        }
+            
+        return (bodyView: coachView.bodyView, arrowView: coachView.arrowView)
+            
+    }
+
+    
 }

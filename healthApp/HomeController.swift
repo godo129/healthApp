@@ -12,12 +12,29 @@ import CircleMenu
 import SideMenu
 import Lottie
 import FSPagerView
+import Instructions
 
 
 
 class HomeController: UIViewController, UINavigationControllerDelegate {
     
+    
+    
     let storage = Storage.storage().reference()
+    
+    private var coachMarksController = CoachMarksController()
+    
+    private let instructionButton: UIButton = {
+        
+        let instructionButton = UIButton()
+        instructionButton.setImage(UIImage(named: "what"), for: .normal)
+        instructionButton.frame = CGRect(x: 200, y: 40, width: 30, height: 30)
+        
+        return instructionButton
+        
+    }()
+    
+    private var coachDatas = [instructionDatas]()
     
     private let bannerView: FSPagerView = {
         var bannerView = FSPagerView()
@@ -166,6 +183,10 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
         
         
         
+        
+        
+        
+        
         // 원형 메뉴
         moveViewButton.delegate = self
         view.addSubview(moveViewButton)
@@ -212,6 +233,8 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
         recordViewButton.addTarget(self, action: #selector(recordViewButtonTapped), for: .touchUpInside)
         chartViewButton.addTarget(self, action: #selector(chartViewButtonTapped), for: .touchUpInside)
         questionButton.addTarget(self, action: #selector(questionButtonTapped), for: .touchUpInside)
+        
+        instructionButton.addTarget(self, action: #selector(instructionButtonTapped), for: .touchUpInside)
         
         
         // 차트뷰에 제스처 추가
@@ -301,8 +324,48 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
             personalInfoButton.isHidden = true
       
         }
+        
+        
+        // 도움말
+        view.addSubview(instructionButton)
+        
+        // 도움말 데이터 넣어주기
+        fillCoachDatas()
+        coachMarksController.dataSource = self
+        //배경 눌러도 자동으로 넘어가게
+        coachMarksController.overlay.isUserInteractionEnabled = true
+        
+        //스킵 버튼
+        let skipView = CoachMarkSkipDefaultView()
+        skipView.setTitle("skip", for: .normal)
+        coachMarksController.skipView = skipView
+        
+        
+        
 
 
+    }
+    
+    private func fillCoachDatas() {
+        
+        let item1 = instructionDatas(View: bannerView, bodyText: "배너를 볼 수 있는 뷰입니다", nextText: "다음")
+        coachDatas.append(item1)
+        let item2 = instructionDatas(View: exerciseRecordView, bodyText: "운동 기록할 수 있는 뷰로 갈 수 있는 버튼입니다", nextText: "다음")
+        coachDatas.append(item2)
+        let item3 = instructionDatas(View: chartRecordView, bodyText: "운동 기록을 볼 수 있는 뷰로 갈 수 있는 버튼입니다", nextText: "다음")
+        coachDatas.append(item3)
+        let item4 = instructionDatas(View: moveViewButton, bodyText: "다른 뷰로 갈 수 있는 버튼입니다", nextText: "다음")
+        coachDatas.append(item4)
+        let item5 = instructionDatas(View: questionButton, bodyText: "운동 영상을 볼 수 있는 뷰로 가는 버튼입니다", nextText: "다음")
+        coachDatas.append(item5)
+        
+        
+    }
+    
+    @objc private func instructionButtonTapped() {
+        
+        coachMarksController.start(in: .window(over: self))
+        
     }
     
     
@@ -481,7 +544,7 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
 
 }
 
-extension HomeController: FSPagerViewDelegate, FSPagerViewDataSource {
+extension HomeController: FSPagerViewDelegate, FSPagerViewDataSource, CoachMarksControllerDelegate, CoachMarksControllerDataSource {
 
     func numberOfItems(in pagerView: FSPagerView) -> Int {
         
@@ -496,6 +559,22 @@ extension HomeController: FSPagerViewDelegate, FSPagerViewDataSource {
         
         bannerPageController.currentPage = index
         return cell
+    }
+    
+    func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
+        return coachDatas.count
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkAt index: Int) -> CoachMark {
+        return coachMarksController.helper.makeCoachMark(for: coachDatas[index].View)
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: (UIView & CoachMarkBodyView), arrowView: (UIView & CoachMarkArrowView)?) {
+        
+        let coachView = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation, hintText: coachDatas[index].bodyText, nextText: coachDatas[index].nextText)
+        
+        return (bodyView: coachView.bodyView, arrowView: coachView.arrowView)
+        
     }
     
  
