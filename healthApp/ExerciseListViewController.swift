@@ -49,7 +49,7 @@ class ExerciseListViewController: UIViewController {
     var exerciseList = [ExerciseData]()
     var searchedList = [ExerciseData]()
     var searched = false
-    var scopeButtonTapped = false
+    var scopeButtonTapped = true
     let searchController = UISearchController(searchResultsController: nil)
   
     
@@ -91,6 +91,9 @@ class ExerciseListViewController: UIViewController {
 
         
         fillData()
+        
+        searchedList = exerciseList
+        
         configureSearchController()
         
         navigationItem.title = "운동 검색"
@@ -222,11 +225,12 @@ extension ExerciseListViewController: UICollectionViewDelegate, UICollectionView
         
         if !searchText.isEmpty {
             titleLabel.isHidden = true
+            
             searched = true
             searchedList.removeAll()
             
             for exercise in exerciseList {
-                if exercise.ExerciseName.lowercased().contains(searchText.lowercased()) && (exercise.ExerciseType==scopeButton||scopeButton=="전체") {
+                if exercise.ExerciseName.lowercased().contains(searchText.lowercased()) && (exercise.ExerciseType == scopeButton || scopeButton == "전체") {
                     searchedList.append(exercise)
                 }
                 
@@ -239,7 +243,7 @@ extension ExerciseListViewController: UICollectionViewDelegate, UICollectionView
                 searchedList.removeAll()
                 let scopeButton = searchController.searchBar.scopeButtonTitles![searchController.searchBar.selectedScopeButtonIndex]
                 for exercise in exerciseList {
-                    if (exercise.ExerciseType==scopeButton||scopeButton=="전체") {
+                    if (exercise.ExerciseType == scopeButton || scopeButton == "전체") {
                         searchedList.append(exercise)
                     }
                 }
@@ -266,10 +270,11 @@ extension ExerciseListViewController: UICollectionViewDelegate, UICollectionView
         searchedList.removeAll()
         
         for exercise in exerciseList {
-            if (exercise.ExerciseType == scopeButton||scopeButton=="전체") {
+            if (exercise.ExerciseType == scopeButton || scopeButton == "전체") {
                 searchedList.append(exercise)
             }
         }
+        searched = true
         exerciseCollectionView?.reloadData()
     }
     
@@ -279,6 +284,7 @@ extension ExerciseListViewController: UICollectionViewDelegate, UICollectionView
         
         if searched {
             nowExerciseType = searchedList[indexPath.row].ExerciseName
+ 
         } else {
             nowExerciseType = exerciseList[indexPath.row].ExerciseName
         }
@@ -286,7 +292,12 @@ extension ExerciseListViewController: UICollectionViewDelegate, UICollectionView
         searched = false
         scopeButtonTapped = false
         
+        print(nowExerciseType)
+        
         dismiss(animated: false, completion: nil)
+        dismiss(animated: false, completion: nil)
+     
+        
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
