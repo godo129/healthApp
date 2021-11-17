@@ -468,6 +468,14 @@ class ExerciseRecordViewController: UIViewController {
         })
         
         
+        // 운동 변하거나, 그럴 때 무게, 횟수 초기화 
+        setCount = 0
+        weightCount = 0
+        
+        setLabel.text = "\(setCount) 회"
+        weightLable.text = "\(weightCount) kg"
+        
+        
     }
     
     func notiAuth() {
@@ -770,7 +778,7 @@ class ExerciseRecordViewController: UIViewController {
         intervalTimeField.text = String(intervalTime)
         
         //history += "\n " + nowExerciseType + " \(weightCount)kg" + " \(setCount)set"
-        exerciseHistory.append(nowExerciseType + ":\(weightCount) kg" + " \(setCount) 회")
+        
         
         
         
@@ -800,12 +808,14 @@ class ExerciseRecordViewController: UIViewController {
             newList?.append(setCount)
             calories += Double(setCount) * Double(5)
             calorieLabel.text = "소비된 칼로리 : \(doubleConvertToString(number: calories))Kcal"
+            exerciseHistory.append(nowExerciseType + ":\(setCount) 분")
         }
         else {
             newList?.append(weightCount)
             calories += Double(setCount) * 0.4
             volumes += setCount * weightCount
             calorieLabel.text = "소비된 칼로리: \(doubleConvertToString(number: calories))"
+            exerciseHistory.append(nowExerciseType + ":\(weightCount) kg" + " \(setCount) 회")
         }
         
         exerciseTypesDataStorage[nowExerciseType] = newList!
@@ -973,24 +983,23 @@ extension ExerciseRecordViewController: UITableViewDelegate, UITableViewDataSour
                 let type = String(exerciseHistory[indexPath.row].split(separator: ":")[0])
                 let explain = exerciseHistory[indexPath.row].split(separator: ":")[1]
                 
-                guard let selectedWeight: Int = Int(explain.split(separator: " ")[0]) else {return}
-                guard let selectedSetCounts: Int = Int(explain.split(separator: " ")[2]) else {return}
+                let selectedWeight: Int = Int(explain.split(separator: " ")[0])!
+                
                 
                 if exerciseAll["유산소"]!.contains(type) {
                     
-                    calories -= Double(selectedSetCounts) * Double(5)
+                    calories -= Double(selectedWeight) * Double(5)
                     calorieLabel.text = "소비된 칼로리 : \(doubleConvertToString(number: calories))Kcal"
                 } else {
+                    let selectedSetCounts: Int = Int(explain.split(separator: " ")[2])!
                     calories -= Double(selectedSetCounts) * 0.4
                     volumes -= selectedWeight * selectedSetCounts
                     calorieLabel.text = "소비된 칼로리 : \(doubleConvertToString(number: calories))Kcal"
                 }
                 
-                guard var newList = exerciseTypesDataStorage[type] else {return}
-                guard let idx = newList.firstIndex(of: selectedWeight) else {return}
-                
-                
-                
+                var newList = exerciseTypesDataStorage[type]!
+                let idx = newList.firstIndex(of: selectedWeight)!
+
                 newList.remove(at: idx)
                 exerciseTypesDataStorage[type] = newList
                 
