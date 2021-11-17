@@ -10,6 +10,17 @@ import WebKit
 
 class QuestionViewController: UIViewController {
     
+    private var CollectionView: UICollectionView?
+    private var CollectionView1: UICollectionView?
+    private var CollectionView2: UICollectionView?
+    private var CollectionView3: UICollectionView?
+    private var CollectionView4: UICollectionView?
+    private var CollectionView5: UICollectionView?
+    private var CollectionView6: UICollectionView?
+    private var CollectionView7: UICollectionView?
+    private var CollectionView8: UICollectionView?
+ 
+    
     let ExerciseView = WKWebView()
     
     private let backButton: UIButton = {
@@ -30,9 +41,60 @@ class QuestionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(TitleLabel)
-        view.addSubview(backButton)
         
+        
+        // 스크롤뷰
+        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
+        scrollView.contentSize = CGSize(width: view.frame.size.width, height: 2500)
+        view.addSubview(scrollView)
+        
+        scrollView.addSubview(TitleLabel)
+        scrollView.addSubview(backButton)
+        
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 150, height: 150)
+        layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+     
+       
+        
+        for i in 0..<exerciseParts.count {
+            
+            let type = exerciseParts[i]
+            
+            let typeText = UILabel(frame: CGRect(x: 0, y: 100+200*i, width: Int(view.frame.size.width), height: 50))
+            typeText.textAlignment = .center
+            typeText.text = type
+            typeText.font = .systemFont(ofSize: 20, weight: .semibold)
+            typeText.textColor = .orange
+            
+            scrollView.addSubview(typeText)
+
+                
+            CollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+                
+            CollectionView?.register(ExerciseTypesCollectionViewCell.self, forCellWithReuseIdentifier: type)
+            CollectionView?.backgroundColor = .white
+            CollectionView?.delegate = self
+            CollectionView?.dataSource = self
+            CollectionView?.restorationIdentifier = type
+            CollectionView?.showsHorizontalScrollIndicator = false
+                    
+                    
+            guard let collections = CollectionView else {
+                    return
+            }
+                
+            scrollView.addSubview(collections)
+            collections.frame = CGRect(x: 0, y: 150+200*i, width: Int(view.frame.size.width), height: 150)
+            
+            
+        }
+        
+
+        
+        /*
         for i in 0..<exerciseTypes.count {
             
             
@@ -53,16 +115,19 @@ class QuestionViewController: UIViewController {
             ExerciseButton.addTarget(self, action: #selector(ExerciseButtonTapped1(sender: )), for: .touchUpInside)
 
 
-            view.addSubview(ExerciseLabel)
-            view.addSubview(ExerciseButton)
+            scrollView.addSubview(ExerciseLabel)
+            scrollView.addSubview(ExerciseButton)
+
         }
+ */
 
         
 
-        
-        
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
+    
+   
+    
     
     @objc private func backButtonTapped() {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeView")
@@ -71,30 +136,42 @@ class QuestionViewController: UIViewController {
         self.present(vc!, animated: true, completion: nil)
     }
     
-    @objc func ExerciseButtonTapped1(sender: UIButton){
+    
+    // 유부브로 가기
+    private func ExerciseButtonTapped(name: String){
         
-        // 버튼 마다 태그 값 받아서 유투브 검색창에 쿼리 값 넣어 줘서 버튼 마다 다른 뷰 주기
-        let idx = sender.tag
-
+        let top = UIButton(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 40))
+        top.backgroundColor = .white
+        view.addSubview(top)
         
         //back, forward , 원래 화면으로 돌아가는 버튼 만들어서 넣어주기
-        let goBackButton = UIButton(frame: CGRect(x: 0, y: view.frame.maxY-90, width: view.frame.width/3, height: 100))
+        let goBackButton = UIButton(frame: CGRect(x: 0, y: view.frame.maxY-120, width: view.frame.width/3, height: 80))
         goBackButton.setTitle("Back", for: .normal)
         goBackButton.setTitleColor(.black, for: .normal)
+        goBackButton.setImage(UIImage(named: "leftArrow"), for: .normal)
         goBackButton.backgroundColor = .systemPink
         goBackButton.addTarget(self, action: #selector(goBackButtonTapped), for: .touchUpInside)
+        goBackButton.layer.borderColor = UIColor.lightGray.cgColor
+        goBackButton.layer.borderWidth = 1
         
-        let goForwardButton = UIButton(frame: CGRect(x: view.frame.width/3, y: view.frame.maxY-90, width: view.frame.width/3, height: 100))
+        let goForwardButton = UIButton(frame: CGRect(x: view.frame.width/3, y: view.frame.maxY-120, width: view.frame.width/3, height: 80))
         goForwardButton.setTitle("Forward", for: .normal)
         goForwardButton.setTitleColor(.black, for: .normal)
+        goForwardButton.setImage(UIImage(named: "rightArrow"), for: .normal)
         goForwardButton.backgroundColor = .systemBlue
         goForwardButton.addTarget(self, action: #selector(goForwardButtonTapped), for: .touchUpInside)
+        goForwardButton.layer.borderColor = UIColor.lightGray.cgColor
+        goForwardButton.layer.borderWidth = 1
         
-        let returnButton = UIButton(frame: CGRect(x: view.frame.width/3*2, y: view.frame.maxY-90, width: view.frame.width/3, height: 100))
+        let returnButton = UIButton(frame: CGRect(x: view.frame.width/3*2, y: view.frame.maxY-120, width: view.frame.width/3, height: 80))
         returnButton.setTitle("return", for: .normal)
         returnButton.setTitleColor(.black, for: .normal)
         returnButton.backgroundColor = .gray
+        returnButton.setImage(UIImage(named: "home"), for: .normal)
+        returnButton.contentMode = .scaleAspectFit
         returnButton.addTarget(self, action: #selector(returnButtonTapped), for: .touchUpInside)
+        returnButton.layer.borderColor = UIColor.lightGray.cgColor
+        returnButton.layer.borderWidth = 1
         
         ExerciseView.addSubview(goBackButton)
         ExerciseView.addSubview(goForwardButton)
@@ -103,11 +180,12 @@ class QuestionViewController: UIViewController {
         
         // 웹뷰 url 연결
         ExerciseView.frame = view.bounds
-        let url = "https://www.youtube.com/results?search_query="+exerciseTypes[idx]
+        let url = "https://www.youtube.com/results?search_query="+name
         // 한글 가능
         let encodingUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         ExerciseView.load(URLRequest(url: URL(string: encodingUrl)!))
                           
+        ExerciseView.frame = CGRect(x: 0, y: 40, width: view.frame.size.width, height: view.frame.size.height)
         view.addSubview(ExerciseView)
     
     }
@@ -131,20 +209,59 @@ class QuestionViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         
         backButton.frame = CGRect(x: -10,
-                                  y: 35,
+                                  y: 20,
                                   width: view.frame.size.width-300,
                                   height: 20)
         
         TitleLabel.frame = CGRect(x: view.frame.maxX/3,
-                                  y: 100,
+                                  y: 50,
                                   width: view.frame.size.width,
                                   height: 50)
+        
+        // 스크롤 뷰
+        
     }
-    
-    
     
 
 
 }
 
+extension QuestionViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        //let ExType = collectionView.restorationIdentifier!
+  
+        // 무한 스크롤
+        return Int.max
+        
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let ExType = collectionView.restorationIdentifier!
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ExType, for: indexPath) as! ExerciseTypesCollectionViewCell
+        
+        let typeLists = exerciseAll[ExType]!
 
+        let itemToShow = typeLists[indexPath.row % typeLists.count]// setup cell with your item and return
+        cell.configure(name: itemToShow)
+
+        return cell
+       
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let ExType = collectionView.restorationIdentifier!
+        let typeLists = exerciseAll[ExType]!
+        
+        
+        let itemToShow = typeLists[indexPath.row % typeLists.count]
+
+        ExerciseButtonTapped(name: itemToShow)
+        
+        
+    }
+    
+}
