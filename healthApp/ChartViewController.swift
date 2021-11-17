@@ -56,6 +56,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     var selectedWeek = "9-16" + " ~ " + "9-23"
 
     let months = ["01","02","03","04","05","06","07","08","09","10","11","12"]
+    let months2 = ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"]
     
     
     
@@ -437,11 +438,10 @@ class ChartViewController: UIViewController, ChartViewDelegate {
 
         if self.selectedAct == "월간" {
             
-            
+            /*
             lists = []
             
-            
-            
+     
             // 월간 가장 큰 데이터 저장
             
             if isCommon(year: selectedYear) {
@@ -514,21 +514,70 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                 }
                 
             }
+            */
+            /*
+            if isCommon(year: selectedYear) {
+                for i in 0..<12 {
+                        
+                    var num: Int = 0
+
+                    for v in 1...commonYear[i] {
+                            
+                        db.child(p_id).child("chart").child(selectedType).child("주간").child(String(selectedYear)).child(months[i]).child("\(String(format: "%02d", Int(v)))").observeSingleEvent(of: .value) { snapshot in
+                                if let value = snapshot.value as? [Int] {
+                                    
+                                }
+                                else {
+                                    self.db.child(p_id).child("chart").child(self.selectedType).child("주간").child(String(self.selectedYear)).child(self.months[i]).child("\(String(format: "%02d", Int(v)))").setValue([0])
+                                    
+                                }
+           
+                            }
+                            
+                        }
+       
+                    }
+                    
+                } else {
+                    
+                    for i in 0..<12 {
+                        
+                        var num: Int = 0
+
+                        for v in 1...leapYear[i] {
+                            
+                            db.child(p_id).child("chart").child(selectedType).child("주간").child(String(selectedYear)).child(months[i]).child("\(String(format: "%02d", Int(v)))").observeSingleEvent(of: .value) { snapshot in
+                                if let value = snapshot.value as? [Int] {
+
+                                } else {
+                                    self.db.child(p_id).child("chart").child(self.selectedType).child("주간").child(String(self.selectedYear)).child(self.months[i]).child("\(String(format: "%02d", Int(v)))").setValue([0])
+                                    
+                                }
+       
+                    }
+                    
+                }
+                 
+            }
+        }
+ 
+ */
      
             //makingChart(datas: lists, x: months)
             
+            var Lists: [Int] = []
             
             
             for i in 0..<months.count {
                 db.child(p_id).child("chart").child(selectedType).child("월간").child(String(selectedYear)).child(months[i]).observeSingleEvent(of: .value) { snapshot in
     
                     guard let value = snapshot.value as? Int else {
-                        lists.append(0)
+                        Lists.append(0)
                         return
                     }
-                    lists.append(value)
-                    if lists.count == self.months.count {
-                        self.makingChart(datas: lists,x: self.months)
+                    Lists.append(value)
+                    if i == self.months.count-1 {
+                        self.makingChart(datas: Lists,x: self.months2)
                     }
                 }
                 
