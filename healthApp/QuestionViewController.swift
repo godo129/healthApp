@@ -45,7 +45,7 @@ class QuestionViewController: UIViewController {
         
         // 스크롤뷰
         let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
-        scrollView.contentSize = CGSize(width: view.frame.size.width, height: 2500)
+        scrollView.contentSize = CGSize(width: view.frame.size.width, height: 17  00)
         view.addSubview(scrollView)
         
         scrollView.addSubview(TitleLabel)
