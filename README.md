@@ -123,4 +123,15 @@ https://user-images.githubusercontent.com/76652929/141785159-318fe4d9-4749-4a3d-
 https://user-images.githubusercontent.com/76652929/142199177-6f5bcf08-5563-4c8c-a760-6aafcde7275c.mov
 
 
+# 운동 영상 뷰 컨트롤 
+
+- 컬렉션 뷰
+https://user-images.githubusercontent.com/76652929/142281104-493b1c26-0b56-4218-9332-ad61a52de95f.mov
+
+- 
+
+https://user-images.githubusercontent.com/76652929/142281595-2c5362ad-d7b2-465a-b4d0-a1bea0e38055.mov
+
+
+
 
