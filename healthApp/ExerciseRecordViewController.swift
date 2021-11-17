@@ -17,6 +17,8 @@ var setCount = 0
 var nowExerciseType = "운동 종류"
 var weightCount = 0
 var exerciseHistory: [String] = []
+var calories = 0.0
+var volumes = 0
 
 
 class ExerciseRecordViewController: UIViewController {
@@ -102,7 +104,15 @@ class ExerciseRecordViewController: UIViewController {
     private let nowDateLabel: UILabel = {
         let nowDateLabel = UILabel()
         nowDateLabel.text = cur_date
+        nowDateLabel.font = .systemFont(ofSize: 20)
         return nowDateLabel
+    }()
+    
+    private let calorieLabel: UILabel = {
+        let calorieLabel = UILabel()
+        calorieLabel.textAlignment = .center
+        calorieLabel.textColor = .systemRed
+        return calorieLabel
     }()
     
     private let intervalTimeField: UITextField = {
@@ -235,6 +245,8 @@ class ExerciseRecordViewController: UIViewController {
         view.addSubview(historyTable)
         
         view.addSubview(nowDateLabel)
+        view.addSubview(calorieLabel)
+        
         view.addSubview(setLabel)
         view.addSubview(weightLable)
         view.addSubview(weightButton)
@@ -321,10 +333,19 @@ class ExerciseRecordViewController: UIViewController {
         
         
         nowDateLabel.text = cur_date
-       // historyLabel.text = history
+   
         weightLable.text = "\(weightCount) kg"
-        //setLabel.text = "\(setCount) 세트"
-        setButton.setTitle("\(setCount) 세트", for: .normal)
+   
+        
+        // 운동별 변화
+        if exerciseAll["유산소"]!.contains(nowExerciseType) {
+            
+            setButton.setTitle("\(setCount) 분", for: .normal)
+        } else {
+
+            setButton.setTitle("\(setCount) 회", for: .normal)
+        }
+        
         setButton.setTitleColor(.black, for: .normal)
         
         intervalTimeField.text = String(intervalTime)
@@ -336,13 +357,16 @@ class ExerciseRecordViewController: UIViewController {
         
         exerciseTypesDataStorage = making()
         
+        calories = 0.0
+        volumes = 0
         
+        /*
         
         let y = String(cur_date.split(separator: "-")[0])
         let m = String(cur_date.split(separator: "-")[1])
         let d = String(cur_date.split(separator: "-")[2])
         
-        
+        */
         
         // 정보 가져오기
         /*
@@ -387,6 +411,27 @@ class ExerciseRecordViewController: UIViewController {
             self.historyLabel.text = value
         })
  */
+        
+        // 칼로리 보여줌
+        db.child("\(p_id)/\(cur_date)/calories").observeSingleEvent(of: .value) { snapshot in
+            guard let value = snapshot.value as? Double else {
+                self.calorieLabel.text = "소비된 칼로리 : 0.0Kcal"
+                calories = 0.0
+                return
+            }
+            self.calorieLabel.text = "소비된 칼로리 : \(doubleConvertToString(number: value))Kcal"
+            calories = value
+        }
+        
+        db.child("\(p_id)/\(cur_date)/volumes").observeSingleEvent(of: .value) { snapshot in
+            guard let value = snapshot.value as? Int else {
+                volumes = 0
+                return
+            }
+            volumes = value
+        }
+        
+        
         
         db.child(p_id).child(cur_date).child("history").observeSingleEvent(of: .value, with: { snapshot in
             guard let value = snapshot.value as? [String] else {
@@ -460,7 +505,7 @@ class ExerciseRecordViewController: UIViewController {
             coachDatas.append(item4)
             let item5 = instructionDatas(View: nowExTypeButton, bodyText: "운동 종류를 선택할 수 있는 버튼입니다", nextText: "다음")
             coachDatas.append(item5)
-            let item6 = instructionDatas(View: setButton, bodyText: "이 부분을 터치해서 세트 수를 조절할 수 있습니다.\n 1회 단위로 움직입니다", nextText: "다음")
+            let item6 = instructionDatas(View: setButton, bodyText: "이 부분을 터치해서 횟수를 조절할 수 있습니다.\n 1회 단위로 움직입니다", nextText: "다음")
             coachDatas.append(item6)
             let item6_1 = instructionDatas(View: weightLable, bodyText: "무게를 나타내는 부분입니다", nextText: "다음")
             coachDatas.append(item6_1)
@@ -470,7 +515,7 @@ class ExerciseRecordViewController: UIViewController {
             coachDatas.append(item8)
             let item9 = instructionDatas(View: twentyKiloBarbellButton, bodyText: "20kg 단위로 기록할 수 있습니다", nextText: "다음")
             coachDatas.append(item9)
-            let item10 = instructionDatas(View: weightButton, bodyText: "클릭을 통해서 무게,세트를 추가, 뺌을 할 수 있습니다\n파란색이면 추가\n빨간색이면 뺌", nextText: "다음")
+            let item10 = instructionDatas(View: weightButton, bodyText: "클릭으로 무게,횟수 추가, 제거 할 수 있습니다\n파란색이면 추가\n빨간색이면 제거", nextText: "다음")
             coachDatas.append(item10)
             let item11 = instructionDatas(View: counter, bodyText: "휴식을 기록할 수 있는 부분입니다", nextText: "다음")
             coachDatas.append(item11)
@@ -599,19 +644,39 @@ class ExerciseRecordViewController: UIViewController {
     }
     
     @objc private func setButtonTapped() {
-        if plus {
-            setCount += 1
-            setButton.setTitle("\(setCount) 세트", for: .normal)
-        } else {
-            if setCount <= 0 {
-                setCount = 0
-                setButton.setTitle("\(setCount) 세트", for: .normal)
+        
+        if exerciseAll["유산소"]!.contains(nowExerciseType) {
+            if plus {
+                setCount += 1
+                setButton.setTitle("\(setCount) 분", for: .normal)
             } else {
-                setCount -= 1
-                setButton.setTitle("\(setCount) 세트", for: .normal)
+                if setCount <= 0 {
+                    setCount = 0
+                    setButton.setTitle("\(setCount) 분", for: .normal)
+                } else {
+                    setCount -= 1
+                    setButton.setTitle("\(setCount) 분", for: .normal)
+                }
+                
             }
             
+        } else {
+            if plus {
+                setCount += 1
+                setButton.setTitle("\(setCount) 회", for: .normal)
+            } else {
+                if setCount <= 0 {
+                    setCount = 0
+                    setButton.setTitle("\(setCount) 회", for: .normal)
+                } else {
+                    setCount -= 1
+                    setButton.setTitle("\(setCount) 회", for: .normal)
+                }
+                
+            }
+
         }
+        
     }
     
     @objc private func nowExTypeButtonTapped() {
@@ -693,56 +758,69 @@ class ExerciseRecordViewController: UIViewController {
             return
             
         } else if setCount == 0 {
-            let alert = UIAlertController(title: "", message: "세트를 설정해주세요", preferredStyle: .alert)
+            let alert = UIAlertController(title: "", message: "횟수를 설정해주세요", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: { _ in
             }))
             self.present(alert, animated: true, completion: nil)
             return
         }
         
+        
 
         intervalTimeField.text = String(intervalTime)
         
         //history += "\n " + nowExerciseType + " \(weightCount)kg" + " \(setCount)set"
-        print(exerciseHistory)
         exerciseHistory.append(nowExerciseType + ":\(weightCount) kg" + " \(setCount) 회")
         
-        UserDefaults.standard.setValue(exerciseHistory, forKey: "exerciseHistory")
-        historyTable.reloadData()
-
         
-        
-        //db.child(p_id).child(cur_date).child("history").setValue(history)
         
         db.child(p_id).child(cur_date).child("history").setValue(exerciseHistory)
         
+   
         
-        print(nowExerciseType)
+        //db.child(p_id).child(cur_date).child("history").setValue(history)
+        
+        
+        
         // 새로운 리스트, 저장
         
         
         // 최대 무게 저장
+        // 칼로리, 볼륨 계산
         // 주간
 
         let y = String(cur_date.split(separator: "-")[0])
         let m = String(cur_date.split(separator: "-")[1])
         let d = String(cur_date.split(separator: "-")[2])
         
-       
         var newList = exerciseTypesDataStorage[nowExerciseType]
-        print(newList)
-        newList?.append(weightCount)
-        exerciseTypesDataStorage[nowExerciseType] = newList!
-        print(exerciseTypesDataStorage)
-        db.child(p_id).child("chart").child(nowExerciseType).child("주간").child(y).child(m).child(d).setValue(newList!)
-        UserDefaults.standard.setValue(exerciseTypesDataStorage, forKey: "exerciseTypesDataStorage")
         
+        
+        if exerciseAll["유산소"]!.contains(nowExerciseType){
+            newList?.append(setCount)
+            calories += Double(setCount) * Double(5)
+            calorieLabel.text = "소비된 칼로리 : \(doubleConvertToString(number: calories))Kcal"
+        }
+        else {
+            newList?.append(weightCount)
+            calories += Double(setCount) * 0.4
+            volumes += setCount * weightCount
+            calorieLabel.text = "소비된 칼로리: \(doubleConvertToString(number: calories))"
+        }
+        
+        exerciseTypesDataStorage[nowExerciseType] = newList!
+        db.child(p_id).child("chart").child(nowExerciseType).child("주간").child(y).child(m).child(d).setValue(newList!)
+       
+        
+        // 볼륨 , 칼로리 저장
+        db.child(p_id).child(cur_date).child("volumes").setValue(volumes)
+        db.child(p_id).child(cur_date).child("calories").setValue(calories)
         
         
         // 주간, 월간 두 가지로 나눠서 이용3
         // 볼륨 저장
    
-        
+        /*
         // 월간 .. nowExerciseType 이 3번째 자식으로 가면 이상하게 오류 나서 불가
         db.child(p_id).child("chart").child(nowExerciseType).child("월간").child(y).child(m).observeSingleEvent(of: .value) { snapshot in
             guard let value = snapshot.value as? Int else {
@@ -754,6 +832,7 @@ class ExerciseRecordViewController: UIViewController {
 
             }
         }
+ */
         
         /*
         db.child(p_id).child("chart").child(nowExerciseType).child("월간").child(y).child(m).setValue(weightCount)
@@ -769,7 +848,10 @@ class ExerciseRecordViewController: UIViewController {
         nowExerciseType = "운동 종류"
  */
         
-        setButton.setTitle("\(setCount) 세트", for: .normal)
+        historyTable.reloadData()
+
+        
+        setButton.setTitle("\(setCount) 회", for: .normal)
         weightLable.text = "\(weightCount) kg"
 
         
@@ -781,8 +863,10 @@ class ExerciseRecordViewController: UIViewController {
         backButton.frame = CGRect(x: 20, y: 40, width: 50, height: 30)
         
         
-        nowDateLabel.frame = CGRect(x: self.view.bounds.maxX/2-50, y: 100, width: 100, height: 100)
-        historyTable.frame = CGRect(x: 50 , y: nowDateLabel.frame.origin.y + 100, width: view.frame.size.width-100, height: 300)
+        nowDateLabel.frame = CGRect(x: self.view.bounds.maxX/2-50, y: instructionButton.frame.origin.y+50, width: 100, height: 50)
+        calorieLabel.frame = CGRect(x: self.view.bounds.maxX/2-100, y: nowDateLabel.frame.origin.y+50, width: 200, height: 50)
+        
+        historyTable.frame = CGRect(x: 50 , y: calorieLabel.frame.origin.y + 70, width: view.frame.size.width-100, height: 250 )
         calendarButton.frame = CGRect(x: 350, y: 100, width: 50, height: 30)
         memoButton.frame = CGRect(x: calendarButton.frame.origin.x,
                                   y: calendarButton.frame.origin.y+50,
@@ -877,9 +961,7 @@ extension ExerciseRecordViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             tableView.beginUpdates()
-            
-            
-            
+   
             if exerciseHistory[indexPath.row].contains("휴식") {
                 
                 exerciseHistory.remove(at: indexPath.row)
@@ -891,33 +973,44 @@ extension ExerciseRecordViewController: UITableViewDelegate, UITableViewDataSour
                 let type = String(exerciseHistory[indexPath.row].split(separator: ":")[0])
                 let explain = exerciseHistory[indexPath.row].split(separator: ":")[1]
                 
-                let selectedWeight: Int = Int(explain.split(separator: " ")[0])!
+                guard let selectedWeight: Int = Int(explain.split(separator: " ")[0]) else {return}
+                guard let selectedSetCounts: Int = Int(explain.split(separator: " ")[2]) else {return}
+                
+                if exerciseAll["유산소"]!.contains(type) {
+                    
+                    calories -= Double(selectedSetCounts) * Double(5)
+                    calorieLabel.text = "소비된 칼로리 : \(doubleConvertToString(number: calories))Kcal"
+                } else {
+                    calories -= Double(selectedSetCounts) * 0.4
+                    volumes -= selectedWeight * selectedSetCounts
+                    calorieLabel.text = "소비된 칼로리 : \(doubleConvertToString(number: calories))Kcal"
+                }
                 
                 guard var newList = exerciseTypesDataStorage[type] else {return}
                 guard let idx = newList.firstIndex(of: selectedWeight) else {return}
+                
+                
+                
                 newList.remove(at: idx)
                 exerciseTypesDataStorage[type] = newList
-                print(newList)
                 
                 let y = String(cur_date.split(separator: "-")[0])
                 let m = String(cur_date.split(separator: "-")[1])
                 let d = String(cur_date.split(separator: "-")[2])
                 
                 db.child(p_id).child("chart").child(type).child("주간").child(y).child(m).child(d).setValue(newList)
-            
+                
                 
                 exerciseHistory.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 db.child(p_id).child(cur_date).child("history").setValue(exerciseHistory)
                 
+                db.child("\(p_id)/\(cur_date)/calories").setValue(calories)
+                db.child("\(p_id)/\(cur_date)/volumes").setValue(volumes)
+                
                 
             }
-            
-            UserDefaults.standard.setValue(exerciseTypesDataStorage, forKey: "exerciseTypesDataStorage")
-            UserDefaults.standard.setValue(exerciseHistory, forKey: "exerciseHistory")
-            
-
-            print(exerciseTypesDataStorage)
+ 
             
             tableView.endUpdates()
         }

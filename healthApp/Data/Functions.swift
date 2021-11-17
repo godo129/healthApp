@@ -186,3 +186,9 @@ func timeToString(time: Int) -> String {
     return convertedTime
 }
 
+
+
+func doubleConvertToString(number: Double) -> String {
+    
+    return String(format: "%.2f", number)
+}
