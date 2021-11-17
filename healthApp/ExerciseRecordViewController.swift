@@ -325,6 +325,8 @@ class ExerciseRecordViewController: UIViewController {
         counterResetButton.addTarget(self, action: #selector(counterResetButtonTapped), for: .touchUpInside)
 
         
+        
+        
     }
     
     
@@ -468,11 +470,22 @@ class ExerciseRecordViewController: UIViewController {
         })
         
         
-        // 운동 변하거나, 그럴 때 무게, 횟수 초기화 
+        // 운동 변하거나, 그럴 때 무게, 횟수 초기화
         setCount = 0
         weightCount = 0
         
-        setLabel.text = "\(setCount) 회"
+        if nowExerciseType == "워킹" {
+            nowExerciseType = "종목 선택"
+            
+            nowExTypeButton.setTitle(nowExerciseType, for: .normal)
+            setButton.setTitle("\(setCount) 회", for: .normal)
+        } else if isAerovic(type: nowExerciseType) {
+            
+            setButton.setTitle("\(setCount) 분", for: .normal)
+        } else {
+            setButton.setTitle("\(setCount) 회", for: .normal)
+        }
+        
         weightLable.text = "\(weightCount) kg"
         
         
