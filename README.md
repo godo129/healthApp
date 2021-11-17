@@ -126,6 +126,7 @@ https://user-images.githubusercontent.com/76652929/142199177-6f5bcf08-5563-4c8c-
 # 운동 영상 뷰 컨트롤 
 
 - 컬렉션 뷰
+
 https://user-images.githubusercontent.com/76652929/142281104-493b1c26-0b56-4218-9332-ad61a52de95f.mov
 
 - 
