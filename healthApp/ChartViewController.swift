@@ -98,15 +98,17 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     
     private let candiWeeksForward: UIButton = {
         let candiWeeksForward = UIButton()
-        candiWeeksForward.setTitleColor(.black, for: .normal)
-        candiWeeksForward.setTitle("다음주", for: .normal)
+        candiWeeksForward.backgroundColor = .clear
+        candiWeeksForward.contentMode = .scaleAspectFit
+        candiWeeksForward.setImage(UIImage(named: "rightArrow"), for: .normal)
         return candiWeeksForward
     }()
     
     private let candiWeeksBack: UIButton = {
         let candiWeeksBack = UIButton()
-        candiWeeksBack.setTitleColor(.black, for: .normal)
-        candiWeeksBack.setTitle("전주", for: .normal)
+        candiWeeksBack.backgroundColor = .clear
+        candiWeeksBack.contentMode = .scaleAspectFit
+        candiWeeksBack.setImage(UIImage(named: "leftArrow"), for: .normal)
         return candiWeeksBack
     }()
     
@@ -804,7 +806,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                                         width: 150,
                                         height: 50)
         
-        candiWeeksBack.frame = CGRect(x: 30, y: candiWeeksButton.frame.origin.y, width: 30, height: 50)
+        candiWeeksBack.frame = CGRect(x: 20, y: candiWeeksButton.frame.origin.y, width: 30, height: 50)
         candiWeeksForward.frame = CGRect(x: candiWeeksButton.frame.origin.x + 150, y: candiWeeksButton.frame.origin.y, width: 30, height: 50)
         
         conformButton.frame = CGRect(x: candiWeeksButton.frame.origin.x+200,
