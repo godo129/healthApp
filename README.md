@@ -33,6 +33,10 @@ https://user-images.githubusercontent.com/76652929/140608186-93de42ed-1287-4dce-
 
 https://user-images.githubusercontent.com/76652929/140608005-5c5dc357-856f-405d-bff8-09d0782d453d.mov
 
+- 칼로리 계산 
+
+
+https://user-images.githubusercontent.com/76652929/142199219-2fe35777-af2b-4b12-a573-ecdd83afea43.mov
 
 
 
@@ -43,6 +47,13 @@ https://user-images.githubusercontent.com/76652929/140608005-5c5dc357-856f-405d-
 
 
 https://user-images.githubusercontent.com/76652929/140608237-8895ad42-17fa-4b41-a5ff-ad601573f428.mov
+
+
+
+https://user-images.githubusercontent.com/76652929/142199487-ec7d01fc-ef7f-4f54-99b5-8946b01bdca0.mov
+
+
+
 
 # 운동 타이머 팝업 창
 
@@ -102,4 +113,14 @@ https://user-images.githubusercontent.com/76652929/141536992-5a4c762c-57d1-4982-
 
 
 https://user-images.githubusercontent.com/76652929/141785159-318fe4d9-4749-4a3d-bc68-aee0b5b89670.mov
+
+
+# 다양한 운동 종류 검색 
+
+<img width="349" alt="다양한 운동 종류 및 기능" src="https://user-images.githubusercontent.com/76652929/142199290-1f715b28-ea7f-4d0e-9ec5-d73655cd01f5.png">
+
+
+https://user-images.githubusercontent.com/76652929/142199177-6f5bcf08-5563-4c8c-a760-6aafcde7275c.mov
+
+
 
