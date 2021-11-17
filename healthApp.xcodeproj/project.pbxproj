@@ -37,6 +37,7 @@
 		F15137B5273E791F0061C6A2 /* bannerViewDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15137B4273E791F0061C6A2 /* bannerViewDatas.swift */; };
 		F15137DD273EE3220061C6A2 /* ExerciseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15137DC273EE3220061C6A2 /* ExerciseCollectionViewCell.swift */; };
 		F15137DF273EE7EC0061C6A2 /* ExerciseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15137DE273EE7EC0061C6A2 /* ExerciseListViewController.swift */; };
+		F173E4342744F5D700D7EF3D /* ChartsLeftAxisFormatt.swift in Sources */ = {isa = PBXBuildFile; fileRef = F173E4332744F5D700D7EF3D /* ChartsLeftAxisFormatt.swift */; };
 		F1C270D4274203AB00800E2B /* InstructionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C270D3274203AB00800E2B /* InstructionData.swift */; };
 		F1DBE2F227284B3E0015EE27 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F1DBE2F127284B3D0015EE27 /* GoogleService-Info.plist */; };
 		F1DBE2F42728F0AF0015EE27 /* ExerciseRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DBE2F32728F0AF0015EE27 /* ExerciseRecordViewController.swift */; };
@@ -78,6 +79,7 @@
 		F15137B4273E791F0061C6A2 /* bannerViewDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bannerViewDatas.swift; sourceTree = "<group>"; };
 		F15137DC273EE3220061C6A2 /* ExerciseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCollectionViewCell.swift; sourceTree = "<group>"; };
 		F15137DE273EE7EC0061C6A2 /* ExerciseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListViewController.swift; sourceTree = "<group>"; };
+		F173E4332744F5D700D7EF3D /* ChartsLeftAxisFormatt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsLeftAxisFormatt.swift; sourceTree = "<group>"; };
 		F1C270D3274203AB00800E2B /* InstructionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionData.swift; sourceTree = "<group>"; };
 		F1DBE2F127284B3D0015EE27 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F1DBE2F32728F0AF0015EE27 /* ExerciseRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRecordViewController.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				F12BB53B2739358C00090884 /* circleMenuExtension.swift */,
 				F15137B4273E791F0061C6A2 /* bannerViewDatas.swift */,
 				F1C270D3274203AB00800E2B /* InstructionData.swift */,
+				F173E4332744F5D700D7EF3D /* ChartsLeftAxisFormatt.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				F12E1B8027269B11001CB6F4 /* AppDelegate.swift in Sources */,
 				F12E1B8227269B11001CB6F4 /* SceneDelegate.swift in Sources */,
 				F129FB0A2733072200D0DCCA /* ExerciseDatas.swift in Sources */,
+				F173E4342744F5D700D7EF3D /* ChartsLeftAxisFormatt.swift in Sources */,
 				F132200C272829EB00E69FEE /* CalendarViewController.swift in Sources */,
 				F13220052728265800E69FEE /* personInfo.swift in Sources */,
 				F12E1B9A2726CCAF001CB6F4 /* SignUpController.swift in Sources */,

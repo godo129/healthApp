@@ -192,3 +192,15 @@ func doubleConvertToString(number: Double) -> String {
     
     return String(format: "%.2f", number)
 }
+
+
+
+func isAerovic(type: String) -> Bool {
+    
+    if exerciseAll["유산소"]!.contains(type) {
+        return true
+    } else {
+        return false
+    }
+    
+}

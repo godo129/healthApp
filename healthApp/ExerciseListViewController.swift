@@ -8,6 +8,7 @@
 import UIKit
 import Instructions
 
+
 class ExerciseListViewController: UIViewController {
     
     var exerciseCollectionView: UICollectionView?
@@ -135,6 +136,14 @@ class ExerciseListViewController: UIViewController {
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        fromChart = false
+        
+        
+    }
+    
     @objc private func backButtonTapped() {
         dismiss(animated: true, completion: nil)
     }
@@ -187,6 +196,11 @@ class ExerciseListViewController: UIViewController {
                 let data = ExerciseData(eType: exercisePart, eName: type, eImage: type)
                 exerciseList.append(data)
             }
+        }
+        
+        if fromChart {
+            let walkingData = ExerciseData(eType: "유산소", eName: "워킹", eImage: "워킹")
+            exerciseList.append(walkingData)
         }
         
     }
@@ -282,17 +296,12 @@ extension ExerciseListViewController: UICollectionViewDelegate, UICollectionView
         
         // 운동 선택 
         
-        if searched {
-            nowExerciseType = searchedList[indexPath.row].ExerciseName
- 
-        } else {
-            nowExerciseType = exerciseList[indexPath.row].ExerciseName
-        }
+       
+        nowExerciseType = searchedList[indexPath.row].ExerciseName
+        
         
         searched = false
-        scopeButtonTapped = false
-        
-        print(nowExerciseType)
+   
         
         dismiss(animated: false, completion: nil)
         dismiss(animated: false, completion: nil)

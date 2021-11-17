@@ -17,6 +17,8 @@ import Instructions
 var lists: [Int] = []
 var candi: [Int] = []
 
+var fromChart = true
+
 class ChartViewController: UIViewController, ChartViewDelegate {
     
     var oneMore = true
@@ -84,6 +86,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     private let selectTypeButton: UIButton = {
         let selectTypeButton = UIButton()
         selectTypeButton.setTitleColor(.black, for: .normal)
+
         return selectTypeButton
     }()
     
@@ -175,6 +178,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         candiWeeksBack.addTarget(self, action: #selector(candiWeeksBackTapped), for: .touchUpInside)
         
 
+        fromChart = true
         
     }
     
@@ -354,43 +358,30 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     
     @objc private func conformButtonTapped(sender: UIButton) {
         
+        var Lists: [Int] = []
+        
         
         // 워킹은 저장하고 불러와서 두번 선택해야 하니 그냥 아무거나 선택했을 때 다 만들어주고 하면 그런 두번 클릭할게 처음 한번으로 다 설정 되어서
         // 그런식으로 함
-        if selectedType == "워킹" {
+     
             
             
             // 월간 가장 큰 데이터 저장
             
             if isCommon(year: selectedYear) {
                 for i in 0..<12 {
-                    
-                    var num: Int = 0
-
+           
                     for v in 1...commonYear[i] {
                         
                         db.child(p_id).child("chart").child(selectedType).child("주간").child(String(selectedYear)).child(months[i]).child("\(String(format: "%02d", Int(v)))").observeSingleEvent(of: .value) { snapshot in
-                            if let value = snapshot.value as? [Int] {
-                                if value.count == 0 {
-                          
-                                } else {
-                                    num = max(num, value.max()!)
-                                }
-                            } else {
+                            guard let value = snapshot.value as? [Int] else {
+                              
+                                self.db.child(p_id).child("chart").child(self.selectedType).child("주간").child(String(self.selectedYear)).child(self.months[i]).child("\(String(format: "%02d", Int(v)))").setValue([0])
                                 
-                                
-                                
-                                if self.selectedType == "워킹" {
-                                    healthAuth(Year: self.selectedYear, Month: Int(self.months[i])!, Date: v)
-                                }
-                          
-                            
+                                return
                             }
+
                             
-                            if v == commonYear[i] {
-                                self.db.child(p_id).child("chart").child(self.selectedType).child("월간").child(String(self.selectedYear)).child(self.months[i]).setValue(num)
-                           
-                            }
                         }
                         
                     }
@@ -400,30 +391,16 @@ class ChartViewController: UIViewController, ChartViewDelegate {
             } else {
                 
                 for i in 0..<12 {
-                    
-                    var num: Int = 0
-
+                   
                     for v in 1...leapYear[i] {
                         
                         db.child(p_id).child("chart").child(selectedType).child("주간").child(String(selectedYear)).child(months[i]).child("\(String(format: "%02d", Int(v)))").observeSingleEvent(of: .value) { snapshot in
-                            if let value = snapshot.value as? [Int] {
-                                if value.count == 0 {
-                                    
-                                } else {
-                                    num = max(num, value.max()!)
-                                }
-                            } else {
+                            guard let value = snapshot.value as? [Int] else {
                               
-                                if self.selectedType == "워킹" {
-                                    healthAuth(Year: self.selectedYear, Month: Int(self.months[i])!, Date: v)
-                                }
-                                        
+                                self.db.child(p_id).child("chart").child(self.selectedType).child("주간").child(String(self.selectedYear)).child(self.months[i]).child("\(String(format: "%02d", Int(v)))").setValue([0])
+                                return
                             }
-             
-                            if v == leapYear[i] {
-                                self.db.child(p_id).child("chart").child(self.selectedType).child("월간").child(String(self.selectedYear)).child(self.months[i]).setValue(num)
                            
-                            }
                         }
                         
                     }
@@ -432,13 +409,13 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                 
             }
             
-        }
+
         
         
 
         if self.selectedAct == "월간" {
             
-            /*
+            
             lists = []
             
      
@@ -514,7 +491,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                 }
                 
             }
-            */
+            
             /*
             if isCommon(year: selectedYear) {
                 for i in 0..<12 {
@@ -565,7 +542,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
      
             //makingChart(datas: lists, x: months)
             
-            var Lists: [Int] = []
+            
             
             
             for i in 0..<months.count {
@@ -714,6 +691,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     
 
     
+    
     func makingChart(datas: [Int],x: [String]) {
         
         var entries = [ChartDataEntry]()
@@ -724,10 +702,63 @@ class ChartViewController: UIViewController, ChartViewDelegate {
             entries.append(entry)
         }
         
+
+                
         let set = LineChartDataSet(entries: entries, label: "")
-        set.colors = ChartColorTemplates.material()
+        
+        // 차트 디자인
+        set.colors = ChartColorTemplates.joyful()
+        set.drawCirclesEnabled = false
+        set.valueFont = .systemFont(ofSize: 10, weight: .bold)
+        set.setColor(.black)
+        set.fill = Fill(color: .gray)
+        set.fillAlpha = 0.7
+        set.drawFilledEnabled = true
+        
+
         let data = LineChartData(dataSet: set)
         chart.data = data
+        
+        
+        // 범주 포메팅 해주기
+        class ChartsFormatterKiloGram: IAxisValueFormatter {
+            func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+                return "\(String(format: "%.1f", value))kg"
+            }
+            
+        }
+        
+        class ChartsFormatterMinute: IAxisValueFormatter {
+            func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+                return "\(String(format: "%.1f", value))분"
+            }
+            
+        }
+        
+        class ChartsFormatterSteps: IAxisValueFormatter {
+            func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+                return "\(String(format: "%.1f", value))걸음"
+            }
+            
+        }
+        
+        if nowExerciseType == "워킹" {
+            chart.leftAxis.valueFormatter = ChartsFormatterSteps()
+            
+        }
+        else if isAerovic(type: nowExerciseType) {
+            chart.leftAxis.valueFormatter = ChartsFormatterMinute()
+        } else {
+            
+            chart.leftAxis.valueFormatter = ChartsFormatterKiloGram()
+        }
+        
+     
+        chart.legend.enabled = false
+        
+        
+        
+        
         
         chart.xAxis.labelPosition = .bottom
         chart.rightAxis.enabled = false
@@ -763,9 +794,9 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                                          width: 100,
                                          height: 50)
         
-        selectTypeButton.frame = CGRect(x: monthOrWeekButton.frame.origin.x+110,
+        selectTypeButton.frame = CGRect(x: monthOrWeekButton.frame.origin.x+80,
                                         y: yearButton.frame.origin.y,
-                                        width: 150,
+                                        width: 200,
                                         height: 50)
         
         candiWeeksButton.frame = CGRect(x: yearButton.frame.origin.x,
@@ -783,6 +814,8 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         
         
     }
+    
+    
 
 }
 

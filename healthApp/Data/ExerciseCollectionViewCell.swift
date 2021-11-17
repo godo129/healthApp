@@ -76,9 +76,9 @@ class ExerciseCollectionViewCell: UICollectionViewCell {
         
         ExerciseImage.frame = contentView.bounds
         
-        ExerciseLabel.frame = CGRect(x: 5,
+        ExerciseLabel.frame = CGRect(x: 0,
                                      y: contentView.frame.size.height-30,
-                                     width: contentView.frame.size.width+20,
+                                     width: contentView.frame.size.width,
                                      height: 30)
     }
     
