@@ -21,10 +21,10 @@ class ExerciseCollectionViewCell: UICollectionViewCell {
     
     var ExerciseLabel: UILabel = {
         let ExerciseLabel = UILabel()
-        ExerciseLabel.backgroundColor = .gray
+        ExerciseLabel.backgroundColor = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 0.7)
         ExerciseLabel.textAlignment = .center
-        ExerciseLabel.textColor = .white
-        ExerciseLabel.font = .systemFont(ofSize: 24, weight: .semibold)
+        ExerciseLabel.textColor = .black
+        ExerciseLabel.font = .systemFont(ofSize: 20, weight: .semibold)
         return ExerciseLabel
         
     }()

@@ -352,8 +352,7 @@ class ExerciseRecordViewController: UIViewController {
         
         intervalTimeField.text = String(intervalTime)
         nowExTypeButton.setTitle(nowExerciseType, for: .normal)
-        
-        
+
         
         exerciseHistory = []
         
@@ -395,7 +394,7 @@ class ExerciseRecordViewController: UIViewController {
         
         
         
-
+        fromChart = false
         
         
         
@@ -461,13 +460,14 @@ class ExerciseRecordViewController: UIViewController {
                         
                     newList.append(selectedWeight)
                     exerciseTypesDataStorage[String(type)] = newList
-                        
-                    
+
                 }
                 
             }
             
         })
+        
+        print(exerciseHistory)
         
         
         // 운동 변하거나, 그럴 때 무게, 횟수 초기화
@@ -793,11 +793,9 @@ class ExerciseRecordViewController: UIViewController {
         //history += "\n " + nowExerciseType + " \(weightCount)kg" + " \(setCount)set"
         
         
+        print(exerciseHistory)
         
-        
-        db.child(p_id).child(cur_date).child("history").setValue(exerciseHistory)
-        
-   
+    
         
         //db.child(p_id).child(cur_date).child("history").setValue(history)
         
@@ -817,7 +815,7 @@ class ExerciseRecordViewController: UIViewController {
         var newList = exerciseTypesDataStorage[nowExerciseType]
         
         
-        if exerciseAll["유산소"]!.contains(nowExerciseType){
+        if isAerovic(type: nowExerciseType){
             newList?.append(setCount)
             calories += Double(setCount) * Double(5)
             calorieLabel.text = "소비된 칼로리 : \(doubleConvertToString(number: calories))Kcal"
@@ -827,9 +825,11 @@ class ExerciseRecordViewController: UIViewController {
             newList?.append(weightCount)
             calories += Double(setCount) * 0.4
             volumes += setCount * weightCount
-            calorieLabel.text = "소비된 칼로리: \(doubleConvertToString(number: calories))"
+            calorieLabel.text = "소비된 칼로리: \(doubleConvertToString(number: calories))Kcal"
             exerciseHistory.append(nowExerciseType + ":\(weightCount) kg" + " \(setCount) 회")
         }
+        
+        db.child(p_id).child(cur_date).child("history").setValue(exerciseHistory)
         
         exerciseTypesDataStorage[nowExerciseType] = newList!
         db.child(p_id).child("chart").child(nowExerciseType).child("주간").child(y).child(m).child(d).setValue(newList!)
