@@ -188,8 +188,6 @@ class ChartViewController: UIViewController, ChartViewDelegate {
       
         selectedType = nowExerciseType
         
-        print(selectedType)
-        
         selectTypeButton.setTitle("\(selectedType)", for: .normal)
     }
     
@@ -359,6 +357,17 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     }
     
     @objc private func conformButtonTapped(sender: UIButton) {
+        
+        if selectedType == "운동 종류" {
+            
+            let alert = UIAlertController(title: "주의", message: "운동 종류를 선택해 주세요", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            
+            return
+        }
+        
+        
         
         var Lists: [Int] = []
         

@@ -21,10 +21,10 @@ class ExerciseCollectionViewCell: UICollectionViewCell {
     
     var ExerciseLabel: UILabel = {
         let ExerciseLabel = UILabel()
-        ExerciseLabel.backgroundColor = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 0.7)
+        ExerciseLabel.backgroundColor = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 1)
         ExerciseLabel.textAlignment = .center
         ExerciseLabel.textColor = .black
-        ExerciseLabel.font = .systemFont(ofSize: 20, weight: .semibold)
+        ExerciseLabel.font = .systemFont(ofSize: 20, weight: .bold)
         return ExerciseLabel
         
     }()
@@ -74,7 +74,7 @@ class ExerciseCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        ExerciseImage.frame = contentView.bounds
+        ExerciseImage.frame = CGRect(x: 0, y: 0, width: contentView.frame.size.width, height: contentView.frame.size.height-30)
         
         ExerciseLabel.frame = CGRect(x: 0,
                                      y: contentView.frame.size.height-30,

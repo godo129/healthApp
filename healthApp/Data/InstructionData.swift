@@ -7,9 +7,6 @@
 import UIKit
 
 
-
-
-
 struct instructionDatas {
     
     var View: UIView

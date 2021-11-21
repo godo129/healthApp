@@ -16,7 +16,6 @@
 		F129FA82272F5C8900D0DCCA /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F129FA81272F5C8900D0DCCA /* ChartViewController.swift */; };
 		F129FAA827314C1E00D0DCCA /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F129FAA727314C1E00D0DCCA /* Functions.swift */; };
 		F129FB0A2733072200D0DCCA /* ExerciseDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = F129FB092733072200D0DCCA /* ExerciseDatas.swift */; };
-		F129FB522733EBE700D0DCCA /* StorageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F129FB512733EBE700D0DCCA /* StorageExtension.swift */; };
 		F12BB53C2739358C00090884 /* circleMenuExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12BB53B2739358C00090884 /* circleMenuExtension.swift */; };
 		F12E1B8027269B11001CB6F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12E1B7F27269B11001CB6F4 /* AppDelegate.swift */; };
 		F12E1B8227269B11001CB6F4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12E1B8127269B11001CB6F4 /* SceneDelegate.swift */; };
@@ -37,7 +36,6 @@
 		F15137B5273E791F0061C6A2 /* bannerViewDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15137B4273E791F0061C6A2 /* bannerViewDatas.swift */; };
 		F15137DD273EE3220061C6A2 /* ExerciseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15137DC273EE3220061C6A2 /* ExerciseCollectionViewCell.swift */; };
 		F15137DF273EE7EC0061C6A2 /* ExerciseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15137DE273EE7EC0061C6A2 /* ExerciseListViewController.swift */; };
-		F173E4342744F5D700D7EF3D /* ChartsLeftAxisFormatt.swift in Sources */ = {isa = PBXBuildFile; fileRef = F173E4332744F5D700D7EF3D /* ChartsLeftAxisFormatt.swift */; };
 		F1C270D4274203AB00800E2B /* InstructionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C270D3274203AB00800E2B /* InstructionData.swift */; };
 		F1C8AC242745632C00C4B9F9 /* absCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C8AC232745632C00C4B9F9 /* absCollectionView.swift */; };
 		F1C8AC262745666600C4B9F9 /* ExerciseTypesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C8AC252745666600C4B9F9 /* ExerciseTypesCollectionViewCell.swift */; };
@@ -57,7 +55,6 @@
 		F129FA81272F5C8900D0DCCA /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		F129FAA727314C1E00D0DCCA /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		F129FB092733072200D0DCCA /* ExerciseDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDatas.swift; sourceTree = "<group>"; };
-		F129FB512733EBE700D0DCCA /* StorageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageExtension.swift; sourceTree = "<group>"; };
 		F12BB53B2739358C00090884 /* circleMenuExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = circleMenuExtension.swift; sourceTree = "<group>"; };
 		F12E1B7C27269B11001CB6F4 /* healthApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = healthApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F12E1B7F27269B11001CB6F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,7 +78,6 @@
 		F15137B4273E791F0061C6A2 /* bannerViewDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bannerViewDatas.swift; sourceTree = "<group>"; };
 		F15137DC273EE3220061C6A2 /* ExerciseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCollectionViewCell.swift; sourceTree = "<group>"; };
 		F15137DE273EE7EC0061C6A2 /* ExerciseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListViewController.swift; sourceTree = "<group>"; };
-		F173E4332744F5D700D7EF3D /* ChartsLeftAxisFormatt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsLeftAxisFormatt.swift; sourceTree = "<group>"; };
 		F1C270D3274203AB00800E2B /* InstructionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionData.swift; sourceTree = "<group>"; };
 		F1C8AC232745632C00C4B9F9 /* absCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = absCollectionView.swift; sourceTree = "<group>"; };
 		F1C8AC252745666600C4B9F9 /* ExerciseTypesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseTypesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -152,11 +148,10 @@
 		F12E1B7E27269B11001CB6F4 /* healthApp */ = {
 			isa = PBXGroup;
 			children = (
+				F1C8AC272745F5E800C4B9F9 /* resources */,
 				F1C8AC222745628400C4B9F9 /* WathVideosCollectionView */,
 				F151376F273C058F0061C6A2 /* healthApp.entitlements */,
 				F125D6C4273A6A0E00CFD36E /* animation */,
-				F12E1B7F27269B11001CB6F4 /* AppDelegate.swift */,
-				F12E1B8127269B11001CB6F4 /* SceneDelegate.swift */,
 				F12E1B8327269B11001CB6F4 /* ViewController.swift */,
 				F135093B272BBA7A00F0E1CC /* QuestionViewController.swift */,
 				F129FA81272F5C8900D0DCCA /* ChartViewController.swift */,
@@ -182,7 +177,6 @@
 		F13220062728294D00E69FEE /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				F129FB512733EBE700D0DCCA /* StorageExtension.swift */,
 				F13220042728265800E69FEE /* personInfo.swift */,
 				F129FB092733072200D0DCCA /* ExerciseDatas.swift */,
 				F15137DC273EE3220061C6A2 /* ExerciseCollectionViewCell.swift */,
@@ -191,7 +185,6 @@
 				F12BB53B2739358C00090884 /* circleMenuExtension.swift */,
 				F15137B4273E791F0061C6A2 /* bannerViewDatas.swift */,
 				F1C270D3274203AB00800E2B /* InstructionData.swift */,
-				F173E4332744F5D700D7EF3D /* ChartsLeftAxisFormatt.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -203,6 +196,15 @@
 				F1C8AC252745666600C4B9F9 /* ExerciseTypesCollectionViewCell.swift */,
 			);
 			path = WathVideosCollectionView;
+			sourceTree = "<group>";
+		};
+		F1C8AC272745F5E800C4B9F9 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				F12E1B7F27269B11001CB6F4 /* AppDelegate.swift */,
+				F12E1B8127269B11001CB6F4 /* SceneDelegate.swift */,
+			);
+			path = resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -328,7 +330,6 @@
 				F12E1B8427269B11001CB6F4 /* ViewController.swift in Sources */,
 				F15137DD273EE3220061C6A2 /* ExerciseCollectionViewCell.swift in Sources */,
 				F135093C272BBA7A00F0E1CC /* QuestionViewController.swift in Sources */,
-				F129FB522733EBE700D0DCCA /* StorageExtension.swift in Sources */,
 				F1C270D4274203AB00800E2B /* InstructionData.swift in Sources */,
 				F129FAA827314C1E00D0DCCA /* Functions.swift in Sources */,
 				F135093A272A2E4100F0E1CC /* persnalInfoViewController.swift in Sources */,
@@ -340,7 +341,6 @@
 				F12E1B8027269B11001CB6F4 /* AppDelegate.swift in Sources */,
 				F12E1B8227269B11001CB6F4 /* SceneDelegate.swift in Sources */,
 				F129FB0A2733072200D0DCCA /* ExerciseDatas.swift in Sources */,
-				F173E4342744F5D700D7EF3D /* ChartsLeftAxisFormatt.swift in Sources */,
 				F132200C272829EB00E69FEE /* CalendarViewController.swift in Sources */,
 				F13220052728265800E69FEE /* personInfo.swift in Sources */,
 				F12E1B9A2726CCAF001CB6F4 /* SignUpController.swift in Sources */,

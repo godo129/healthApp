@@ -516,6 +516,8 @@ class ExerciseRecordViewController: UIViewController {
         
             let item = instructionDatas(View: nowDateLabel, bodyText: "선택된 날짜입니다", nextText: "다음")
         coachDatas.append(item)
+            let itemA = instructionDatas(View: calorieLabel, bodyText: "소비한 칼로리를 알 수 있습니다", nextText: "다음")
+            coachDatas.append(itemA)
             let item1 = instructionDatas(View: calendarButton, bodyText: "날짜를 선택할 수 있습니다", nextText: "다음")
             coachDatas.append(item1)
             let item2 = instructionDatas(View: memoButton, bodyText: "메모를 기록할 수 있습니다", nextText: "다음")
@@ -1091,26 +1093,26 @@ extension ExerciseRecordViewController: UITextFieldDelegate, SRCountdownTimerDel
         let coachView = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
         
         switch index {
-        case 15:
+        case 16:
             intervalAlertButton.isHidden = true
             counterPauseButton.isHidden = false
             counterResetButton.isHidden = false
             coachView.bodyView.hintLabel.text = coachDatas[index].bodyText
             coachView.bodyView.nextLabel.text = coachDatas[index].nextText
             
-        case 16:
+        case 17:
             intervalAlertButton.isHidden = true
             counterPauseButton.isHidden = true
             counterResumeButton.isHidden = false
             coachView.bodyView.hintLabel.text = coachDatas[index].bodyText
             coachView.bodyView.nextLabel.text = coachDatas[index].nextText
-        case 17:
+        case 18:
             intervalAlertButton.isHidden = true
             counterPauseButton.isHidden = false
             counterResumeButton.isHidden = true
             coachView.bodyView.hintLabel.text = coachDatas[index].bodyText
             coachView.bodyView.nextLabel.text = coachDatas[index].nextText
-        case 18:
+        case 19:
             intervalAlertButton.isHidden = false
             counterResetButton.isHidden = true
             counterResumeButton.isHidden = true

@@ -11,16 +11,7 @@ import WebKit
 class QuestionViewController: UIViewController {
     
     private var CollectionView: UICollectionView?
-    private var CollectionView1: UICollectionView?
-    private var CollectionView2: UICollectionView?
-    private var CollectionView3: UICollectionView?
-    private var CollectionView4: UICollectionView?
-    private var CollectionView5: UICollectionView?
-    private var CollectionView6: UICollectionView?
-    private var CollectionView7: UICollectionView?
-    private var CollectionView8: UICollectionView?
- 
-    
+
     let ExerciseView = WKWebView()
     
     private let backButton: UIButton = {
