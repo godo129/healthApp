@@ -26,6 +26,9 @@ func todayString() {
     
 }
 
+
+
+
 var nick = p_id
 var height = 0.0
 var age = 0

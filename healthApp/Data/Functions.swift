@@ -44,6 +44,11 @@ func isCommon(year: Int) -> Bool {
 func generateWeeks(commonOrLeap: [Int], selectedYear: Int) -> [String] {
     
     var candiDates: [String] = []
+    
+    let todayDay = today.split(separator: "-")
+    let todayYear = Int(todayDay[0])!
+    let todayMonth = Int(todayDay[1])!
+    let todayDate = Int(todayDay[2])!
 
     
     // 맨 처음 기준
@@ -52,9 +57,20 @@ func generateWeeks(commonOrLeap: [Int], selectedYear: Int) -> [String] {
     if First == 0 {
         
         candiDates.append("12-26~1-1")
+        
+        
+        if selectedYear == todayYear {
+            
+            if todayMonth == 1 && todayDate == 1 {
+                tags = 0
+            }
+
+        }
+        
 
         
         var m_idx = 0
+        // 1월 2일 부터 시작
         var date = 2
         
         while (m_idx < 12) {
@@ -84,10 +100,32 @@ func generateWeeks(commonOrLeap: [Int], selectedYear: Int) -> [String] {
                 
             }
             
-            //13월 나오는 걸 1월로
+            if selectedYear == todayYear {
+                
+                if firstMonth <= todayMonth && todayMonth <= secondMonth {
+                    if firstMonth != secondMonth {
+                        
+                        if firstDate <= todayDate || secondDate+30 >= todayDate {
+                            tags = candiDates.count-1
+                        }
+                     else {
+                        if firstDate <= todayDate && secondDate >= todayDate {
+                            tags = candiDates.count-1
+                        }
+                    }
+                    }
+                }
+                
+            }
+            
+            
+            // 13월 나오는 걸 1월로
             if secondMonth == 13 {
                 secondMonth = 1
+                
             }
+            
+            
             
             candiDates.append("\(String(format: "%02d", firstMonth))-\(String(format: "%02d", firstDate))~\(String(format: "%02d", secondMonth))-\(String(format: "%02d", secondDate))")
             
@@ -106,6 +144,20 @@ func generateWeeks(commonOrLeap: [Int], selectedYear: Int) -> [String] {
             let twelveDate = 31 - (First - 2)
             m_idx = 0
             date = 1 + (7 - First)
+            
+            
+            
+            // 처음
+            if selectedYear == todayYear {
+                
+                if todayMonth == 1  {
+                    if todayDate <= date {
+                        tags = 0
+                    }
+                }
+                
+            }
+            
             
             candiDates.append("12-\(twelveDate)~01-\(String(format: "%02d", date))")
             
@@ -140,10 +192,33 @@ func generateWeeks(commonOrLeap: [Int], selectedYear: Int) -> [String] {
                 
             }
             
+            
+            if selectedYear == todayYear {
+                
+                if firstMonth <= todayMonth && todayMonth <= secondMonth {
+                    if firstMonth != secondMonth {
+                        
+                        if firstDate <= todayDate || secondDate+30 >= todayDate {
+                            tags = candiDates.count-1
+                        }
+                     else {
+                        if firstDate <= todayDate && secondDate >= todayDate {
+                            tags = candiDates.count-1
+                        }
+                    }
+                }
+                }
+            }
+            
+
+            
             // 13월 나오는 걸 1월로
             if secondMonth == 13 {
                 secondMonth = 1
+                
             }
+            
+
             
             candiDates.append("\(String(format: "%02d", firstMonth))-\(String(format: "%02d", firstDate))~\(String(format: "%02d", secondMonth))-\(String(format: "%02d", secondDate))")
         
@@ -202,5 +277,41 @@ func isAerovic(type: String) -> Bool {
     } else {
         return false
     }
+    
+}
+
+
+
+
+
+func dayToNum(day: String) -> Int {
+    
+    let dateData = day.split(separator: "-")
+    let year = Int(dateData[0])!
+    let month = Int(dateData[1])!
+    let date = Int(dateData[2])!
+    
+    var dates = year * 365
+    dates += year/4
+    dates -= year/100
+    
+    if isCommon(year: year) {
+        if month == 1 {
+            dates += date
+        } else {
+            for i in 0..<month {
+                dates += commonYear[i]
+            }
+        }
+    } else {
+        if month == 1 {
+            dates += date
+        } else {
+            for i in 0..<month {
+                dates += leapYear[i]
+            }
+        }
+    }
+    return dates
     
 }

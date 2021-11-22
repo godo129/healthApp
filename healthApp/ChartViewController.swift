@@ -19,6 +19,8 @@ var candi: [Int] = []
 
 var fromChart = true
 
+var tags = 0
+
 class ChartViewController: UIViewController, ChartViewDelegate {
     
     var oneMore = true
@@ -51,7 +53,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     var db = Database.database().reference()
     
     var selectedYear = 2021
-    var selectedAct = "월간"
+    var selectedAct = "주간"
     var selectedType = exerciseTypes[0]
     var month:[String:Int] = [:]
     var week:[String:Int] = [:]
@@ -179,16 +181,45 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         candiWeeksForward.addTarget(self, action: #selector(candiWeeksForwardTapped), for: .touchUpInside)
         candiWeeksBack.addTarget(self, action: #selector(candiWeeksBackTapped), for: .touchUpInside)
         
-
+        // 워킹 관련된 
         fromChart = true
+        
+        if selectedAct == "주간" {
+            
+            // 주간 날짜들 만들기
+            if isCommon(year: self.selectedYear) {
+                self.candiDates = generateWeeks(commonOrLeap: commonYear, selectedYear: self.selectedYear)
+            } else {
+                self.candiDates = generateWeeks(commonOrLeap: leapYear, selectedYear: self.selectedYear)
+            }
+            
+            self.candiWeeksButton.setTitle(self.candiDates[tags], for: .normal)
+            self.conformButton.tag = tags
+            
+            candiWeeksButton.isHidden = false
+            candiWeeksForward.isHidden = false
+            candiWeeksBack.isHidden = false
+            
+        } else {
+            
+            candiWeeksButton.isHidden = true
+            candiWeeksForward.isHidden = true
+            candiWeeksBack.isHidden = true
+            
+        }
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
       
         selectedType = nowExerciseType
         
         selectTypeButton.setTitle("\(selectedType)", for: .normal)
+        
+        
+        
     }
     
     private func fillCoachDatas() {
@@ -315,6 +346,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         self.present(alert, animated: true, completion: nil)
         
     }
+    
     
     @objc private func candiWeeksForwardTapped() {
         var idx = self.conformButton.tag
@@ -716,7 +748,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     }
     
     
-    
+    /*
     func pr(lists: [String]) {
         // 주간 차트 만들기 !!
         for idx in 0..<lists.count {
@@ -727,6 +759,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
 
         }
     }
+ */
     
 
     
@@ -749,6 +782,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         set.colors = ChartColorTemplates.joyful()
         set.drawCirclesEnabled = false
         set.valueFont = .systemFont(ofSize: 10, weight: .bold)
+        set.valueTextColor = .orange
         set.setColor(.black)
         set.fill = Fill(color: .gray)
         set.fillAlpha = 0.7
@@ -805,10 +839,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         
      
         chart.legend.enabled = false
-        
-        
-        
-        
+
         
         chart.xAxis.labelPosition = .bottom
         chart.rightAxis.enabled = false
