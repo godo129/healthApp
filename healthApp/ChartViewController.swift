@@ -448,13 +448,10 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                                 }
                             } else {
                                 
-                                
-                                
                                 if self.selectedType == "워킹" {
                                     healthAuth(Year: self.selectedYear, Month: Int(self.months[i])!, Date: v)
                                 }
-                          
-                            
+   
                             }
                             
                             if v == commonYear[i] {
@@ -480,6 +477,9 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                                 if value.count == 0 {
                                     
                                 } else {
+                                    
+                                    if 
+  
                                     num = max(num, value.max()!)
                                 }
                             } else {
