@@ -817,11 +817,16 @@ class ExerciseRecordViewController: UIViewController {
         var newList = exerciseTypesDataStorage[nowExerciseType]
         
         
-        if isAerovic(type: nowExerciseType){
+        if onlyTime.contains(nowExerciseType){
             newList?.append(setCount)
             calories += Double(setCount) * Double(5)
             calorieLabel.text = "소비된 칼로리 : \(doubleConvertToString(number: calories))Kcal"
             exerciseHistory.append(nowExerciseType + ":\(setCount) 분")
+        } else if onlyCount.contains(nowExerciseType) {
+            newList?.append(setCount)
+            calories += Double(setCount) * Double(5)
+            calorieLabel.text = "소비된 칼로리 : \(doubleConvertToString(number: calories))Kcal"
+            exerciseHistory.append(nowExerciseType + ":\(setCount) 회")
         }
         else {
             newList?.append(weightCount)
@@ -1001,7 +1006,7 @@ extension ExerciseRecordViewController: UITableViewDelegate, UITableViewDataSour
                 let selectedWeight: Int = Int(explain.split(separator: " ")[0])!
                 
                 
-                if exerciseAll["유산소"]!.contains(type) {
+                if onlyCount.contains(type) || onlyTime.contains(type) {
                     
                     calories -= Double(selectedWeight) * Double(5)
                     calorieLabel.text = "소비된 칼로리 : \(doubleConvertToString(number: calories))Kcal"

@@ -28,7 +28,6 @@ let exerciseAll: [String:[String]] = ["복부":["싯업","크런치","리버스 
 
 
 
-
 struct ExerciseData {
     
     var ExerciseName: String

@@ -444,7 +444,16 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                                 if value.count == 0 {
                           
                                 } else {
-                                    num = max(num, value.max()!)
+                                    if onlyCount.contains(self.selectedType) || onlyTime.contains(self.selectedType) {
+                                        let number = value.reduce(0,+)
+                                        
+                                        num += number
+                                        print(num)
+                                    }
+                                    else {
+  
+                                        num = max(num, value.max()!)
+                                    }
                                 }
                             } else {
                                 
@@ -478,9 +487,17 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                                     
                                 } else {
                                     
-                                    if 
+                                    if onlyCount.contains(self.selectedType) || onlyTime.contains(self.selectedType) {
+                                        
+                                        let number = value.reduce(0,+)
+                                        
+                                        num += number
+                                    }
+                                    else {
   
-                                    num = max(num, value.max()!)
+                                        num = max(num, value.max()!)
+                                    }
+  
                                 }
                             } else {
                               
@@ -638,9 +655,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                 }
                 
             }
-            
             print(xLists)
-            
             
             // 주간 차트 만들기 !!
             for idx in 0..<xLists.count {
@@ -652,10 +667,25 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                 db.child(p_id).child("chart").child(selectedType).child("주간").child(String(selectedYear)).child(month).child(date).observeSingleEvent(of: .value) { snapshot in
                     
                     if let value = snapshot.value as? [Int] {
+                        
+                        print(value)
                         if value.count == 0 {
                             dataLists.append(0)
                         } else {
-                            dataLists.append(value.max()!)
+                            
+                            if onlyCount.contains(self.selectedType) || onlyTime.contains(self.selectedType) {
+                                
+                                let num = value.reduce(0,+)
+                                print(value)
+                                print(num)
+                                dataLists.append(num)
+                            }
+                            else {
+
+                                dataLists.append(value.max()!)
+                            }
+                            
+                            //dataLists.append(value.max()!)
                         }
                     } else {
                       
@@ -668,9 +698,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                         else {
                             
                             dataLists.append(0)
-                            
                         }
-     
                     }
                     
                     if dataLists.count == xLists.count {
@@ -753,14 +781,25 @@ class ChartViewController: UIViewController, ChartViewDelegate {
             
         }
         
+        class ChartsFormatterCounts: IAxisValueFormatter {
+            func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+                return "\(String(format: "%.1f", value))회"
+            }
+            
+        }
+        
+        
+        // 좌측 차트 .. 레이블
         if nowExerciseType == "워킹" {
             chart.leftAxis.valueFormatter = ChartsFormatterSteps()
             
         }
-        else if isAerovic(type: nowExerciseType) {
+        else if onlyTime.contains(nowExerciseType) {
             chart.leftAxis.valueFormatter = ChartsFormatterMinute()
-        } else {
-            
+        } else if onlyCount.contains(nowExerciseType) {
+            chart.leftAxis.valueFormatter = ChartsFormatterCounts()
+        }
+        else {
             chart.leftAxis.valueFormatter = ChartsFormatterKiloGram()
         }
         
