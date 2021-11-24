@@ -33,7 +33,7 @@
 		F135093C272BBA7A00F0E1CC /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F135093B272BBA7A00F0E1CC /* QuestionViewController.swift */; };
 		F151376E273C05410061C6A2 /* HealthKitFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F151376D273C05410061C6A2 /* HealthKitFunctions.swift */; };
 		F1513771273C058F0061C6A2 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1513770273C058F0061C6A2 /* HealthKit.framework */; };
-		F15137B5273E791F0061C6A2 /* bannerViewDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15137B4273E791F0061C6A2 /* bannerViewDatas.swift */; };
+		F15137B5273E791F0061C6A2 /* PlusMinusButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15137B4273E791F0061C6A2 /* PlusMinusButtons.swift */; };
 		F15137DD273EE3220061C6A2 /* ExerciseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15137DC273EE3220061C6A2 /* ExerciseCollectionViewCell.swift */; };
 		F15137DF273EE7EC0061C6A2 /* ExerciseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15137DE273EE7EC0061C6A2 /* ExerciseListViewController.swift */; };
 		F1A8B84A274DC29700A30889 /* dogWalk.json in Resources */ = {isa = PBXBuildFile; fileRef = F1A8B849274DC29700A30889 /* dogWalk.json */; };
@@ -76,7 +76,7 @@
 		F151376D273C05410061C6A2 /* HealthKitFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitFunctions.swift; sourceTree = "<group>"; };
 		F151376F273C058F0061C6A2 /* healthApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = healthApp.entitlements; sourceTree = "<group>"; };
 		F1513770273C058F0061C6A2 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
-		F15137B4273E791F0061C6A2 /* bannerViewDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bannerViewDatas.swift; sourceTree = "<group>"; };
+		F15137B4273E791F0061C6A2 /* PlusMinusButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusMinusButtons.swift; sourceTree = "<group>"; };
 		F15137DC273EE3220061C6A2 /* ExerciseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCollectionViewCell.swift; sourceTree = "<group>"; };
 		F15137DE273EE7EC0061C6A2 /* ExerciseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListViewController.swift; sourceTree = "<group>"; };
 		F1A8B849274DC29700A30889 /* dogWalk.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = dogWalk.json; path = ../../../images/dogWalk.json; sourceTree = "<group>"; };
@@ -186,7 +186,7 @@
 				F129FAA727314C1E00D0DCCA /* Functions.swift */,
 				F151376D273C05410061C6A2 /* HealthKitFunctions.swift */,
 				F12BB53B2739358C00090884 /* circleMenuExtension.swift */,
-				F15137B4273E791F0061C6A2 /* bannerViewDatas.swift */,
+				F15137B4273E791F0061C6A2 /* PlusMinusButtons.swift */,
 				F1C270D3274203AB00800E2B /* InstructionData.swift */,
 			);
 			path = Data;
@@ -341,7 +341,7 @@
 				F12E1B982726CC54001CB6F4 /* LogInController.swift in Sources */,
 				F132200327281FE500E69FEE /* RecordViewController.swift in Sources */,
 				F12BB53C2739358C00090884 /* circleMenuExtension.swift in Sources */,
-				F15137B5273E791F0061C6A2 /* bannerViewDatas.swift in Sources */,
+				F15137B5273E791F0061C6A2 /* PlusMinusButtons.swift in Sources */,
 				F12E1B8027269B11001CB6F4 /* AppDelegate.swift in Sources */,
 				F12E1B8227269B11001CB6F4 /* SceneDelegate.swift in Sources */,
 				F129FB0A2733072200D0DCCA /* ExerciseDatas.swift in Sources */,

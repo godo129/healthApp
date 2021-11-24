@@ -204,47 +204,7 @@ class ExerciseRecordViewController: UIViewController {
     }()
     
     
-    private let plusOneButton: UIButton = {
-        let plusOneButton = UIButton()
-        plusOneButton.setTitle("+1", for: .focused)
-        plusOneButton.backgroundColor = .darkGray
-        return plusOneButton
-    }()
     
-    private let plusFiveButtonh: UIButton = {
-        let plusFiveButtonh = UIButton()
-        plusFiveButtonh.setTitle("+5", for: .focused)
-        plusFiveButtonh.backgroundColor = .darkGray
-        return plusFiveButtonh
-    }()
-    
-    private let plusTenButton: UIButton = {
-        let plusTenButton = UIButton()
-        plusTenButton.setTitle("+10", for: .focused)
-        plusTenButton.backgroundColor = .darkGray
-        return plusTenButton
-    }()
-    
-    private let minusOneButton: UIButton = {
-        let minusOneButton = UIButton()
-        minusOneButton.setTitle("-1", for: .focused)
-        minusOneButton.backgroundColor = .darkGray
-        return minusOneButton
-    }()
-    
-    private let minusFiveButtonh: UIButton = {
-        let minusFiveButtonh = UIButton()
-        minusFiveButtonh.setTitle("-5", for: .focused)
-        minusFiveButtonh.backgroundColor = .darkGray
-        return minusFiveButtonh
-    }()
-    
-    private let minusTenButton: UIButton = {
-        let minusTenButton = UIButton()
-        minusTenButton.setTitle("-10", for: .focused)
-        minusTenButton.backgroundColor = .darkGray
-        return minusTenButton
-    }()
     
     
     private let recordButton : UIButton = {
@@ -291,13 +251,13 @@ class ExerciseRecordViewController: UIViewController {
         view.addSubview(nowDateLabel)
         view.addSubview(calorieLabel)
         
-        view.addSubview(setLabel)
+        //view.addSubview(setLabel)
         view.addSubview(weightLable)
-        view.addSubview(weightButton)
+        //view.addSubview(weightButton)
         view.addSubview(nowExTypeButton)
-        view.addSubview(fiveKiloBarbellButton)
-        view.addSubview(tenKiloBarbellButton)
-        view.addSubview(twentyKiloBarbellButton)
+        //view.addSubview(fiveKiloBarbellButton)
+        //view.addSubview(tenKiloBarbellButton)
+        //view.addSubview(twentyKiloBarbellButton)
         view.addSubview(recordButton)
         view.addSubview(setButton)
         
@@ -358,7 +318,7 @@ class ExerciseRecordViewController: UIViewController {
         calendarButton.addTarget(self, action: #selector(calendarButtonTapped), for: .touchUpInside)
         recordButton.addTarget(self, action: #selector(recordButtonTapped), for: .touchUpInside)
         weightButton.addTarget(self, action: #selector(weightButtonTapped), for: .touchUpInside)
-        setButton.addTarget(self, action: #selector(setButtonTapped), for: .touchUpInside)
+        //setButton.addTarget(self, action: #selector(setButtonTapped), for: .touchUpInside)
         nowExTypeButton.addTarget(self, action: #selector(nowExTypeButtonTapped), for: .touchUpInside)
         fiveKiloBarbellButton.addTarget(self, action: #selector(fiveKiloBarbellButtonTapped), for: .touchUpInside)
         tenKiloBarbellButton.addTarget(self, action: #selector(tenKiloBarbellButtonTapped), for: .touchUpInside)
@@ -371,45 +331,24 @@ class ExerciseRecordViewController: UIViewController {
         
         
         
+        
     }
     
     
     
     override func viewWillAppear(_ animated: Bool) {
         
+        view.addSubview(setLabel)
         
         nowDateLabel.text = cur_date
    
         weightLable.text = "\(weightCount) kg"
+        setCount = 0
    
         
         // 운동별 변화
-        if onlyTime.contains(nowExerciseType) {
-            
-            setButton.setTitle("\(setCount) 분", for: .normal)
-           /*
-            let plusOneButton1 = plusOneButton
-            let plusFiveButton1 = plusFiveButtonh
-            let plustTenButton1 = plusTenButton
-            let minusOneButton1 = minusOneButton
-            let minusFiveButton1 = minusFiveButtonh
-            let minusTenButton1 = minusTenButton
-            
-            setButton.frame = CGRect(x: view.frame.width/2-50, y: nowExTypeButton.frame.origin.y+120, width: 60, height: 40)
-            */
-            
-        } else if onlyCount.contains(nowExerciseType) {
-
-            setButton.setTitle("\(setCount) 회", for: .normal)
-            /*
-            setButton.frame = CGRect(x: view.frame.width/2-50, y: nowExTypeButton.frame.origin.y+120, width: 60, height: 40)
-*/
-        } else {
-            setButton.setTitle("\(setCount) 회", for: .normal)/*
-            setButton.frame = CGRect(x: view.frame.width/2-50, y: nowExTypeButton.frame.origin.y+80, width: 60, height: 40)
-*/
-            
-        }
+        settingWeightCount()
+        
         
         setButton.setTitleColor(.black, for: .normal)
         
@@ -530,8 +469,6 @@ class ExerciseRecordViewController: UIViewController {
             
         })
         
-        print(exerciseHistory)
-        
         
         // 운동 변하거나, 그럴 때 무게, 횟수 초기화
         setCount = 0
@@ -554,6 +491,7 @@ class ExerciseRecordViewController: UIViewController {
         
     }
     
+    
     func notiAuth() {
         
         let AuthOption = UNAuthorizationOptions(arrayLiteral: [.badge, .sound, .alert])
@@ -571,6 +509,7 @@ class ExerciseRecordViewController: UIViewController {
             }
         }
     }
+    
     
     
     
@@ -620,6 +559,196 @@ class ExerciseRecordViewController: UIViewController {
         coachDatas.append(instructionDatas(View: view, bodyText: "휴식 시간을 초기화합니다", nextText: ""))
             
         }
+    
+    
+    private func settingWeightCount() {
+        
+        if onlyTime.contains(nowExerciseType) {
+            
+            plusOneButtons.isHidden = true
+            plusFiveButtons.isHidden = true
+            plusTenButtons.isHidden = true
+            minusOneButtons.isHidden = true
+            minusFiveButtons.isHidden = true
+            minusTenButtons.isHidden = true
+            
+            setLabel.text = "\(setCount) 분"
+            //setButton.setTitle("\(setCount) 분", for: .normal)
+           
+            let plusOneButton1 = plusOneButton
+            let plusFiveButton1 = plusFiveButton
+            let plusTenButton1 = plusTenButton
+            let minusOneButton1 = minusOneButton
+            let minusFiveButton1 = minusFiveButton
+            let minusTenButton1 = minusTenButton
+            
+            
+            setLabel.frame = CGRect(x: view.frame.width/2-20, y: nowExTypeButton.frame.origin.y+140, width: 80, height: 40)
+            //setButton.frame = CGRect(x: view.frame.width/2-20, y: nowExTypeButton.frame.origin.y+140, width: 80, height: 40)
+            minusOneButton1.frame =  CGRect(x: setLabel.frame.origin.x-180, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
+            minusFiveButton1.frame =  CGRect(x: setLabel.frame.origin.x-130, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
+            minusTenButton1.frame =  CGRect(x: setLabel.frame.origin.x-80, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
+            plusOneButton1.frame =  CGRect(x: setLabel.frame.origin.x+180, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
+            plusFiveButton1.frame =  CGRect(x: setLabel.frame.origin.x+130, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
+            plusTenButton1.frame =  CGRect(x: setLabel.frame.origin.x+80, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
+            
+            view.addSubview(plusOneButton1)
+            view.addSubview(plusFiveButton1)
+            view.addSubview(plusTenButton1)
+            view.addSubview(minusOneButton1)
+            view.addSubview(minusFiveButton1)
+            view.addSubview(minusTenButton1)
+            
+            minusOneButton1.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            minusFiveButton1.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            minusTenButton1.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            plusOneButton1.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            plusFiveButton1.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            plusTenButton1.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            
+            weightLable.isHidden = true
+
+            
+        } else if onlyCount.contains(nowExerciseType) {
+            
+            plusOneButtons.isHidden = true
+            plusFiveButtons.isHidden = true
+            plusTenButtons.isHidden = true
+            minusOneButtons.isHidden = true
+            minusFiveButtons.isHidden = true
+            minusTenButtons.isHidden = true
+
+            
+            setLabel.text = "\(setCount) 회"
+            //setButton.setTitle("\(setCount) 회", for: .normal)
+            
+            let plusOneButton1 = plusOneButton
+            let plusFiveButton1 = plusFiveButton
+            let plusTenButton1 = plusTenButton
+            let minusOneButton1 = minusOneButton
+            let minusFiveButton1 = minusFiveButton
+            let minusTenButton1 = minusTenButton
+            
+            
+            
+            setLabel.frame = CGRect(x: view.frame.width/2-20, y: nowExTypeButton.frame.origin.y+140, width: 80, height: 40)
+            //setButton.frame = CGRect(x: view.frame.width/2-20, y: nowExTypeButton.frame.origin.y+140, width: 80, height: 40)
+            minusOneButton1.frame =  CGRect(x: setLabel.frame.origin.x-180, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
+            minusFiveButton1.frame =  CGRect(x: setLabel.frame.origin.x-130, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
+            minusTenButton1.frame =  CGRect(x: setLabel.frame.origin.x-80, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
+            plusOneButton1.frame =  CGRect(x: setLabel.frame.origin.x+180, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
+            plusFiveButton1.frame =  CGRect(x: setLabel.frame.origin.x+130, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
+            plusTenButton1.frame =  CGRect(x: setLabel.frame.origin.x+80, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
+            
+            view.addSubview(plusOneButton1)
+            view.addSubview(plusFiveButton1)
+            view.addSubview(plusTenButton1)
+            view.addSubview(minusOneButton1)
+            view.addSubview(minusFiveButton1)
+            view.addSubview(minusTenButton1)
+            
+            minusOneButton1.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            minusFiveButton1.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            minusTenButton1.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            plusOneButton1.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            plusFiveButton1.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            plusTenButton1.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            
+            weightLable.isHidden = true
+            
+        } else {
+            
+            setLabel.text = "\(setCount) 회"
+            //setButton.setTitle("\(setCount) 회", for: .normal)
+            weightLable.isHidden = false
+            
+            plusOneButtons.isHidden = false
+            plusFiveButtons.isHidden = false
+            plusTenButtons.isHidden = false
+            minusOneButtons.isHidden = false
+            minusFiveButtons.isHidden = false
+            minusTenButtons.isHidden = false
+            
+            
+            setLabel.frame = CGRect(x: view.frame.width/2-20, y: instructionButton.frame.origin.y+550, width: 80, height: 40)
+            //setButton.frame = CGRect(x: view.frame.width/2-20, y: instructionButton.frame.origin.y+550, width: 80, height: 40)
+            weightLable.frame = CGRect(x: setLabel.frame.origin.x, y: setLabel.frame.origin.y+70, width: 80, height: 40)
+            
+            let plusOneButton1 = plusOneButton
+            let plusFiveButton1 = plusFiveButton
+            let plusTenButton1 = plusTenButton
+            let minusOneButton1 = minusOneButton
+            let minusFiveButton1 = minusFiveButton
+            let minusTenButton1 = minusTenButton
+            
+            let plusOneButton2 = plusOneButtons
+            let plusFiveButton2 = plusFiveButtons
+            let plusTenButton2 = plusTenButtons
+            let minusOneButton2 = minusOneButtons
+            let minusFiveButton2 = minusFiveButtons
+            let minusTenButton2 = minusTenButtons
+            
+            
+            minusOneButton1.frame =  CGRect(x: setLabel.frame.origin.x-180, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
+            minusFiveButton1.frame =  CGRect(x: setLabel.frame.origin.x-130, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
+            minusTenButton1.frame =  CGRect(x: setLabel.frame.origin.x-80, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
+            plusOneButton1.frame =  CGRect(x: setLabel.frame.origin.x+180, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
+            plusFiveButton1.frame =  CGRect(x: setLabel.frame.origin.x+130, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
+            plusTenButton1.frame =  CGRect(x: setLabel.frame.origin.x+80, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
+            
+            minusOneButton2.frame =  CGRect(x: weightLable.frame.origin.x-180, y: weightLable.frame.origin.y, width: 40, height: weightLable.frame.height)
+            minusFiveButton2.frame =  CGRect(x: weightLable.frame.origin.x-130, y: weightLable.frame.origin.y, width: 40, height: weightLable.frame.height)
+            minusTenButton2.frame =  CGRect(x: weightLable.frame.origin.x-80, y: weightLable.frame.origin.y, width: 40, height: weightLable.frame.height)
+            plusOneButton2.frame =  CGRect(x: weightLable.frame.origin.x+180, y: weightLable.frame.origin.y, width: 40, height: weightLable.frame.height)
+            plusFiveButton2.frame =  CGRect(x: weightLable.frame.origin.x+130, y: weightLable.frame.origin.y, width: 40, height: weightLable.frame.height)
+            plusTenButton2.frame =  CGRect(x: weightLable.frame.origin.x+80, y: weightLable.frame.origin.y, width: 40, height: weightLable.frame.height)
+            
+            minusOneButton1.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            minusFiveButton1.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            minusTenButton1.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            plusOneButton1.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            plusFiveButton1.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            plusTenButton1.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            
+            minusOneButton2.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            minusFiveButton2.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            minusTenButton2.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            plusOneButton2.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            plusFiveButton2.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            plusTenButton2.layer.cornerRadius = plusOneButton1.bounds.size.width / 2
+            
+            
+            
+            view.addSubview(plusOneButton1)
+            view.addSubview(plusFiveButton1)
+            view.addSubview(plusTenButton1)
+            view.addSubview(minusOneButton1)
+            view.addSubview(minusFiveButton1)
+            view.addSubview(minusTenButton1)
+            
+            view.addSubview(plusOneButton2)
+            view.addSubview(plusFiveButton2)
+            view.addSubview(plusTenButton2)
+            view.addSubview(minusOneButton2)
+            view.addSubview(minusFiveButton2)
+            view.addSubview(minusTenButton2)
+        
+        }
+        
+        plusOneButton.addTarget(self, action: #selector(plusOneSet), for: .touchUpInside)
+        plusFiveButton.addTarget(self, action: #selector(plusFiveSet), for: .touchUpInside)
+        plusTenButton.addTarget(self, action: #selector(plusTenSet), for: .touchUpInside)
+        minusOneButton.addTarget(self, action: #selector(minusOneSet), for: .touchUpInside)
+        minusFiveButton.addTarget(self, action: #selector(minusFiveSet), for: .touchUpInside)
+        minusTenButton.addTarget(self, action: #selector(minusTenSet), for: .touchUpInside)
+        
+        plusOneButtons.addTarget(self, action: #selector(plusOneWeight), for: .touchUpInside)
+        plusFiveButtons.addTarget(self, action: #selector(plusFiveWeight), for: .touchUpInside)
+        plusTenButtons.addTarget(self, action: #selector(plusTenWeight), for: .touchUpInside)
+        minusOneButtons.addTarget(self, action: #selector(minusOneWeight), for: .touchUpInside)
+        minusFiveButtons.addTarget(self, action: #selector(minusFiveWeight), for: .touchUpInside)
+        minusTenButtons.addTarget(self, action: #selector(minusTenWeight), for: .touchUpInside)
+    }
         
     @objc private func instructionButtonTapped() {
             
@@ -628,7 +757,168 @@ class ExerciseRecordViewController: UIViewController {
     }
 
     
+    @objc private func plusOneSet() {
+        setCount += 1
+        
+        if onlyTime.contains(nowExerciseType) {
+            
+            setLabel.text = "\(setCount) 분"
+            
+        } else {
+            
+            setLabel.text = "\(setCount) 회"
+        }
+    }
     
+    @objc private func plusFiveSet() {
+        setCount += 5
+        
+        if onlyTime.contains(nowExerciseType) {
+            
+            setLabel.text = "\(setCount) 분"
+            
+        } else {
+            
+            setLabel.text = "\(setCount) 회"
+        }
+    }
+    
+    @objc private func plusTenSet() {
+        setCount += 10
+        
+        if onlyTime.contains(nowExerciseType) {
+            
+            setLabel.text = "\(setCount) 분"
+            
+        } else {
+            
+            setLabel.text = "\(setCount) 회"
+        }
+    }
+    
+    
+    @objc private func minusOneSet() {
+        
+        if setCount - 1 < 0 {
+            return
+        }
+        
+        setCount -= 1
+        
+        if onlyTime.contains(nowExerciseType) {
+            
+            setLabel.text = "\(setCount) 분"
+            
+        } else {
+            
+            setLabel.text = "\(setCount) 회"
+        }
+    }
+    
+    
+    @objc private func minusFiveSet() {
+        
+        if setCount - 5 < 0 {
+            return
+        }
+        
+        setCount -= 5
+        
+        if onlyTime.contains(nowExerciseType) {
+            
+            setLabel.text = "\(setCount) 분"
+            
+        } else {
+            
+            setLabel.text = "\(setCount) 회"
+        }
+    }
+    
+    
+    @objc private func minusTenSet() {
+        
+        if setCount - 10 < 0 {
+            return
+        }
+        
+        setCount -= 10
+        
+        if onlyTime.contains(nowExerciseType) {
+            
+            setLabel.text = "\(setCount) 분"
+            
+        } else {
+            
+            setLabel.text = "\(setCount) 회"
+        }
+    }
+    
+    @objc private func plusOneWeight() {
+        weightCount += 1
+        
+        if !onlyTime.contains(nowExerciseType) && !onlyCount.contains(nowExerciseType) {
+            weightLable.text = "\(weightCount) kg"
+        }
+    }
+    
+    @objc private func plusFiveWeight() {
+        weightCount += 5
+        
+        if !onlyTime.contains(nowExerciseType) && !onlyCount.contains(nowExerciseType) {
+            weightLable.text = "\(weightCount) kg"
+        }
+    }
+    
+    @objc private func plusTenWeight() {
+        weightCount += 10
+        
+        if !onlyTime.contains(nowExerciseType) && !onlyCount.contains(nowExerciseType) {
+            weightLable.text = "\(weightCount) kg"
+        }
+    }
+    
+    @objc private func minusOneWeight() {
+        
+        
+        if weightCount-1 < 0 {
+            return
+        }
+        
+        weightCount -= 1
+        
+        if !onlyTime.contains(nowExerciseType) && !onlyCount.contains(nowExerciseType) {
+            weightLable.text = "\(weightCount) kg"
+        }
+    }
+    
+    @objc private func minusFiveWeight() {
+        
+        if weightCount - 5 < 0 {
+            return
+        }
+        
+        weightCount -= 5
+        
+        if !onlyTime.contains(nowExerciseType) && !onlyCount.contains(nowExerciseType) {
+            weightLable.text = "\(weightCount) kg"
+        }
+    }
+    
+    @objc private func minusTenWeight() {
+        
+        if weightCount - 10 < 0 {
+            return
+        }
+        
+        weightCount -= 10
+        
+        if !onlyTime.contains(nowExerciseType) && !onlyCount.contains(nowExerciseType) {
+            weightLable.text = "\(weightCount) kg"
+        }
+    }
+    
+    
+
     @objc private func  counterResetButtonTapped() {
         tappedReset = true
         counter.end()
@@ -977,10 +1267,10 @@ class ExerciseRecordViewController: UIViewController {
         weightButton.frame = CGRect(x: self.view.bounds.maxX-40, y: nowExTypeButton.frame.origin.y+90, width: 20, height: 20)
         
         //setLabel.frame = CGRect(x: 50, y: nowExTypeButton.frame.origin.y+80, width: 60, height: 40)
-        setButton.frame = CGRect(x: 50, y: nowExTypeButton.frame.origin.y+80, width: 60, height: 40)
-        weightLable.frame = CGRect(x: self.view.bounds.maxX/2-15, y: nowExTypeButton.frame.origin.y+80, width: 70, height: 40)
-        fiveKiloBarbellButton.frame = CGRect(x: 30, y: weightLable.frame.origin.y+60, width: 80, height: 80)
-        tenKiloBarbellButton.frame = CGRect(x: fiveKiloBarbellButton.frame.origin.x+150, y: weightLable.frame.origin.y+60, width: 80, height: 80)
+        //setButton.frame = CGRect(x: 50, y: nowExTypeButton.frame.origin.y+80, width: 60, height: 40)
+        //weightLable.frame = CGRect(x: self.view.bounds.maxX/2-15, y: nowExTypeButton.frame.origin.y+80, width: 70, height: 40)
+        fiveKiloBarbellButton.frame = CGRect(x: 30, y: nowExTypeButton.frame.origin.y+140, width: 80, height: 80)
+        tenKiloBarbellButton.frame = CGRect(x: fiveKiloBarbellButton.frame.origin.x+150, y: nowExTypeButton.frame.origin.y+140, width: 80, height: 80)
         twentyKiloBarbellButton.frame = CGRect(x: tenKiloBarbellButton.frame.origin.x+150, y: weightLable.frame.origin.y+60, width: 80, height: 80)
         counter.frame = CGRect(x: fiveKiloBarbellButton.frame.origin.x+45, y: tenKiloBarbellButton.frame.origin.y + 100, width: 110, height: 110)
         
