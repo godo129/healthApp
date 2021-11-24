@@ -40,7 +40,10 @@ class persnalInfoViewController: UIViewController {
         let pickImageButton = UIButton()
         pickImageButton.setTitle("사진 변경", for: .normal)
         pickImageButton.setTitleColor(.black, for: .normal)
-        pickImageButton.backgroundColor = .systemBlue
+        pickImageButton.backgroundColor = .white
+        pickImageButton.layer.borderWidth = 2
+        pickImageButton.layer.borderColor = UIColor.systemBlue.cgColor
+        pickImageButton.layer.cornerRadius = 20
         return pickImageButton
     }()
     
@@ -48,7 +51,10 @@ class persnalInfoViewController: UIViewController {
         let clearImageButton = UIButton()
         clearImageButton.setTitle("초기화", for: .normal)
         clearImageButton.setTitleColor(.black, for: .normal)
-        clearImageButton.backgroundColor = .orange
+        clearImageButton.backgroundColor = .white
+        clearImageButton.layer.borderWidth = 2
+        clearImageButton.layer.borderColor = UIColor.orange.cgColor
+        clearImageButton.layer.cornerRadius = 20
         return clearImageButton
     }()
     
@@ -116,7 +122,11 @@ class persnalInfoViewController: UIViewController {
     private let recordButton : UIButton = {
         let recordButton = UIButton()
         recordButton.setTitle("저장", for: .normal)
-        recordButton.backgroundColor = .systemBlue
+        recordButton.setTitleColor(.black, for: .normal)
+        recordButton.backgroundColor = .clear
+        recordButton.layer.borderWidth = 2
+        recordButton.layer.borderColor = UIColor.darkGray.cgColor
+        recordButton.layer.cornerRadius = 20
         return recordButton
     }()
 
@@ -145,13 +155,9 @@ class persnalInfoViewController: UIViewController {
         
         moveViewButton.delegate = self
         view.addSubview(moveViewButton)
-        
-        // 이미지 불러오기
-        
-        
-        
-        
-        
+        moveViewButton.frame = CGRect(x: 380, y: 500, width: 50, height: 50)
+
+      
         
         nickTextField.text = nick
         ageTextField.text = "\(age)"
@@ -419,18 +425,18 @@ class persnalInfoViewController: UIViewController {
         titleLabel.frame = CGRect(x: 100, y: 100, width: view.frame.size.width-200, height: 50)
         
         imageView.frame = CGRect(x: 50, y: titleLabel.frame.origin.y + 50, width: view.frame.size.width-100, height: 270)
-        pickImageButton.frame = CGRect(x: 80, y: imageView.frame.origin.y + 300, width: 80, height: 50)
-        clearImageButton.frame = CGRect(x:240, y: imageView.frame.origin.y + 300, width: 80, height: 50 )
-        nickLabel.frame = CGRect(x: 30, y: clearImageButton.frame.origin.y+100, width: 50, height: 50)
-        nickTextField.frame = CGRect(x: nickLabel.frame.origin.x+100, y: clearImageButton.frame.origin.y+100, width: 200, height: 40)
+        pickImageButton.frame = CGRect(x: 100, y: imageView.frame.origin.y + 300, width: 80, height: 50)
+        clearImageButton.frame = CGRect(x:260, y: imageView.frame.origin.y + 300, width: 80, height: 50 )
+        nickLabel.frame = CGRect(x: 30, y: clearImageButton.frame.origin.y+90, width: 50, height: 50)
+        nickTextField.frame = CGRect(x: nickLabel.frame.origin.x+100, y: clearImageButton.frame.origin.y+95, width: 200, height: 40)
         ageLabel.frame = CGRect(x: 30, y: nickLabel.frame.origin.y+50, width: 50, height: 50)
-        ageTextField.frame = CGRect(x: nickLabel.frame.origin.x+100, y: nickLabel.frame.origin.y+50, width: 200, height: 40)
+        ageTextField.frame = CGRect(x: nickLabel.frame.origin.x+100, y: nickTextField.frame.origin.y+50, width: 200, height: 40)
         heightLabel.frame = CGRect(x: 30, y: ageLabel.frame.origin.y+50, width: 50, height: 50)
-        heightTextField.frame = CGRect(x: nickLabel.frame.origin.x+100, y: ageLabel.frame.origin.y+50, width: 200, height: 40)
+        heightTextField.frame = CGRect(x: nickLabel.frame.origin.x+100, y: ageTextField.frame.origin.y+50, width: 200, height: 40)
         weightLabel.frame = CGRect(x: 30, y: heightLabel.frame.origin.y+50, width: 50, height: 50)
-        weightTextField.frame = CGRect(x: nickLabel.frame.origin.x+100, y: heightLabel.frame.origin.y+50, width: 200, height: 40)
+        weightTextField.frame = CGRect(x: nickLabel.frame.origin.x+100, y: heightTextField.frame.origin.y+50, width: 200, height: 40)
         
-        recordButton.frame = CGRect(x: view.frame.maxX/2-60, y: weightTextField.frame.origin.y+80, width: 100, height: 50)
+        recordButton.frame = CGRect(x: view.frame.maxX/2-40, y: weightTextField.frame.origin.y+80, width: 100, height: 50)
         
     }
     

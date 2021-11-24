@@ -72,9 +72,6 @@ class SideMenuViewController: UIViewController {
         return nickLabel
     }()
     
-    
-    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()

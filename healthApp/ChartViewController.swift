@@ -118,7 +118,10 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         let conformButton = UIButton()
         conformButton.setTitleColor(.white, for: .normal)
         conformButton.setTitle("확인", for: .normal)
-        conformButton.backgroundColor = .orange
+        conformButton.setTitleColor(.black, for: .normal)
+        conformButton.backgroundColor = .white
+        conformButton.layer.borderColor = UIColor.orange.cgColor
+        conformButton.layer.borderWidth = 2
         return conformButton
     }()
     
@@ -887,7 +890,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         candiWeeksBack.frame = CGRect(x: 20, y: candiWeeksButton.frame.origin.y, width: 30, height: 50)
         candiWeeksForward.frame = CGRect(x: candiWeeksButton.frame.origin.x + 150, y: candiWeeksButton.frame.origin.y, width: 30, height: 50)
         
-        conformButton.frame = CGRect(x: candiWeeksButton.frame.origin.x+200,
+        conformButton.frame = CGRect(x: candiWeeksButton.frame.origin.x+240,
                                      y: candiWeeksButton.frame.origin.y,
                                      width: 100,
                                      height: 50)

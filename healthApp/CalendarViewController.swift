@@ -32,7 +32,10 @@ class CalendarViewController: UIViewController,FSCalendarDataSource, FSCalendarD
         let conformButton = UIButton(frame: CGRect(x: 370, y: 50, width: 50, height: 50))
         conformButton.setTitle("확인", for: .normal)
         conformButton.setTitleColor(.black, for: .normal)
-        conformButton.backgroundColor = .yellow
+        conformButton.backgroundColor = .clear
+        conformButton.layer.borderWidth = 2
+        conformButton.layer.borderColor = UIColor.black.cgColor
+        conformButton.layer.cornerRadius = conformButton.bounds.width/2
         view.addSubview(conformButton)
         
         

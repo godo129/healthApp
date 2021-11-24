@@ -75,7 +75,10 @@ class RecordViewController: UIViewController {
     private let recordButton: UIButton = {
         let recordButton = UIButton()
         recordButton.setTitle("기록", for: .normal)
-        recordButton.backgroundColor = .link
+        recordButton.setTitleColor(.black, for: .normal)
+        recordButton.backgroundColor = .white
+        recordButton.layer.borderColor = UIColor.link.cgColor
+        recordButton.layer.borderWidth = 2
 
         return recordButton
     }()
@@ -236,8 +239,7 @@ extension RecordViewController: CoachMarksControllerDelegate, CoachMarksControll
     func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: (UIView & CoachMarkBodyView), arrowView: (UIView & CoachMarkArrowView)?) {
             
         let coachView = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation, hintText: coachDatas[index].bodyText, nextText: coachDatas[index].nextText)
-            
-        moveViewButton.sendActions(for: .touchUpInside)
+        
         return (bodyView: coachView.bodyView, arrowView: coachView.arrowView)
             
     }

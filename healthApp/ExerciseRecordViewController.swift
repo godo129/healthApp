@@ -135,7 +135,10 @@ class ExerciseRecordViewController: UIViewController {
         
         let memoButton = UIButton()
         memoButton.setTitle("메모", for: .normal)
-        memoButton.backgroundColor = .orange
+        memoButton.setTitleColor(.black, for: .normal)
+        memoButton.backgroundColor = .white
+        memoButton.layer.borderColor = UIColor.orange.cgColor
+        memoButton.layer.borderWidth = 2
         
         return memoButton
     }()
@@ -144,7 +147,10 @@ class ExerciseRecordViewController: UIViewController {
     private let calendarButton: UIButton = {
         let calendarButton = UIButton()
         calendarButton.setTitle("달력", for: .normal)
-        calendarButton.backgroundColor = .blue
+        calendarButton.setTitleColor(.black, for: .normal)
+        calendarButton.backgroundColor = .white
+        calendarButton.layer.borderColor = UIColor.blue.cgColor
+        calendarButton.layer.borderWidth = 2
         return calendarButton
     }()
     
@@ -217,7 +223,10 @@ class ExerciseRecordViewController: UIViewController {
     private let recordButton : UIButton = {
         let recordButton = UIButton()
         recordButton.setTitle("저장", for: .normal)
-        recordButton.backgroundColor = .orange
+        recordButton.setTitleColor(.black, for: .normal)
+        recordButton.backgroundColor = .white
+        recordButton.layer.borderColor = UIColor.orange.cgColor
+        recordButton.layer.borderWidth = 2
         return recordButton
     }()
 
