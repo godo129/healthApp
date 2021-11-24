@@ -41,10 +41,9 @@ var profileImage: UIImage!
 var profileImageView: UIImageView = {
     
     let profileImageView = UIImageView()
-    profileImageView.layer.cornerRadius = 95
     profileImageView.clipsToBounds = true
     profileImageView.contentMode = .scaleAspectFit
-    profileImageView.layer.cornerRadius = 90
+    profileImageView.layer.cornerRadius = 150.0/2.0
     return profileImageView
 }()
 

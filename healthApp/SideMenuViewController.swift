@@ -84,6 +84,57 @@ class SideMenuViewController: UIViewController {
         nickLabel.text = nick
         
         view.addSubview(stepsLabel)
+        
+        
+        storage.child("\(p_id)/images/profileImage\(p_id).png").downloadURL { [self] url, error in
+            guard let url = url, error == nil else {
+                
+                profileImageView.image = defaultPersonImage!
+                
+                guard let image = defaultPersonImage else {
+                    return
+                }
+                
+                guard let data = image.pngData() else {
+                    return
+                }
+                
+                storage.child("\(p_id)/images/profileImage\(p_id).png").putData(data)
+                
+                
+                return
+            }
+            
+            
+            let urls = URL(string: url.absoluteString)!
+            
+            
+            // 킹피셔 사용해서 이미지 빨리 불러오기
+            profileImageView.kf.setImage(with: urls)
+            
+            /*
+            let task = URLSession.shared.dataTask(with: urls) { data, _, error in
+                guard let data = data, error == nil else {
+                    return
+                }
+                
+                let image = UIImage(data: data)
+                
+                
+                
+                DispatchQueue.main.sync {
+                    
+                    profileImage = image!
+                }
+            }
+        
+        
+            
+            task.resume()
+            */
+        }
+        
+        
 
 /*
         storage.child("\(p_id)/images/profileImage\(p_id).png").downloadURL { url, error in
@@ -150,9 +201,9 @@ class SideMenuViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        super.viewWillAppear(animated)
         
         view.addSubview(profileImageView)
-        // 화면 동그랗게 
 
 
         
@@ -164,12 +215,10 @@ class SideMenuViewController: UIViewController {
         
         view.addSubview(dogAnimation)
         dogAnimation.play()
+   
         
-        print(toY,toM,toD)
         healthAuth(Year: toY, Month: toM, Date: toD)
-        
-        
-        
+   
         stepsLabel.text = "\(UserDefaults.standard.value(forKey: "steps")!) 걸음"
         
         
@@ -246,9 +295,7 @@ class SideMenuViewController: UIViewController {
             coachDatas.append(item2)
             let item3 = instructionDatas(View: stepsLabel, bodyText: "걸음 걸이를 나타냅니다", nextText: "다음")
             coachDatas.append(item3)
-           
-            
-            
+
         }
         
         @objc private func instructionButtonTapped() {
@@ -266,9 +313,8 @@ class SideMenuViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        profileImageView.frame = CGRect(x: 20, y: 200, width: 260, height: 200)
         
-       // profileImageView.frame = CGRect(x: 20, y: 200, width: 260, height: 200)
+        profileImageView.frame = CGRect(x: 20, y: 200, width: 260, height: 200)
         nickLabel.frame = CGRect(x: 100, y: profileImageView.frame.origin.y+200, width: 100, height: 50)
         
         stepsLabel.frame = CGRect(x: 100, y: nickLabel.frame.origin.y+60, width: 100, height: 50)

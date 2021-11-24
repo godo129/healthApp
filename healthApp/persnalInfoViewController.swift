@@ -30,6 +30,7 @@ class persnalInfoViewController: UIViewController {
         titleLabel.textAlignment = .center
         titleLabel.text = "회원 정보"
         titleLabel.textColor = .black
+        titleLabel.font = .systemFont(ofSize: 30, weight: .bold)
         return titleLabel
     }()
     
@@ -162,6 +163,56 @@ class persnalInfoViewController: UIViewController {
         recordButton.addTarget(self, action: #selector(recordButtonTapped), for: .touchUpInside)
         pickImageButton.addTarget(self, action: #selector(pickImageButtonTapped), for: .touchUpInside)
         clearImageButton.addTarget(self, action: #selector(clearImageButtonTapped), for: .touchUpInside)
+        
+        
+        storage.child("\(p_id)/images/profileImage\(p_id).png").downloadURL { [self] url, error in
+            guard let url = url, error == nil else {
+                
+                profileImageView.image = defaultPersonImage!
+                
+                guard let image = defaultPersonImage else {
+                    return
+                }
+                
+                guard let data = image.pngData() else {
+                    return
+                }
+                
+                storage.child("\(p_id)/images/profileImage\(p_id).png").putData(data)
+                
+                
+                return
+            }
+            
+            
+            let urls = URL(string: url.absoluteString)!
+            
+            
+            // 킹피셔 사용해서 이미지 빨리 불러오기
+            profileImageView.kf.setImage(with: urls)
+            
+            /*
+            let task = URLSession.shared.dataTask(with: urls) { data, _, error in
+                guard let data = data, error == nil else {
+                    return
+                }
+                
+                let image = UIImage(data: data)
+                
+                
+                
+                DispatchQueue.main.sync {
+                    
+                    profileImage = image!
+                }
+            }
+        
+        
+            
+            task.resume()
+            */
+        }
+        
         
         
     //    imageView.image = profileImage
