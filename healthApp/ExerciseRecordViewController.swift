@@ -203,6 +203,50 @@ class ExerciseRecordViewController: UIViewController {
         return twentyKiloBarbellButton
     }()
     
+    
+    private let plusOneButton: UIButton = {
+        let plusOneButton = UIButton()
+        plusOneButton.setTitle("+1", for: .focused)
+        plusOneButton.backgroundColor = .darkGray
+        return plusOneButton
+    }()
+    
+    private let plusFiveButtonh: UIButton = {
+        let plusFiveButtonh = UIButton()
+        plusFiveButtonh.setTitle("+5", for: .focused)
+        plusFiveButtonh.backgroundColor = .darkGray
+        return plusFiveButtonh
+    }()
+    
+    private let plusTenButton: UIButton = {
+        let plusTenButton = UIButton()
+        plusTenButton.setTitle("+10", for: .focused)
+        plusTenButton.backgroundColor = .darkGray
+        return plusTenButton
+    }()
+    
+    private let minusOneButton: UIButton = {
+        let minusOneButton = UIButton()
+        minusOneButton.setTitle("-1", for: .focused)
+        minusOneButton.backgroundColor = .darkGray
+        return minusOneButton
+    }()
+    
+    private let minusFiveButtonh: UIButton = {
+        let minusFiveButtonh = UIButton()
+        minusFiveButtonh.setTitle("-5", for: .focused)
+        minusFiveButtonh.backgroundColor = .darkGray
+        return minusFiveButtonh
+    }()
+    
+    private let minusTenButton: UIButton = {
+        let minusTenButton = UIButton()
+        minusTenButton.setTitle("-10", for: .focused)
+        minusTenButton.backgroundColor = .darkGray
+        return minusTenButton
+    }()
+    
+    
     private let recordButton : UIButton = {
         let recordButton = UIButton()
         recordButton.setTitle("저장", for: .normal)
@@ -340,12 +384,31 @@ class ExerciseRecordViewController: UIViewController {
    
         
         // 운동별 변화
-        if exerciseAll["유산소"]!.contains(nowExerciseType) {
+        if onlyTime.contains(nowExerciseType) {
             
             setButton.setTitle("\(setCount) 분", for: .normal)
-        } else {
+           /*
+            let plusOneButton1 = plusOneButton
+            let plusFiveButton1 = plusFiveButtonh
+            let plustTenButton1 = plusTenButton
+            let minusOneButton1 = minusOneButton
+            let minusFiveButton1 = minusFiveButtonh
+            let minusTenButton1 = minusTenButton
+            
+            setButton.frame = CGRect(x: view.frame.width/2-50, y: nowExTypeButton.frame.origin.y+120, width: 60, height: 40)
+            */
+            
+        } else if onlyCount.contains(nowExerciseType) {
 
             setButton.setTitle("\(setCount) 회", for: .normal)
+            /*
+            setButton.frame = CGRect(x: view.frame.width/2-50, y: nowExTypeButton.frame.origin.y+120, width: 60, height: 40)
+*/
+        } else {
+            setButton.setTitle("\(setCount) 회", for: .normal)/*
+            setButton.frame = CGRect(x: view.frame.width/2-50, y: nowExTypeButton.frame.origin.y+80, width: 60, height: 40)
+*/
+            
         }
         
         setButton.setTitleColor(.black, for: .normal)
@@ -824,7 +887,7 @@ class ExerciseRecordViewController: UIViewController {
             exerciseHistory.append(nowExerciseType + ":\(setCount) 분")
         } else if onlyCount.contains(nowExerciseType) {
             newList?.append(setCount)
-            calories += Double(setCount) * Double(5)
+            calories += Double(setCount) * 0.4
             calorieLabel.text = "소비된 칼로리 : \(doubleConvertToString(number: calories))Kcal"
             exerciseHistory.append(nowExerciseType + ":\(setCount) 회")
         }
@@ -893,7 +956,7 @@ class ExerciseRecordViewController: UIViewController {
         backButton.frame = CGRect(x: 20, y: 40, width: 50, height: 30)
         
         
-        nowDateLabel.frame = CGRect(x: self.view.bounds.maxX/2-50, y: instructionButton.frame.origin.y+50, width: 100, height: 50)
+        nowDateLabel.frame = CGRect(x: self.view.bounds.maxX/2-50, y: instructionButton.frame.origin.y+50, width: 150, height: 50)
         calorieLabel.frame = CGRect(x: self.view.bounds.maxX/2-100, y: nowDateLabel.frame.origin.y+50, width: 200, height: 50)
         
         historyTable.frame = CGRect(x: 50 , y: calorieLabel.frame.origin.y + 70, width: view.frame.size.width-100, height: 250 )
@@ -1006,11 +1069,16 @@ extension ExerciseRecordViewController: UITableViewDelegate, UITableViewDataSour
                 let selectedWeight: Int = Int(explain.split(separator: " ")[0])!
                 
                 
-                if onlyCount.contains(type) || onlyTime.contains(type) {
+                if onlyTime.contains(type) {
                     
                     calories -= Double(selectedWeight) * Double(5)
                     calorieLabel.text = "소비된 칼로리 : \(doubleConvertToString(number: calories))Kcal"
-                } else {
+                } else if onlyCount.contains(type) {
+                    calories -= Double(selectedWeight) * 0.4
+                    calorieLabel.text = "소비된 칼로리 : \(doubleConvertToString(number: calories))Kcal"
+  
+                }
+                else {
                     let selectedSetCounts: Int = Int(explain.split(separator: " ")[2])!
                     calories -= Double(selectedSetCounts) * 0.4
                     volumes -= selectedWeight * selectedSetCounts
