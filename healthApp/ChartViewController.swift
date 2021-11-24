@@ -479,8 +479,8 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                                     if onlyCount.contains(self.selectedType) || onlyTime.contains(self.selectedType) {
                                         let number = value.reduce(0,+)
                                         
-                                        num += number
-                                        print(num)
+                                        num = max(num,number)
+                                        
                                     }
                                     else {
   
@@ -523,7 +523,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                                         
                                         let number = value.reduce(0,+)
                                         
-                                        num += number
+                                        num = max(num,number)
                                     }
                                     else {
   
@@ -708,8 +708,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                             if onlyCount.contains(self.selectedType) || onlyTime.contains(self.selectedType) {
                                 
                                 let num = value.reduce(0,+)
-                                print(value)
-                                print(num)
+                                
                                 dataLists.append(num)
                             }
                             else {
