@@ -146,6 +146,7 @@ class ExerciseRecordViewController: UIViewController {
         calendarButton.backgroundColor = .blue
         return calendarButton
     }()
+    
   /*
     private let historyLabel: UILabel = {
         var historyLabel = UILabel()
@@ -181,6 +182,9 @@ class ExerciseRecordViewController: UIViewController {
         let nowExTypeButton = UIButton()
         nowExTypeButton.setTitleColor(.black, for: .normal)
         nowExTypeButton.setTitle(nowExerciseType, for: .normal)
+        nowExTypeButton.layer.borderWidth = 3
+        nowExTypeButton.layer.borderColor = UIColor.black.cgColor
+        nowExTypeButton.layer.cornerRadius = 10
         return nowExTypeButton
     }()
     
@@ -309,9 +313,7 @@ class ExerciseRecordViewController: UIViewController {
         instructionButton.addTarget(self, action: #selector(instructionButtonTapped), for: .touchUpInside)
         
         
-        
-        
-        
+    
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         intervalAlertButton.addTarget(self, action: #selector(intervalAlertButtonTapped), for: .touchUpInside)
         memoButton.addTarget(self, action: #selector(memoButtonTapped), for: .touchUpInside)
@@ -329,8 +331,8 @@ class ExerciseRecordViewController: UIViewController {
         counterResetButton.addTarget(self, action: #selector(counterResetButtonTapped), for: .touchUpInside)
 
         
-        
-        
+        // 기록 버튼들 추가
+        settingWeightCount()
         
     }
     
@@ -342,8 +344,9 @@ class ExerciseRecordViewController: UIViewController {
         
         nowDateLabel.text = cur_date
    
-        weightLable.text = "\(weightCount) kg"
+        
         setCount = 0
+        weightCount = 0
    
         
         // 운동별 변화
