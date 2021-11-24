@@ -334,9 +334,9 @@ class ExerciseRecordViewController: UIViewController {
         weightButton.addTarget(self, action: #selector(weightButtonTapped), for: .touchUpInside)
         //setButton.addTarget(self, action: #selector(setButtonTapped), for: .touchUpInside)
         nowExTypeButton.addTarget(self, action: #selector(nowExTypeButtonTapped), for: .touchUpInside)
-        fiveKiloBarbellButton.addTarget(self, action: #selector(fiveKiloBarbellButtonTapped), for: .touchUpInside)
-        tenKiloBarbellButton.addTarget(self, action: #selector(tenKiloBarbellButtonTapped), for: .touchUpInside)
-        twentyKiloBarbellButton.addTarget(self, action: #selector(twentyKiloBarbellButtonTapped), for: .touchUpInside)
+        //fiveKiloBarbellButton.addTarget(self, action: #selector(fiveKiloBarbellButtonTapped), for: .touchUpInside)
+        //tenKiloBarbellButton.addTarget(self, action: #selector(tenKiloBarbellButtonTapped), for: .touchUpInside)
+        //twentyKiloBarbellButton.addTarget(self, action: #selector(twentyKiloBarbellButtonTapped), for: .touchUpInside)
         
         counterResumeButton.addTarget(self, action: #selector(counterResumeButtonTapped), for: .touchUpInside)
         counterPauseButton.addTarget(self, action: #selector(counterPauseButtonTapped), for: .touchUpInside)
