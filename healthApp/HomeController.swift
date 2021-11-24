@@ -19,7 +19,6 @@ import Instructions
 class HomeController: UIViewController, UINavigationControllerDelegate {
     
     
-    
     let storage = Storage.storage().reference()
     
     private var coachMarksController = CoachMarksController()
@@ -191,15 +190,8 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
         view.addSubview(questionButton)
         
         
+
         
-        
-        
-        
-        
-        
-        // 원형 메뉴
-        moveViewButton.delegate = self
-        view.addSubview(moveViewButton)
         
         // 애니메이션 백그라운드 에서도 돌아가게 
         exerciseRecordView.backgroundBehavior = .pauseAndRestore
@@ -309,6 +301,8 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
         
         
         
+        
+        
     }
     
     
@@ -340,6 +334,12 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
         // 도움말
         view.addSubview(instructionButton)
         
+        
+    
+        // 원형 메뉴
+        moveViewButton.delegate = self
+        view.addSubview(moveViewButton)
+        
         // 도움말 데이터 넣어주기
         fillCoachDatas()
         coachMarksController.dataSource = self
@@ -359,16 +359,10 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
     
     private func fillCoachDatas() {
         
-        let item1 = instructionDatas(View: bannerView, bodyText: "배너를 볼 수 있는 뷰입니다", nextText: "다음")
+        let item1 = instructionDatas(View: bannerView, bodyText: "클릭을 통해 기록하거나 볼 수 있습니다", nextText: "다음")
         coachDatas.append(item1)
-        let item2 = instructionDatas(View: exerciseRecordView, bodyText: "운동 기록할 수 있는 뷰로 갈 수 있는 버튼입니다", nextText: "다음")
+        let item2 = instructionDatas(View: questionButton, bodyText: "운동 영상을 볼 수 있는 뷰로 가는 버튼입니다", nextText: "다음")
         coachDatas.append(item2)
-        let item3 = instructionDatas(View: chartRecordView, bodyText: "운동 기록을 볼 수 있는 뷰로 갈 수 있는 버튼입니다", nextText: "다음")
-        coachDatas.append(item3)
-        let item4 = instructionDatas(View: moveViewButton, bodyText: "다른 뷰로 갈 수 있는 버튼입니다", nextText: "다음")
-        coachDatas.append(item4)
-        let item5 = instructionDatas(View: questionButton, bodyText: "운동 영상을 볼 수 있는 뷰로 가는 버튼입니다", nextText: "다음")
-        coachDatas.append(item5)
         
         
     }
@@ -416,7 +410,7 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
             age = 0
             height = 0.0
             weight = 0.0
-            profileImage = defaultPersonImage
+            profileImageView.image = defaultPersonImage
 
             
             exerciseRecordView.stop()
@@ -626,6 +620,7 @@ extension HomeController: FSPagerViewDelegate, FSPagerViewDataSource, CoachMarks
     func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: (UIView & CoachMarkBodyView), arrowView: (UIView & CoachMarkArrowView)?) {
         
         let coachView = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation, hintText: coachDatas[index].bodyText, nextText: coachDatas[index].nextText)
+
         
         return (bodyView: coachView.bodyView, arrowView: coachView.arrowView)
         
