@@ -43,6 +43,7 @@ var profileImageView: UIImageView = {
     let profileImageView = UIImageView()
     profileImageView.layer.cornerRadius = 95
     profileImageView.clipsToBounds = true
+    profileImageView.contentMode = .scaleAspectFit
     return profileImageView
 }()
 

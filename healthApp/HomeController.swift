@@ -38,7 +38,7 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
     
     private let bannerView: FSPagerView = {
         var bannerView = FSPagerView()
-        bannerView.transformer = FSPagerViewTransformer(type: .cubic)
+        bannerView.transformer = FSPagerViewTransformer(type: .zoomOut)
         bannerView.isInfinite = true
         return bannerView
     }()
@@ -68,6 +68,15 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
         chartRecordView.contentMode = .scaleAspectFit
         chartRecordView.animationSpeed = 1.0
         return chartRecordView
+    }()
+    
+    private let dogWalkView: AnimationView = {
+        var dogWalkView = AnimationView()
+        dogWalkView = .init(name: "dogWalk")
+        dogWalkView.loopMode = .loop
+        dogWalkView.animationSpeed = 1.1
+        dogWalkView.play()
+        return dogWalkView
     }()
     
     let moveViewButton = CircleMenu(
@@ -165,8 +174,9 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
         
         //애니메이션
         view.addSubview(backgroundAnimation)
-        view.addSubview(exerciseRecordView)
-        view.addSubview(chartRecordView)
+        //view.addSubview(exerciseRecordView)
+        //view.addSubview(chartRecordView)
+        view.addSubview(dogWalkView)
         
         // 그외
         view.addSubview(titleLabel)
@@ -307,7 +317,8 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
         // 배너
         
         view.addSubview(bannerView)
-        view.addSubview(bannerPageController)
+
+        //view.addSubview(bannerPageController)
 
         bannerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "bannerCell")
         bannerView.dataSource = self
@@ -486,7 +497,9 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
                                   width: view.frame.size.width-100,
                                   height: 100)
         
-        bannerView.frame = CGRect(x: 60, y: titleLabel.frame.origin.y + 120, width: 300, height: 130)
+        bannerView.frame = CGRect(x: 60, y: titleLabel.frame.origin.y + 140, width: view.frame.width-100, height: view.frame.height-500)
+        
+        bannerView.itemSize = CGSize(width: view.frame.width-150, height: view.frame.height-600)
         
         bannerPageController.frame = CGRect(x: bannerView.frame.origin.x-20, y: bannerView.frame.origin.y+70 , width: 100, height: 100)
         
@@ -530,6 +543,11 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
                                   width: view.frame.size.width-150,
                                   height: 200)
         
+        dogWalkView.frame = CGRect(x: 80,
+                                   y: bannerView.frame.origin.y+400,
+                                   width: view.frame.size.width-130,
+                                   height: 250)
+        
        // chartViewButton.frame = CGRect(x: 80,
         //                          y: recordViewButton.frame.origin.y+300,
         //                          width: view.frame.size.width-150,
@@ -548,18 +566,54 @@ extension HomeController: FSPagerViewDelegate, FSPagerViewDataSource, CoachMarks
 
     func numberOfItems(in pagerView: FSPagerView) -> Int {
         
-        return 5
+        return 2
         
     }
     
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "bannerCell", at: index)
         
-        cell.imageView?.kf.setImage(with: URL(string: viewDatas[index]))
+        //cell.imageView?.kf.setImage(with: URL(string: viewDatas[index]))
+        
+        cell.imageView?.contentMode = .scaleToFill
+        cell.imageView?.layer.cornerRadius = 50
+        cell.imageView?.layer.shadowColor = UIColor.darkGray.cgColor
+        cell.imageView?.layer.shadowOpacity = 1
+        cell.imageView?.layer.shadowRadius = 30
+        cell.imageView?.clipsToBounds = true
+        
+        
+        cell.textLabel?.textAlignment = .center
+        cell.textLabel?.font = .systemFont(ofSize: 30)
+        switch index {
+        case 0:
+            cell.textLabel?.text = "기록 하기"
+            cell.imageView?.image = UIImage(named: "Exercise")
+        case 1:
+            cell.textLabel?.text = "기록 보기"
+            cell.imageView?.image = UIImage(named: "Graph")
+        default:
+            cell.textLabel?.text = ""
+        }
+     
         
         bannerPageController.currentPage = index
         return cell
     }
+    
+    func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
+        
+        
+        switch index {
+        case 0:
+            recordViewButtonTapped()
+        case 1:
+            chartViewButtonTapped()
+        default:
+            print("11")
+        }
+    }
+    
     
     func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
         return coachDatas.count

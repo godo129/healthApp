@@ -36,6 +36,7 @@
 		F15137B5273E791F0061C6A2 /* bannerViewDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15137B4273E791F0061C6A2 /* bannerViewDatas.swift */; };
 		F15137DD273EE3220061C6A2 /* ExerciseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15137DC273EE3220061C6A2 /* ExerciseCollectionViewCell.swift */; };
 		F15137DF273EE7EC0061C6A2 /* ExerciseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15137DE273EE7EC0061C6A2 /* ExerciseListViewController.swift */; };
+		F1A8B84A274DC29700A30889 /* dogWalk.json in Resources */ = {isa = PBXBuildFile; fileRef = F1A8B849274DC29700A30889 /* dogWalk.json */; };
 		F1C270D4274203AB00800E2B /* InstructionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C270D3274203AB00800E2B /* InstructionData.swift */; };
 		F1C8AC242745632C00C4B9F9 /* absCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C8AC232745632C00C4B9F9 /* absCollectionView.swift */; };
 		F1C8AC262745666600C4B9F9 /* ExerciseTypesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C8AC252745666600C4B9F9 /* ExerciseTypesCollectionViewCell.swift */; };
@@ -78,6 +79,7 @@
 		F15137B4273E791F0061C6A2 /* bannerViewDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bannerViewDatas.swift; sourceTree = "<group>"; };
 		F15137DC273EE3220061C6A2 /* ExerciseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCollectionViewCell.swift; sourceTree = "<group>"; };
 		F15137DE273EE7EC0061C6A2 /* ExerciseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListViewController.swift; sourceTree = "<group>"; };
+		F1A8B849274DC29700A30889 /* dogWalk.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = dogWalk.json; path = ../../../images/dogWalk.json; sourceTree = "<group>"; };
 		F1C270D3274203AB00800E2B /* InstructionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionData.swift; sourceTree = "<group>"; };
 		F1C8AC232745632C00C4B9F9 /* absCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = absCollectionView.swift; sourceTree = "<group>"; };
 		F1C8AC252745666600C4B9F9 /* ExerciseTypesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseTypesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				F125D6CB273A6AB700CFD36E /* snowFlake.json */,
 				F125D6CF273A6C9700CFD36E /* chartAnimation.json */,
 				F1018DF0273A8B360040EBF4 /* exerciseViewAnimation.json */,
+				F1A8B849274DC29700A30889 /* dogWalk.json */,
 			);
 			path = animation;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F12E1B8C27269B13001CB6F4 /* LaunchScreen.storyboard in Resources */,
+				F1A8B84A274DC29700A30889 /* dogWalk.json in Resources */,
 				F125D6CC273A6AB700CFD36E /* snowFlake.json in Resources */,
 				F125D6CE273A6AE000CFD36E /* runDog.json in Resources */,
 				F1DBE2F227284B3E0015EE27 /* GoogleService-Info.plist in Resources */,
