@@ -359,10 +359,14 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
     
     private func fillCoachDatas() {
         
-        let item1 = instructionDatas(View: bannerView, bodyText: "클릭을 통해 기록하거나 볼 수 있습니다", nextText: "다음")
+        let item1 = instructionDatas(View: bannerView, bodyText: "클릭을 통해 운동 기록할 수 있습니다", nextText: "다음")
         coachDatas.append(item1)
-        let item2 = instructionDatas(View: questionButton, bodyText: "운동 영상을 볼 수 있는 뷰로 가는 버튼입니다", nextText: "다음")
+        let item2 = instructionDatas(View: bannerView, bodyText: "클릭을 통해 운동 기록을 볼 수 있습니다", nextText: "다음")
         coachDatas.append(item2)
+        let item3 = instructionDatas(View: moveViewButton, bodyText: "다른 뷰로 움직일 수 있는 버튼입니다", nextText: "다음")
+        coachDatas.append(item3)
+        let item4 = instructionDatas(View: questionButton, bodyText: "운동 영상을 볼 수 있는 뷰로 가는 버튼입니다", nextText: "다음")
+        coachDatas.append(item4)
         
         
     }
@@ -621,6 +625,16 @@ extension HomeController: FSPagerViewDelegate, FSPagerViewDataSource, CoachMarks
         
         let coachView = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation, hintText: coachDatas[index].bodyText, nextText: coachDatas[index].nextText)
 
+        
+        switch index {
+        case 0:
+            bannerView.scrollToItem(at: index, animated: true)
+        case 1:
+            bannerView.scrollToItem(at: index, animated: true)
+        default:
+            bannerView.scrollToItem(at: 0, animated: true)
+        }
+        
         
         return (bodyView: coachView.bodyView, arrowView: coachView.arrowView)
         
