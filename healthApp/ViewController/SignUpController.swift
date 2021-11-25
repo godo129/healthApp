@@ -67,7 +67,9 @@ class SignUpController: UIViewController {
         let signUpButton = UIButton()
         signUpButton.setTitle("Sign Up", for: .normal)
         signUpButton.setTitleColor(.black, for: .normal)
-        
+        signUpButton.layer.cornerRadius = 10
+        signUpButton.layer.borderWidth = 2
+        signUpButton.layer.borderColor = UIColor.gray.cgColor
         return signUpButton
     }()
 
@@ -205,9 +207,9 @@ class SignUpController: UIViewController {
                                           height: 50)
         
         signUpButton.frame = CGRect(x: 50,
-                                    y: checkPasswordField.frame.origin.y+50,
+                                    y: checkPasswordField.frame.origin.y+70,
                                     width: view.frame.size.width-100,
-                                    height: 50)
+                                    height: 30)
     }
 
 

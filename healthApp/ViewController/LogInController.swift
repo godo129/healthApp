@@ -60,6 +60,9 @@ class LogInController: UIViewController {
         let LogInButton = UIButton()
         LogInButton.setTitle("Log In", for: .normal)
         LogInButton.setTitleColor(.black, for: .normal)
+        LogInButton.layer.cornerRadius = 10
+        LogInButton.layer.borderWidth = 2
+        LogInButton.layer.borderColor = UIColor.darkGray.cgColor
         return LogInButton
     }()
 
@@ -287,9 +290,9 @@ class LogInController: UIViewController {
                                      height: 50)
         
         LogInButton.frame = CGRect(x: 50,
-                                   y: passwordField.frame.origin.y+50,
+                                   y: passwordField.frame.origin.y+70,
                                    width: view.frame.size.width-100,
-                                   height: 60)
+                                   height: 30)
         
     }
     
