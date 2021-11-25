@@ -79,7 +79,7 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
     }()
     
     let moveViewButton = CircleMenu(
-      frame: CGRect(x: 380, y: 400, width: 50, height: 50),
+      frame: CGRect(x: 380, y: 650, width: 50, height: 50),
       normalIcon:"bar",
       selectedIcon:"close",
       buttonsCount: 8,

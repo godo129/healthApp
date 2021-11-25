@@ -166,12 +166,18 @@ class ExerciseRecordViewController: UIViewController {
     private let setLabel : UILabel = {
         let setLabel = UILabel()
         setLabel.textAlignment = .center
+        setLabel.layer.borderColor = UIColor.systemBlue.cgColor
+        setLabel.layer.borderWidth = 2
+        setLabel.layer.cornerRadius = 10
         return setLabel
     }()
     
     private var weightLable : UILabel = {
         let weightLabel = UILabel()
         weightLabel.textAlignment = .center
+        weightLabel.layer.borderWidth = 2
+        weightLabel.layer.borderColor = UIColor.systemBlue.cgColor
+        weightLabel.layer.cornerRadius = 10
         return weightLabel
     }()
     
@@ -295,6 +301,7 @@ class ExerciseRecordViewController: UIViewController {
         
         moveViewButton.delegate = self
         view.addSubview(moveViewButton)
+        
         
         //사이드 메뉴 옵션
         sideBar.leftSide = true
@@ -811,6 +818,15 @@ class ExerciseRecordViewController: UIViewController {
     @objc private func minusOneSet() {
         
         if setCount - 1 < 0 {
+            setCount = 0
+            if onlyTime.contains(nowExerciseType) {
+                
+                setLabel.text = "\(setCount) 분"
+                
+            } else {
+                
+                setLabel.text = "\(setCount) 회"
+            }
             return
         }
         
@@ -830,6 +846,15 @@ class ExerciseRecordViewController: UIViewController {
     @objc private func minusFiveSet() {
         
         if setCount - 5 < 0 {
+            setCount = 0
+            if onlyTime.contains(nowExerciseType) {
+                
+                setLabel.text = "\(setCount) 분"
+                
+            } else {
+                
+                setLabel.text = "\(setCount) 회"
+            }
             return
         }
         
@@ -849,6 +874,15 @@ class ExerciseRecordViewController: UIViewController {
     @objc private func minusTenSet() {
         
         if setCount - 10 < 0 {
+            setCount = 0
+            if onlyTime.contains(nowExerciseType) {
+                
+                setLabel.text = "\(setCount) 분"
+                
+            } else {
+                
+                setLabel.text = "\(setCount) 회"
+            }
             return
         }
         
@@ -892,6 +926,8 @@ class ExerciseRecordViewController: UIViewController {
         
         
         if weightCount-1 < 0 {
+            weightCount = 0
+            weightLable.text = "\(weightCount) kg"
             return
         }
         
@@ -905,6 +941,8 @@ class ExerciseRecordViewController: UIViewController {
     @objc private func minusFiveWeight() {
         
         if weightCount - 5 < 0 {
+            weightCount = 0
+            weightLable.text = "\(weightCount) kg"
             return
         }
         
@@ -918,6 +956,8 @@ class ExerciseRecordViewController: UIViewController {
     @objc private func minusTenWeight() {
         
         if weightCount - 10 < 0 {
+            weightCount = 0
+            weightLable.text = "\(weightCount) kg"
             return
         }
         
@@ -1291,6 +1331,7 @@ class ExerciseRecordViewController: UIViewController {
         counterPauseButton.frame = CGRect(x: intervalTimeField.frame.origin.x+150, y: tenKiloBarbellButton.frame.origin.y + 140, width: 60, height: 40)
         counterResumeButton.frame = CGRect(x: intervalTimeField.frame.origin.x+150, y: tenKiloBarbellButton.frame.origin.y + 140, width: 60, height: 40)
         counterResetButton.frame = CGRect(x: intervalTimeField.frame.origin.x+220, y: tenKiloBarbellButton.frame.origin.y + 140, width: 50, height: 40)
+        
         
     }
     
