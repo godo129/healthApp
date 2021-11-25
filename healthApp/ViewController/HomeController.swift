@@ -75,6 +75,7 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
         dogWalkView.loopMode = .loop
         dogWalkView.animationSpeed = 1.1
         dogWalkView.play()
+        dogWalkView.backgroundBehavior = .pauseAndRestore
         return dogWalkView
     }()
     
@@ -97,6 +98,7 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
         backgroundAnimation.animationSpeed = 0.6
         backgroundAnimation.contentMode = .scaleAspectFit
         backgroundAnimation.play()
+        backgroundAnimation.backgroundBehavior = .pauseAndRestore
         return backgroundAnimation
     }()
     
@@ -583,6 +585,7 @@ extension HomeController: FSPagerViewDelegate, FSPagerViewDataSource, CoachMarks
         
         cell.textLabel?.textAlignment = .center
         cell.textLabel?.font = .systemFont(ofSize: 30)
+        
         switch index {
         case 0:
             cell.textLabel?.text = "기록 하기"
@@ -607,9 +610,11 @@ extension HomeController: FSPagerViewDelegate, FSPagerViewDataSource, CoachMarks
             recordViewButtonTapped()
         case 1:
             chartViewButtonTapped()
+        
         default:
             print("11")
         }
+        
     }
     
     
@@ -631,6 +636,14 @@ extension HomeController: FSPagerViewDelegate, FSPagerViewDataSource, CoachMarks
             bannerView.scrollToItem(at: index, animated: true)
         case 1:
             bannerView.scrollToItem(at: index, animated: true)
+        case 2:
+            if !logined {
+                moveViewButton.isHidden = false
+            }
+        case 3:
+            if !logined {
+                moveViewButton.isHidden = true
+            }
         default:
             bannerView.scrollToItem(at: 0, animated: true)
         }
