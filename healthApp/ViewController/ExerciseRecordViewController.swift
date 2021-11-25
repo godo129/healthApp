@@ -767,6 +767,22 @@ class ExerciseRecordViewController: UIViewController {
         minusFiveButtons.addTarget(self, action: #selector(minusFiveWeight), for: .touchUpInside)
         minusTenButtons.addTarget(self, action: #selector(minusTenWeight), for: .touchUpInside)
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        plusOneButton.removeTarget(self, action: #selector(plusOneSet), for: .touchUpInside)
+        plusFiveButton.removeTarget(self, action: #selector(plusFiveSet), for: .touchUpInside)
+        plusTenButton.removeTarget(self, action: #selector(plusTenSet), for: .touchUpInside)
+        minusOneButton.removeTarget(self, action: #selector(minusOneSet), for: .touchUpInside)
+        minusFiveButton.removeTarget(self, action: #selector(minusFiveSet), for: .touchUpInside)
+        minusTenButton.removeTarget(self, action: #selector(minusTenSet), for: .touchUpInside)
+        
+        plusOneButtons.removeTarget(self, action: #selector(plusOneWeight), for: .touchUpInside)
+        plusFiveButtons.removeTarget(self, action: #selector(plusFiveWeight), for: .touchUpInside)
+        plusTenButtons.removeTarget(self, action: #selector(plusTenWeight), for: .touchUpInside)
+        minusOneButtons.removeTarget(self, action: #selector(minusOneWeight), for: .touchUpInside)
+        minusFiveButtons.removeTarget(self, action: #selector(minusFiveWeight), for: .touchUpInside)
+        minusTenButtons.removeTarget(self, action: #selector(minusTenWeight), for: .touchUpInside)
+    }
         
     @objc private func instructionButtonTapped() {
             
