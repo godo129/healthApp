@@ -151,23 +151,13 @@
 		F12E1B7E27269B11001CB6F4 /* healthApp */ = {
 			isa = PBXGroup;
 			children = (
+				F1A8B84B274F2C5500A30889 /* ViewController */,
 				F1C8AC272745F5E800C4B9F9 /* resources */,
 				F1C8AC222745628400C4B9F9 /* WathVideosCollectionView */,
 				F151376F273C058F0061C6A2 /* healthApp.entitlements */,
 				F125D6C4273A6A0E00CFD36E /* animation */,
 				F12E1B8327269B11001CB6F4 /* ViewController.swift */,
-				F135093B272BBA7A00F0E1CC /* QuestionViewController.swift */,
-				F129FA81272F5C8900D0DCCA /* ChartViewController.swift */,
-				F1350939272A2E4100F0E1CC /* persnalInfoViewController.swift */,
-				F1DBE2F32728F0AF0015EE27 /* ExerciseRecordViewController.swift */,
-				F132200B272829EB00E69FEE /* CalendarViewController.swift */,
-				F132200227281FE500E69FEE /* RecordViewController.swift */,
-				F12E1B972726CC54001CB6F4 /* LogInController.swift */,
-				F12E1B992726CCAF001CB6F4 /* SignUpController.swift */,
-				F12E1B9527269CEA001CB6F4 /* HomeController.swift */,
-				F128D9EA273961980000ED90 /* SideMenuViewController.swift */,
 				F12E1B8527269B11001CB6F4 /* Main.storyboard */,
-				F15137DE273EE7EC0061C6A2 /* ExerciseListViewController.swift */,
 				F13220062728294D00E69FEE /* Data */,
 				F12E1B8827269B13001CB6F4 /* Assets.xcassets */,
 				F12E1B8A27269B13001CB6F4 /* LaunchScreen.storyboard */,
@@ -190,6 +180,24 @@
 				F1C270D3274203AB00800E2B /* InstructionData.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		F1A8B84B274F2C5500A30889 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F135093B272BBA7A00F0E1CC /* QuestionViewController.swift */,
+				F129FA81272F5C8900D0DCCA /* ChartViewController.swift */,
+				F1350939272A2E4100F0E1CC /* persnalInfoViewController.swift */,
+				F1DBE2F32728F0AF0015EE27 /* ExerciseRecordViewController.swift */,
+				F132200B272829EB00E69FEE /* CalendarViewController.swift */,
+				F132200227281FE500E69FEE /* RecordViewController.swift */,
+				F12E1B972726CC54001CB6F4 /* LogInController.swift */,
+				F12E1B992726CCAF001CB6F4 /* SignUpController.swift */,
+				F12E1B9527269CEA001CB6F4 /* HomeController.swift */,
+				F128D9EA273961980000ED90 /* SideMenuViewController.swift */,
+				F15137DE273EE7EC0061C6A2 /* ExerciseListViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		F1C8AC222745628400C4B9F9 /* WathVideosCollectionView */ = {
