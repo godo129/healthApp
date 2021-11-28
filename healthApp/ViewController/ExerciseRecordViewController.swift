@@ -350,8 +350,7 @@ class ExerciseRecordViewController: UIViewController {
         counterResetButton.addTarget(self, action: #selector(counterResetButtonTapped), for: .touchUpInside)
 
         
-        // 기록 버튼들 추가
-        settingWeightCount()
+        
         
     }
     
@@ -600,7 +599,7 @@ class ExerciseRecordViewController: UIViewController {
             let minusTenButton1 = minusTenButton
             
             
-            setLabel.frame = CGRect(x: view.frame.width/2-40, y: nowExTypeButton.frame.origin.y+140, width: 80, height: 40)
+            setLabel.frame = CGRect(x: view.frame.width/2-40, y: instructionButton.frame.origin.y+550, width: 80, height: 40)
             //setButton.frame = CGRect(x: view.frame.width/2-20, y: nowExTypeButton.frame.origin.y+140, width: 80, height: 40)
             minusOneButton1.frame =  CGRect(x: setLabel.frame.origin.x-160, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
             minusFiveButton1.frame =  CGRect(x: setLabel.frame.origin.x-110, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
@@ -649,7 +648,7 @@ class ExerciseRecordViewController: UIViewController {
             
             
             
-            setLabel.frame = CGRect(x: view.frame.width/2-40, y: nowExTypeButton.frame.origin.y+140, width: 80, height: 40)
+            setLabel.frame = CGRect(x: view.frame.width/2-40, y: instructionButton.frame.origin.y+550, width: 80, height: 40)
             //setButton.frame = CGRect(x: view.frame.width/2-20, y: nowExTypeButton.frame.origin.y+140, width: 80, height: 40)
             minusOneButton1.frame =  CGRect(x: setLabel.frame.origin.x-160, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
             minusFiveButton1.frame =  CGRect(x: setLabel.frame.origin.x-110, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
