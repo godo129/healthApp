@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseStorage
+import TextFieldEffects
 
 class persnalInfoViewController: UIViewController {
     
@@ -66,12 +67,22 @@ class persnalInfoViewController: UIViewController {
         return nickLabel
     }()
     
-    private let nickTextField : UITextField = {
-        let nickTextField = UITextField()
+//    private let nickTextField : UITextField = {
+//        let nickTextField = UITextField()
+//        nickTextField.textAlignment = .center
+//        nickTextField.borderStyle = .roundedRect
+//        return nickTextField
+//    }()
+    
+    private let nickTextField : KaedeTextField = {
+        let nickTextField = KaedeTextField()
+        
+        nickTextField.placeholder = "님"
         nickTextField.textAlignment = .center
         nickTextField.borderStyle = .roundedRect
         return nickTextField
     }()
+    
     
     private let ageLabel : UILabel = {
         let ageLabel = UILabel()
@@ -81,8 +92,9 @@ class persnalInfoViewController: UIViewController {
         return ageLabel
     }()
     
-    private let ageTextField : UITextField = {
-        let ageTextField = UITextField()
+    private let ageTextField : KaedeTextField = {
+        let ageTextField = KaedeTextField()
+        ageTextField.placeholder = "세"
         ageTextField.textAlignment = .center
         ageTextField.borderStyle = .roundedRect
         return ageTextField
@@ -96,8 +108,9 @@ class persnalInfoViewController: UIViewController {
         return heightLabel
     }()
     
-    private let heightTextField : UITextField = {
-        let heightTextField = UITextField()
+    private let heightTextField : KaedeTextField = {
+        let heightTextField = KaedeTextField()
+        heightTextField.placeholder = "CM"
         heightTextField.textAlignment = .center
         heightTextField.tintColor = .black
         heightTextField.borderStyle = .roundedRect
@@ -112,8 +125,9 @@ class persnalInfoViewController: UIViewController {
         return weighLabel
     }()
     
-    private let weightTextField : UITextField = {
-        let weightTextField = UITextField()
+    private let weightTextField : KaedeTextField = {
+        let weightTextField = KaedeTextField()
+        weightTextField.placeholder = "KG"
         weightTextField.textAlignment = .center
         weightTextField.borderStyle = .roundedRect
         return weightTextField
