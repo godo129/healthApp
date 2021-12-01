@@ -341,9 +341,6 @@ class ExerciseRecordViewController: UIViewController {
         weightButton.addTarget(self, action: #selector(weightButtonTapped), for: .touchUpInside)
         //setButton.addTarget(self, action: #selector(setButtonTapped), for: .touchUpInside)
         nowExTypeButton.addTarget(self, action: #selector(nowExTypeButtonTapped), for: .touchUpInside)
-        //fiveKiloBarbellButton.addTarget(self, action: #selector(fiveKiloBarbellButtonTapped), for: .touchUpInside)
-        //tenKiloBarbellButton.addTarget(self, action: #selector(tenKiloBarbellButtonTapped), for: .touchUpInside)
-        //twentyKiloBarbellButton.addTarget(self, action: #selector(twentyKiloBarbellButtonTapped), for: .touchUpInside)
         
         counterResumeButton.addTarget(self, action: #selector(counterResumeButtonTapped), for: .touchUpInside)
         counterPauseButton.addTarget(self, action: #selector(counterPauseButtonTapped), for: .touchUpInside)
@@ -383,59 +380,11 @@ class ExerciseRecordViewController: UIViewController {
         
         calories = 0.0
         volumes = 0
-        
-        /*
-        
-        let y = String(cur_date.split(separator: "-")[0])
-        let m = String(cur_date.split(separator: "-")[1])
-        let d = String(cur_date.split(separator: "-")[2])
-        
-        */
-        
-        // 정보 가져오기
-        /*
-        for i in 0..<exerciseTypes.count {
-            
-            let exerciseType = exerciseTypes[i]
-            print(exerciseType)
-            
-            db.child(p_id).child("chart").child(exerciseType).child("주간").child(y).child(m).child(d).observeSingleEvent(of: .value) { snapshot in
-                guard let value = snapshot.value as? [Int] else {
-
-                    return
-                }
-                
-                exerciseTypesDataStorage[exerciseType] = value
-                
-                UserDefaults.standard.setValue(exerciseTypesDataStorage, forKey: "exerciseTypesDataStorage")
-                exerciseTypesDataStorage = UserDefaults.standard.value(forKey: "exerciseTypesDataStorage") as! [String : [Int]]
-            }
-                
-            
-        }
- */
-        
-        
+   
         
         fromChart = false
         
-        
-        
-        
-        // 시작할때 데이터 불러오기
-        /*db.child(p_id).child(cur_date).child("history").observeSingleEvent(of: .value, with: { snapshot in
-            guard let value = snapshot.value as? String else {
-                history = ""
-                self.historyLabel.text = ""
-                return
-            }
-            
-            history = value
-            print(value)
-            self.historyLabel.text = value
-        })
- */
-        
+   
         // 칼로리 보여줌
         db.child("\(p_id)/\(cur_date)/calories").observeSingleEvent(of: .value) { snapshot in
             guard let value = snapshot.value as? Double else {
@@ -565,14 +514,12 @@ class ExerciseRecordViewController: UIViewController {
             coachDatas.append(item13)
         
         
-        //
         let item16 = instructionDatas(View: counterPauseButton, bodyText: "휴식 시간을 일시정지 할 수 있습니다", nextText: "다음")
         coachDatas.append(item16)
         let item17 = instructionDatas(View: counterResumeButton, bodyText: "휴식을 재시작 합니다", nextText: "다음")
         coachDatas.append(item17)
         
         coachDatas.append(instructionDatas(View: counterResetButton, bodyText: "휴식 시간을 초기화합니다", nextText: "다음"))
-        coachDatas.append(instructionDatas(View: view, bodyText: "휴식 시간을 초기화합니다", nextText: ""))
             
         }
     
@@ -589,7 +536,6 @@ class ExerciseRecordViewController: UIViewController {
             minusTenButtons.isHidden = true
             
             setLabel.text = "\(setCount) 분"
-            //setButton.setTitle("\(setCount) 분", for: .normal)
            
             let plusOneButton1 = plusOneButton
             let plusFiveButton1 = plusFiveButton
@@ -600,7 +546,6 @@ class ExerciseRecordViewController: UIViewController {
             
             
             setLabel.frame = CGRect(x: view.frame.width/2-40, y: instructionButton.frame.origin.y+550, width: 80, height: 40)
-            //setButton.frame = CGRect(x: view.frame.width/2-20, y: nowExTypeButton.frame.origin.y+140, width: 80, height: 40)
             minusOneButton1.frame =  CGRect(x: setLabel.frame.origin.x-160, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
             minusFiveButton1.frame =  CGRect(x: setLabel.frame.origin.x-110, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
             minusTenButton1.frame =  CGRect(x: setLabel.frame.origin.x-60, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
@@ -637,7 +582,6 @@ class ExerciseRecordViewController: UIViewController {
 
             
             setLabel.text = "\(setCount) 회"
-            //setButton.setTitle("\(setCount) 회", for: .normal)
             
             let plusOneButton1 = plusOneButton
             let plusFiveButton1 = plusFiveButton
@@ -649,7 +593,6 @@ class ExerciseRecordViewController: UIViewController {
             
             
             setLabel.frame = CGRect(x: view.frame.width/2-40, y: instructionButton.frame.origin.y+550, width: 80, height: 40)
-            //setButton.frame = CGRect(x: view.frame.width/2-20, y: nowExTypeButton.frame.origin.y+140, width: 80, height: 40)
             minusOneButton1.frame =  CGRect(x: setLabel.frame.origin.x-160, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
             minusFiveButton1.frame =  CGRect(x: setLabel.frame.origin.x-110, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
             minusTenButton1.frame =  CGRect(x: setLabel.frame.origin.x-60, y: setLabel.frame.origin.y, width: 40, height: setLabel.frame.height)
@@ -676,7 +619,6 @@ class ExerciseRecordViewController: UIViewController {
         } else {
             
             setLabel.text = "\(setCount) 회"
-            //setButton.setTitle("\(setCount) 회", for: .normal)
             weightLable.isHidden = false
             
             plusOneButtons.isHidden = false
@@ -688,7 +630,6 @@ class ExerciseRecordViewController: UIViewController {
             
             
             setLabel.frame = CGRect(x: view.frame.width/2-40, y: instructionButton.frame.origin.y+550, width: 80, height: 40)
-            //setButton.frame = CGRect(x: view.frame.width/2-20, y: instructionButton.frame.origin.y+550, width: 80, height: 40)
             weightLable.frame = CGRect(x: setLabel.frame.origin.x, y: setLabel.frame.origin.y+70, width: 80, height: 40)
             
             let plusOneButton1 = plusOneButton
@@ -1211,22 +1152,11 @@ class ExerciseRecordViewController: UIViewController {
 
         intervalTimeField.text = String(intervalTime)
         
-        //history += "\n " + nowExerciseType + " \(weightCount)kg" + " \(setCount)set"
-        
         
         print(exerciseHistory)
         
     
         
-        //db.child(p_id).child(cur_date).child("history").setValue(history)
-        
-        
-        
-        // 새로운 리스트, 저장
-        
-        
-        // 최대 무게 저장
-        // 칼로리, 볼륨 계산
         // 주간
 
         let y = String(cur_date.split(separator: "-")[0])
@@ -1234,6 +1164,7 @@ class ExerciseRecordViewController: UIViewController {
         let d = String(cur_date.split(separator: "-")[2])
         
         var newList = exerciseTypesDataStorage[nowExerciseType]
+        
         
         
         if onlyTime.contains(nowExerciseType){
@@ -1265,38 +1196,7 @@ class ExerciseRecordViewController: UIViewController {
         db.child(p_id).child(cur_date).child("volumes").setValue(volumes)
         db.child(p_id).child(cur_date).child("calories").setValue(calories)
         
-        
-        // 주간, 월간 두 가지로 나눠서 이용3
-        // 볼륨 저장
-   
-        /*
-        // 월간 .. nowExerciseType 이 3번째 자식으로 가면 이상하게 오류 나서 불가
-        db.child(p_id).child("chart").child(nowExerciseType).child("월간").child(y).child(m).observeSingleEvent(of: .value) { snapshot in
-            guard let value = snapshot.value as? Int else {
-                self.db.child(p_id).child("chart").child(nowExerciseType).child("월간").child(y).child(m).setValue(weightCount)
-                return
-            }
-            if weightCount > value {
-                self.db.child(p_id).child("chart").child(nowExerciseType).child("월간").child(y).child(m).setValue(weightCount)
-
-            }
-        }
- */
-        
-        /*
-        db.child(p_id).child("chart").child(nowExerciseType).child("월간").child(y).child(m).setValue(weightCount)
-        
-        */
-        
-        
-       // historyLabel.text = history
-        
-        /*
-        setCount = 0
-        weightCount = 0
-        nowExerciseType = "운동 종류"
- */
-        
+ 
         historyTable.reloadData()
 
         
@@ -1321,20 +1221,14 @@ class ExerciseRecordViewController: UIViewController {
                                   y: calendarButton.frame.origin.y+50,
                                   width:  50,
                                   height: 30)
-      /*  historyLabel.frame = CGRect(x: 50,
-                                    y: nowDateLabel.frame.origin.y+50,
-                                    width: view.frame.size.width-70,
-                                    height: 350)
-      */
+    
         recordButton.frame = CGRect(x: self.view.bounds.maxX-70, y: nowDateLabel.frame.origin.y+400, width: 50, height: 50)
         nowExTypeButton.frame = CGRect(x: self.view.bounds.maxX/2-100, y: nowDateLabel.frame.origin.y+400, width: 200, height: 50)
         
         
         weightButton.frame = CGRect(x: self.view.bounds.maxX-40, y: nowExTypeButton.frame.origin.y+90, width: 20, height: 20)
         
-        //setLabel.frame = CGRect(x: 50, y: nowExTypeButton.frame.origin.y+80, width: 60, height: 40)
-        //setButton.frame = CGRect(x: 50, y: nowExTypeButton.frame.origin.y+80, width: 60, height: 40)
-        //weightLable.frame = CGRect(x: self.view.bounds.maxX/2-15, y: nowExTypeButton.frame.origin.y+80, width: 70, height: 40)
+        
         fiveKiloBarbellButton.frame = CGRect(x: 30, y: nowExTypeButton.frame.origin.y+140, width: 80, height: 80)
         tenKiloBarbellButton.frame = CGRect(x: fiveKiloBarbellButton.frame.origin.x+150, y: nowExTypeButton.frame.origin.y+140, width: 80, height: 80)
         twentyKiloBarbellButton.frame = CGRect(x: tenKiloBarbellButton.frame.origin.x+150, y: weightLable.frame.origin.y+60, width: 80, height: 80)
@@ -1356,18 +1250,7 @@ class ExerciseRecordViewController: UIViewController {
     
     private func breakEndPopup() {
         
-        /*
-        guard let time = intervalTimeField.text, !time.isEmpty else {
-            return
-        }
         
-        intervalTime = Int(time)!
-        
-        // 0초의 알림은 불가
-        if intervalTime <= 0 {
-            return
-        }
-       */
         let content = UNMutableNotificationContent()
         content.title = "쉬는 시간 끝!!"
         content.body = "운동을 다시 시작해주세요!!"
