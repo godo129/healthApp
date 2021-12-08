@@ -303,7 +303,7 @@ class LogInController: UIViewController {
         passwordField.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.safeAreaLayoutGuide).offset(50)
             make.right.equalTo(self.view.safeAreaLayoutGuide).offset(-50)
-            make.top.equalTo(IdField).offset(60)
+            make.top.equalTo(IdField).offset(50)
             make.height.equalTo(50)
             
         }
