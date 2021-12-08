@@ -215,6 +215,7 @@ class SideMenuViewController: UIViewController {
    
         
         healthAuth(Year: toY, Month: toM, Date: toD)
+        
    
         stepsLabel.text = "\(UserDefaults.standard.value(forKey: "steps")!) 걸음"
         

@@ -36,6 +36,7 @@ class QuestionViewController: UIViewController {
         
         // 스크롤뷰
         let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
+        
         scrollView.contentSize = CGSize(width: view.frame.size.width, height: 1700)
         view.addSubview(scrollView)
         
@@ -79,41 +80,9 @@ class QuestionViewController: UIViewController {
                 
             scrollView.addSubview(collections)
             collections.frame = CGRect(x: 0, y: 150+200*i, width: Int(view.frame.size.width), height: 150)
-            
-            
+     
         }
         
-
-        
-        /*
-        for i in 0..<exerciseTypes.count {
-            
-            
-            let ExerciseLabel = UILabel(frame: CGRect(x: 50,
-                                                      y: Int(view.frame.maxY)/3 + 60*i,
-                                                      width: 100,
-                                                      height: 40))
-            ExerciseLabel.text = exerciseTypes[i]
-            
-            let ExerciseButton = UIButton(frame: CGRect(x: ExerciseLabel.frame.origin.x+120,
-                                                        y: CGFloat(Int(view.frame.maxY)/3+60*i),
-                                                        width: 50,
-                                                        height: 40))
-            ExerciseButton.setImage(UIImage(named: "video"), for: .normal)
-            
-            //태그 값 주기
-            ExerciseButton.tag = i
-            ExerciseButton.addTarget(self, action: #selector(ExerciseButtonTapped1(sender: )), for: .touchUpInside)
-
-
-            scrollView.addSubview(ExerciseLabel)
-            scrollView.addSubview(ExerciseButton)
-
-        }
- */
-
-        
-
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
     
@@ -199,17 +168,16 @@ class QuestionViewController: UIViewController {
  
     override func viewDidLayoutSubviews() {
         
-        backButton.frame = CGRect(x: -10,
-                                  y: 20,
-                                  width: view.frame.size.width-300,
-                                  height: 20)
+        backButton.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(15)
+            make.left.equalTo(self.view.safeAreaLayoutGuide).offset(10)
+            make.size.equalTo(CGSize(width: 50, height: 30))
+        }
         
         TitleLabel.frame = CGRect(x: view.frame.maxX/3,
                                   y: 50,
                                   width: view.frame.size.width,
                                   height: 50)
-        
-        // 스크롤 뷰
         
     }
     

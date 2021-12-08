@@ -32,7 +32,6 @@ class ChartViewController: UIViewController, ChartViewDelegate {
             
         let instructionButton = UIButton()
         instructionButton.setImage(UIImage(named: "what"), for: .normal)
-        instructionButton.frame = CGRect(x: 200, y: 40, width: 30, height: 30)
             
         return instructionButton
             
@@ -52,7 +51,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     
     var db = Database.database().reference()
     
-    var selectedYear = 2021
+    var selectedYear = Int(today.split(separator: "-")[0])!
     var selectedAct = "주간"
     var selectedType = exerciseTypes[0]
     var month:[String:Int] = [:]
@@ -128,6 +127,8 @@ class ChartViewController: UIViewController, ChartViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(today)
         
         view.addSubview(backButton)
         view.addSubview(yearButton)
@@ -233,7 +234,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
             coachDatas.append(item2)
             let item3 = instructionDatas(View: monthOrWeekButton, bodyText: "월간이나 주간 기록을 볼 범위를 고르는 버튼입니다", nextText: "다음")
             coachDatas.append(item3)
-            let item4 = instructionDatas(View: candiWeeksButton, bodyText: "주간을 고를 수 있습니다", nextText: "다음")
+            let item4 = instructionDatas(View: candiWeeksButton, bodyText: "기록을 볼 주를 고를 수 있습니다", nextText: "다음")
             coachDatas.append(item4)
             let item5 = instructionDatas(View: candiWeeksBack, bodyText: "저번주로 갈 수 있습니다", nextText: "다음")
             coachDatas.append(item5)
@@ -900,8 +901,8 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         
         selectTypeButton.snp.makeConstraints { (make) in
             make.top.equalTo(instructionButton).offset(30)
-            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(-50)
-            make.size.equalTo(CGSize(width: 80, height: 40))
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(-30)
+            make.size.equalTo(CGSize(width: 120, height: 40))
         }
         
 //        selectTypeButton.frame = CGRect(x: monthOrWeekButton.frame.origin.x+80,
@@ -936,7 +937,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         
         conformButton.snp.makeConstraints { (make) in
             make.top.equalTo(candiWeeksButton)
-            make.right.equalTo(selectTypeButton)
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(-50)
             make.size.equalTo(CGSize(width: 100, height: 50))
         }
 //        conformButton.frame = CGRect(x: candiWeeksButton.frame.origin.x+240,
@@ -979,9 +980,7 @@ extension ChartViewController: CoachMarksControllerDelegate, CoachMarksControlle
             coachView.bodyView.hintLabel.text = coachDatas[index].bodyText
             coachView.bodyView.nextLabel.text = coachDatas[index].nextText
         case coachDatas.count-1 :
-            candiWeeksButton.isHidden = true
-            candiWeeksBack.isHidden = true
-            candiWeeksForward.isHidden = true
+            
             coachView.bodyView.hintLabel.text = coachDatas[index].bodyText
             coachView.bodyView.nextLabel.text = coachDatas[index].nextText
         default:

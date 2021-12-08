@@ -29,7 +29,7 @@ class ExerciseRecordViewController: UIViewController {
         
         let instructionButton = UIButton()
         instructionButton.setImage(UIImage(named: "what"), for: .normal)
-        instructionButton.frame = CGRect(x: 200, y: 40, width: 30, height: 30)
+
         
         return instructionButton
         
@@ -1209,21 +1209,69 @@ class ExerciseRecordViewController: UIViewController {
     
     
     override func viewDidLayoutSubviews() {
-        backButton.frame = CGRect(x: 20, y: 40, width: 50, height: 30)
+        
+        instructionButton.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.view)
+            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(10)
+            make.size.equalTo(CGSize(width: 30, height: 30))
+        }
+        
+        backButton.snp.makeConstraints { (make) in
+            make.top.equalTo(instructionButton)
+            make.left.equalTo(self.view.safeAreaLayoutGuide).offset(10)
+            make.size.equalTo(CGSize(width: 50, height: 30))
+        }
+        
+        nowDateLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(instructionButton).offset(35)
+            make.centerX.equalTo(self.view)
+            make.size.equalTo(CGSize(width: 150, height: 40))
+        }
+        
+        calorieLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(nowDateLabel).offset(35)
+            make.centerX.equalTo(self.view)
+            make.size.equalTo(CGSize(width: 200, height: 40))
+        }
+        
+//        nowDateLabel.frame = CGRect(x: self.view.bounds.maxX/2-70, y: instructionButton.frame.origin.y+50, width: 150, height: 50)
+//        calorieLabel.frame = CGRect(x: self.view.bounds.maxX/2-100, y: nowDateLabel.frame.origin.y+50, width: 200, height: 50)
+        
+        calendarButton.snp.makeConstraints { (make) in
+            make.top.equalTo(nowDateLabel)
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(-30)
+            make.size.equalTo(CGSize(width: 50, height: 30))
+        }
+        
+        memoButton.snp.makeConstraints { (make) in
+            make.top.equalTo(calorieLabel)
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(-30)
+            make.size.equalTo(CGSize(width: 50, height: 30))
+        }
+        
+        historyTable.snp.makeConstraints { (make) in
+            make.top.equalTo(calorieLabel).offset(60)
+            make.height.equalTo(250)
+            make.left.equalTo(self.view.safeAreaLayoutGuide).offset(50)
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(-50)
+        }
         
         
-        nowDateLabel.frame = CGRect(x: self.view.bounds.maxX/2-70, y: instructionButton.frame.origin.y+50, width: 150, height: 50)
-        calorieLabel.frame = CGRect(x: self.view.bounds.maxX/2-100, y: nowDateLabel.frame.origin.y+50, width: 200, height: 50)
+//        historyTable.frame = CGRect(x: 50 , y: calorieLabel.frame.origin.y + 70, width: view.frame.size.width-100, height: 250 )
+//        calendarButton.frame = CGRect(x: 350, y: 100, width: 50, height: 30)
+//        memoButton.frame = CGRect(x: calendarButton.frame.origin.x,
+//                                  y: calendarButton.frame.origin.y+50,
+//                                  width:  50,
+//                                  height: 30)
         
-        historyTable.frame = CGRect(x: 50 , y: calorieLabel.frame.origin.y + 70, width: view.frame.size.width-100, height: 250 )
-        calendarButton.frame = CGRect(x: 350, y: 100, width: 50, height: 30)
-        memoButton.frame = CGRect(x: calendarButton.frame.origin.x,
-                                  y: calendarButton.frame.origin.y+50,
-                                  width:  50,
-                                  height: 30)
+        moveViewButton.snp.makeConstraints { (make) in
+            make.centerY.equalTo(self.view)
+            make.size.equalTo(CGSize(width: 50, height: 50))
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(0)
+        }
     
-        recordButton.frame = CGRect(x: self.view.bounds.maxX-70, y: nowDateLabel.frame.origin.y+400, width: 50, height: 50)
-        nowExTypeButton.frame = CGRect(x: self.view.bounds.maxX/2-100, y: nowDateLabel.frame.origin.y+400, width: 200, height: 50)
+        recordButton.frame = CGRect(x: self.view.bounds.maxX-70, y: nowDateLabel.frame.origin.y+390, width: 50, height: 50)
+        nowExTypeButton.frame = CGRect(x: self.view.bounds.maxX/2-100, y: nowDateLabel.frame.origin.y+390, width: 200, height: 50)
         
         
         weightButton.frame = CGRect(x: self.view.bounds.maxX-40, y: nowExTypeButton.frame.origin.y+90, width: 20, height: 20)
