@@ -105,17 +105,20 @@ func generateWeeks(commonOrLeap: [Int], selectedYear: Int) -> [String] {
                 if firstMonth <= todayMonth && todayMonth <= secondMonth {
                     if firstMonth != secondMonth {
                         
-                        if firstDate <= todayDate || secondDate+30 >= todayDate {
-                            tags = candiDates.count-1
+                        if firstDate <= todayDate && secondDate+commonOrLeap[firstMonth-1] >= todayDate {
+                            tags = candiDates.count
+                           
+                        } else if firstDate >= todayDate && secondDate >= todayDate {
+                            tags = candiDates.count
                         }
-                     else {
-                        if firstDate <= todayDate && secondDate >= todayDate {
-                            tags = candiDates.count-1
-                        }
-                    }
+                     
+                } else {
+                    if firstDate <= todayDate && secondDate >= todayDate {
+                        tags = candiDates.count
+                        print(firstMonth,firstDate,secondMonth,secondDate,"왕",todayDate)
                     }
                 }
-                
+                }
             }
             
             
@@ -198,13 +201,17 @@ func generateWeeks(commonOrLeap: [Int], selectedYear: Int) -> [String] {
                 if firstMonth <= todayMonth && todayMonth <= secondMonth {
                     if firstMonth != secondMonth {
                         
-                        if firstDate <= todayDate || secondDate+30 >= todayDate {
-                            tags = candiDates.count-1
+                        if firstDate <= todayDate && secondDate+commonOrLeap[firstMonth-1] >= todayDate {
+                            tags = candiDates.count
+                           
+                        } else if firstDate >= todayDate && secondDate >= todayDate {
+                            tags = candiDates.count
                         }
-                     else {
-                        if firstDate <= todayDate && secondDate >= todayDate {
-                            tags = candiDates.count-1
-                        }
+                     
+                } else {
+                    if firstDate <= todayDate && secondDate >= todayDate {
+                        tags = candiDates.count
+                        print(firstMonth,firstDate,secondMonth,secondDate,"왕",todayDate)
                     }
                 }
                 }
