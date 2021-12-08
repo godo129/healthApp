@@ -27,7 +27,6 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
         
         let instructionButton = UIButton()
         instructionButton.setImage(UIImage(named: "what"), for: .normal)
-        instructionButton.frame = CGRect(x: 200, y: 40, width: 30, height: 30)
         
         return instructionButton
         
@@ -492,40 +491,106 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
     
     override func viewDidLayoutSubviews() {
         backgroundAnimation.frame = view.bounds
-        titleLabel.frame = CGRect(x: 50,
-                                  y: 50,
-                                  width: view.frame.size.width-100,
-                                  height: 100)
         
-        bannerView.frame = CGRect(x: 60, y: titleLabel.frame.origin.y + 140, width: view.frame.width-100, height: view.frame.height-500)
+        instructionButton.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.view)
+            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(12)
+            make.size.equalTo(CGSize(width: 30, height: 30))
+        }
         
-        bannerView.itemSize = CGSize(width: view.frame.width-150, height: view.frame.height-600)
+        titleLabel.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.view)
+            make.top.equalTo(instructionButton).offset(30)
+            make.size.equalTo(CGSize(width: 70, height: 60))
+        }
         
-        bannerPageController.frame = CGRect(x: bannerView.frame.origin.x-20, y: bannerView.frame.origin.y+70 , width: 100, height: 100)
         
-        userLabel.frame = CGRect(x: 20,
-                                 y: titleLabel.frame.origin.y+80,
-                                 width: view.frame.size.width,
-                                 height: 40)
+//        titleLabel.frame = CGRect(x: 50,
+//                                  y: 50,
+//                                  width: view.frame.size.width-100,
+//                                  height: 100)
         
-        logInButton.frame = CGRect(x: view.frame.size.width-100,
-                                   y: titleLabel.frame.origin.y,
-                                   width: 100,
-                                   height: 50)
+        userLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(self.view.safeAreaLayoutGuide).offset(10)
+            make.top.equalTo(titleLabel).offset(55)
+            make.size.equalTo(CGSize(width: view.frame.size.width, height: 40))
+        }
         
-        SignUpButton.frame = CGRect(x: view.frame.size.width-100,
-                                    y: titleLabel.frame.origin.y+50,
-                                    width: 100,
-                                    height: 50)
-        logOutButton.frame = CGRect(x: view.frame.size.width-100,
-                                    y: titleLabel.frame.origin.y,
-                                    width: 100,
-                                    height: 50)
+//        userLabel.frame = CGRect(x: 20,
+//                                 y: titleLabel.frame.origin.y+80,
+//                                 width: view.frame.size.width,
+//                                 height: 40)
         
-        personalInfoButton.frame = CGRect(x: view.frame.size.width-100,
-                                          y: titleLabel.frame.origin.y+50,
-                                          width: 100,
-                                          height: 50)
+        bannerView.snp.makeConstraints { (make) in
+            make.left.equalTo(60)
+            make.right.equalTo(-60)
+            make.top.equalTo(userLabel).offset(100)
+            make.bottom.equalTo(-view.frame.size.height/3)
+
+        }
+        
+//        bannerView.frame = CGRect(x: 60, y: titleLabel.frame.origin.y + 140, width: view.frame.width-100, height: view.frame.height-500)
+        
+//        bannerView.itemSize = CGSize(width: view.frame.width-150, height: view.frame.height-600)
+        
+        dogWalkView.snp.makeConstraints { (make) in
+            make.centerY.equalTo(self.view).offset(view.frame.size.height/2)
+            make.centerX.equalTo(self.view)
+            make.size.equalTo(CGSize(width: 250, height: 250))
+        }
+        
+//        dogWalkView.frame = CGRect(x: 80,
+//                                   y: bannerView.frame.origin.y+400,
+//                                   width: view.frame.size.width-130,
+//                                   height: 250)
+        
+        
+//        bannerPageController.frame = CGRect(x: bannerView.frame.origin.x-20, y: bannerView.frame.origin.y+70 , width: 100, height: 100)
+        
+        
+        logInButton.snp.makeConstraints { (make) in
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(10)
+            make.top.equalTo(titleLabel)
+            make.size.equalTo(CGSize(width: 100, height: 50))
+        }
+        
+//        logInButton.frame = CGRect(x: view.frame.size.width-100,
+//                                   y: titleLabel.frame.origin.y,
+//                                   width: 100,
+//                                   height: 50)
+        
+        logOutButton.snp.makeConstraints { (make) in
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(10)
+            make.top.equalTo(titleLabel)
+            make.size.equalTo(CGSize(width: 100, height: 50))
+        }
+        
+//        logOutButton.frame = CGRect(x: view.frame.size.width-100,
+//                                    y: titleLabel.frame.origin.y,
+//                                    width: 100,
+//                                    height: 50)
+        
+        SignUpButton.snp.makeConstraints { (make) in
+            make.right.equalTo(logInButton)
+            make.top.equalTo(logInButton).offset(50)
+            make.size.equalTo(CGSize(width: 100, height: 50))
+        }
+        
+//        SignUpButton.frame = CGRect(x: view.frame.size.width-100,
+//                                    y: titleLabel.frame.origin.y+50,
+//                                    width: 100,
+//                                    height: 50)
+        
+        personalInfoButton.snp.makeConstraints { (make) in
+            make.right.equalTo(logInButton)
+            make.top.equalTo(logInButton).offset(50)
+            make.size.equalTo(CGSize(width: 100, height: 50))
+        }
+        
+//        personalInfoButton.frame = CGRect(x: view.frame.size.width-100,
+//                                          y: titleLabel.frame.origin.y+50,
+//                                          width: 100,
+//                                          height: 50)
         /*
         recordViewButton.frame = CGRect(x: 50,
                                   y: titleLabel.frame.origin.y+200,
@@ -533,30 +598,33 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
                                   height: 200)
  */
         
-        exerciseRecordView.frame = CGRect(x: 50,
-                                          y: bannerView.frame.origin.y+140,
-                                          width: view.frame.size.width-100,
-                                          height: 200)
+//        exerciseRecordView.frame = CGRect(x: 50,
+//                                          y: bannerView.frame.origin.y+140,
+//                                          width: view.frame.size.width-100,
+//                                          height: 200)
+//
+//        chartRecordView.frame = CGRect(x: 80,
+//                                  y: exerciseRecordView.frame.origin.y+200,
+//                                  width: view.frame.size.width-150,
+//                                  height: 200)
+//
         
-        chartRecordView.frame = CGRect(x: 80,
-                                  y: exerciseRecordView.frame.origin.y+200,
-                                  width: view.frame.size.width-150,
-                                  height: 200)
-        
-        dogWalkView.frame = CGRect(x: 80,
-                                   y: bannerView.frame.origin.y+400,
-                                   width: view.frame.size.width-130,
-                                   height: 250)
         
        // chartViewButton.frame = CGRect(x: 80,
         //                          y: recordViewButton.frame.origin.y+300,
         //                          width: view.frame.size.width-150,
         //                          height: 200)
         
-        questionButton.frame = CGRect(x: view.frame.maxX-70,
-                                      y: view.frame.maxY-70,
-                                      width: 50,
-                                      height: 50)
+        questionButton.snp.makeConstraints { (make) in
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(-10)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-10)
+            make.size.equalTo(CGSize(width: 50, height: 50))
+        }
+        
+//        questionButton.frame = CGRect(x: view.frame.maxX-70,
+//                                      y: view.frame.maxY-70,
+//                                      width: 50,
+//                                      height: 50)
     }
     
 
@@ -584,7 +652,7 @@ extension HomeController: FSPagerViewDelegate, FSPagerViewDataSource, CoachMarks
         
         
         cell.textLabel?.textAlignment = .center
-        cell.textLabel?.font = .systemFont(ofSize: 30)
+        cell.textLabel?.font = .systemFont(ofSize: 25)
         
         switch index {
         case 0:
