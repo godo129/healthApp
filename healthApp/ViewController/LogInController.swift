@@ -10,6 +10,7 @@ import Firebase
 import FirebaseDatabase
 import Kingfisher
 import TextFieldEffects
+import SnapKit
 
 
 class LogInController: UIViewController {
@@ -269,30 +270,60 @@ class LogInController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        backButton.frame = CGRect(x: 0,
-                                  y: 35,
-                                  width: view.frame.size.width-300,
-                                  height: 20)
+        backButton.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(15)
+            make.left.equalTo(self.view.safeAreaLayoutGuide).offset(10)
+            make.size.equalTo(CGSize(width: 50, height: 30))
+        }
         
-        Title.frame = CGRect(x: 50,
-                             y: 250,
-                             width: view.frame.size.width-100,
-                             height: 90)
+//        Title.frame = CGRect(x: 50,
+//                             y: 250,
+//                             width: view.frame.size.width-100,
+//                             height: 90)
         
-        IdField.frame = CGRect(x: 50,
-                               y: Title.frame.origin.y+100,
-                               width: view.frame.size.width-100,
-                               height: 50)
+        Title.snp.makeConstraints { (make) in
+            make.centerY.equalTo(self.view).offset(-130)
+            make.centerX.equalTo(self.view)
+            make.size.equalTo(CGSize(width: 200, height: 50))
+        }
         
-        passwordField.frame = CGRect(x: 50,
-                                     y: IdField.frame.origin.y+50,
-                                     width: view.frame.size.width-100,
-                                     height: 50)
+//        IdField.frame = CGRect(x: 50,
+//                               y: Title.frame.origin.y+100,
+//                               width: view.frame.size.width-100,
+//                               height: 50)
+        IdField.snp.makeConstraints { (make) in
+            make.left.equalTo(self.view.safeAreaLayoutGuide).offset(50)
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(-50)
+            make.top.equalTo(Title).offset(80)
+            make.height.equalTo(50)
+            
+        }
         
-        LogInButton.frame = CGRect(x: 50,
-                                   y: passwordField.frame.origin.y+70,
-                                   width: view.frame.size.width-100,
-                                   height: 30)
+        
+        passwordField.snp.makeConstraints { (make) in
+            make.left.equalTo(self.view.safeAreaLayoutGuide).offset(50)
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(-50)
+            make.top.equalTo(IdField).offset(60)
+            make.height.equalTo(50)
+            
+        }
+        
+//        passwordField.frame = CGRect(x: 50,
+//                                     y: IdField.frame.origin.y+50,
+//                                     width: view.frame.size.width-100,
+//                                     height: 50)
+        
+        LogInButton.snp.makeConstraints { (make) in
+            make.left.equalTo(self.view.safeAreaLayoutGuide).offset(50)
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(-50)
+            make.top.equalTo(passwordField).offset(80)
+            make.height.equalTo(30)
+        }
+        
+//        LogInButton.frame = CGRect(x: 50,
+//                                   y: passwordField.frame.origin.y+70,
+//                                   width: view.frame.size.width-100,
+//                                   height: 30)
         
     }
     
