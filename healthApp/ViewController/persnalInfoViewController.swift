@@ -169,7 +169,7 @@ class persnalInfoViewController: UIViewController {
         
         moveViewButton.delegate = self
         view.addSubview(moveViewButton)
-        moveViewButton.frame = CGRect(x: 380, y: 500, width: 50, height: 50)
+
 
       
         
@@ -432,26 +432,117 @@ class persnalInfoViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         
-        backButton.frame = CGRect(x: -10,
-                                  y: 35,
-                                  width: view.frame.size.width-300,
-                                  height: 20)
-        titleLabel.frame = CGRect(x: 100, y: 100, width: view.frame.size.width-200, height: 50)
+        backButton.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(15)
+            make.left.equalTo(self.view.safeAreaLayoutGuide).offset(10)
+            make.size.equalTo(CGSize(width: 50, height: 30))
+        }
         
-        imageView.frame = CGRect(x: 50, y: titleLabel.frame.origin.y + 50, width: view.frame.size.width-100, height: 270)
-        pickImageButton.frame = CGRect(x: 100, y: imageView.frame.origin.y + 300, width: 80, height: 50)
-        clearImageButton.frame = CGRect(x:260, y: imageView.frame.origin.y + 300, width: 80, height: 50 )
-        nickLabel.frame = CGRect(x: 30, y: clearImageButton.frame.origin.y+90, width: 50, height: 50)
-        nickTextField.frame = CGRect(x: nickLabel.frame.origin.x+100, y: clearImageButton.frame.origin.y+95, width: 200, height: 40)
-        ageLabel.frame = CGRect(x: 30, y: nickLabel.frame.origin.y+50, width: 50, height: 50)
-        ageTextField.frame = CGRect(x: nickLabel.frame.origin.x+100, y: nickTextField.frame.origin.y+50, width: 200, height: 40)
-        heightLabel.frame = CGRect(x: 30, y: ageLabel.frame.origin.y+50, width: 50, height: 50)
-        heightTextField.frame = CGRect(x: nickLabel.frame.origin.x+100, y: ageTextField.frame.origin.y+50, width: 200, height: 40)
-        weightLabel.frame = CGRect(x: 30, y: heightLabel.frame.origin.y+50, width: 50, height: 50)
-        weightTextField.frame = CGRect(x: nickLabel.frame.origin.x+100, y: heightTextField.frame.origin.y+50, width: 200, height: 40)
+        titleLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(40)
+            make.centerX.equalTo(self.view)
+            make.size.equalTo(CGSize(width: 150, height: 50))
+        }
+//
+//        titleLabel.frame = CGRect(x: 100, y: 100, width: view.frame.size.width-200, height: 50)
         
-        recordButton.frame = CGRect(x: view.frame.maxX/2-40, y: weightTextField.frame.origin.y+80, width: 100, height: 50)
+        imageView.snp.makeConstraints { (make) in
+            make.top.equalTo(titleLabel).offset(50)
+            make.centerX.equalTo(self.view)
+            make.size.equalTo(CGSize(width: view.frame.size.width-100, height: 250))
+        }
+//
+//        imageView.frame = CGRect(x: 50, y: titleLabel.frame.origin.y + 50, width: view.frame.size.width-100, height: 270)
         
+        pickImageButton.snp.makeConstraints { (make) in
+            make.top.equalTo(imageView).offset(260)
+            make.left.equalTo(self.view.safeAreaLayoutGuide).offset(100)
+            make.size.equalTo(CGSize(width: 80, height: 50))
+        }
+        
+        clearImageButton.snp.makeConstraints { (make) in
+            make.top.equalTo(imageView).offset(260)
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(-100)
+            make.size.equalTo(CGSize(width: 80, height: 50))
+        }
+//        pickImageButton.frame = CGRect(x: 100, y: imageView.frame.origin.y + 300, width: 80, height: 50)
+//        clearImageButton.frame = CGRect(x:260, y: imageView.frame.origin.y + 300, width: 80, height: 50 )
+        
+        nickLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(clearImageButton).offset(80)
+            make.left.equalTo(self.view.safeAreaLayoutGuide).offset(60)
+            make.size.equalTo(CGSize(width: 50, height: 50))
+        }
+        
+        nickTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(nickLabel).offset(10)
+            make.left.equalTo(nickLabel).offset(90)
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(-80)
+        }
+        
+        
+        
+//        nickLabel.frame = CGRect(x: 30, y: clearImageButton.frame.origin.y+90, width: 50, height: 50)
+//        nickTextField.frame = CGRect(x: nickLabel.frame.origin.x+100, y: clearImageButton.frame.origin.y+95, width: 200, height: 40)
+        
+        ageLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(nickLabel).offset(50)
+            make.left.equalTo(self.view.safeAreaLayoutGuide).offset(60)
+            make.size.equalTo(CGSize(width: 50, height: 50))
+        }
+        
+        ageTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(ageLabel).offset(10)
+            make.left.equalTo(ageLabel).offset(90)
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(-80)
+        }
+        
+//        ageLabel.frame = CGRect(x: 30, y: nickLabel.frame.origin.y+50, width: 50, height: 50)
+//        ageTextField.frame = CGRect(x: nickLabel.frame.origin.x+100, y: nickTextField.frame.origin.y+50, width: 200, height: 40)
+        
+        heightLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(ageLabel).offset(50)
+            make.left.equalTo(self.view.safeAreaLayoutGuide).offset(60)
+            make.size.equalTo(CGSize(width: 50, height: 50))
+        }
+        
+        heightTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(heightLabel).offset(10)
+            make.left.equalTo(heightLabel).offset(90)
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(-80)
+        }
+//        heightLabel.frame = CGRect(x: 30, y: ageLabel.frame.origin.y+50, width: 50, height: 50)
+//        heightTextField.frame = CGRect(x: nickLabel.frame.origin.x+100, y: ageTextField.frame.origin.y+50, width: 200, height: 40)
+        
+        weightLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(heightLabel).offset(50)
+            make.left.equalTo(self.view.safeAreaLayoutGuide).offset(60)
+            make.size.equalTo(CGSize(width: 50, height: 50))
+        }
+        
+        weightTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(weightLabel).offset(10)
+            make.left.equalTo(weightLabel).offset(90)
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(-80)
+        }
+//        weightLabel.frame = CGRect(x: 30, y: heightLabel.frame.origin.y+50, width: 50, height: 50)
+//        weightTextField.frame = CGRect(x: nickLabel.frame.origin.x+100, y: heightTextField.frame.origin.y+50, width: 200, height: 40)
+        
+        recordButton.snp.makeConstraints { (make) in
+            make.top.equalTo(weightLabel).offset(60)
+            make.centerX.equalTo(self.view)
+            make.size.equalTo(CGSize(width: 100, height: 50))
+        }
+        
+//        recordButton.frame = CGRect(x: view.frame.maxX/2-40, y: weightTextField.frame.origin.y+80, width: 100, height: 50)
+        
+        
+        moveViewButton.snp.makeConstraints { (make) in
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(0)
+            make.centerY.equalTo(self.view)
+            make.size.equalTo(CGSize(width: 50, height: 50))
+            
+        }
     }
     
 

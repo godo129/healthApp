@@ -217,16 +217,13 @@ class RecordViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         
         backButton.snp.makeConstraints { (make) in
-//            make.top.equalTo(30)
             make.top.equalTo(instructionButton)
-//            make.left.equalTo(20)
             make.left.equalTo(self.view.safeAreaLayoutGuide).offset(10)
             make.size.equalTo(CGSize(width: 50, height: 30))
         }
         
         instructionButton.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view)
-//            make.top.equalTo(40)
             make.top.equalTo(self.view.safeAreaLayoutGuide).offset(15)
             make.size.equalTo(CGSize(width: 30, height: 30))
         }

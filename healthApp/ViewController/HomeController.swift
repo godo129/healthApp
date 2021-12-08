@@ -625,6 +625,12 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
 //                                      y: view.frame.maxY-70,
 //                                      width: 50,
 //                                      height: 50)
+        
+        moveViewButton.snp.makeConstraints { (make) in
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(0)
+            make.size.equalTo(CGSize(width: 50, height: 50))
+            make.bottom.equalTo(-150)
+        }
     }
     
 

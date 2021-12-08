@@ -862,38 +862,93 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         view.addSubview(chart)
         
         
-        backButton.frame = CGRect(x: 0,
-                                  y: 35,
-                                  width: view.frame.size.width-300,
-                                  height: 20)
+        instructionButton.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.view)
+            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(10)
+            make.size.equalTo(CGSize(width: 30, height: 30))
+        }
         
-        yearButton.frame = CGRect(x: 50,
-                                  y: 70,
-                                  width: 100,
-                                  height: 50)
+        backButton.snp.makeConstraints { (make) in
+            make.top.equalTo(instructionButton)
+            make.left.equalTo(self.view.safeAreaLayoutGuide).offset(10)
+            make.size.equalTo(CGSize(width: 50, height: 30))
+        }
         
-        monthOrWeekButton.frame = CGRect(x: yearButton.frame.origin.x+120,
-                                         y: yearButton.frame.origin.y,
-                                         width: 100,
-                                         height: 50)
         
-        selectTypeButton.frame = CGRect(x: monthOrWeekButton.frame.origin.x+80,
-                                        y: yearButton.frame.origin.y,
-                                        width: 200,
-                                        height: 50)
         
-        candiWeeksButton.frame = CGRect(x: yearButton.frame.origin.x,
-                                        y: yearButton.frame.origin.y+80,
-                                        width: 150,
-                                        height: 50)
+        yearButton.snp.makeConstraints { (make) in
+            make.top.equalTo(instructionButton).offset(30)
+            make.left.equalTo(backButton).offset(10)
+            make.size.equalTo(CGSize(width: 80, height: 40))
+        }
         
-        candiWeeksBack.frame = CGRect(x: 20, y: candiWeeksButton.frame.origin.y, width: 30, height: 50)
-        candiWeeksForward.frame = CGRect(x: candiWeeksButton.frame.origin.x + 150, y: candiWeeksButton.frame.origin.y, width: 30, height: 50)
+//        yearButton.frame = CGRect(x: 50,
+//                                  y: 70,
+//                                  width: 100,
+//                                  height: 50)
         
-        conformButton.frame = CGRect(x: candiWeeksButton.frame.origin.x+240,
-                                     y: candiWeeksButton.frame.origin.y,
-                                     width: 100,
-                                     height: 50)
+        monthOrWeekButton.snp.makeConstraints { (make) in
+            make.top.equalTo(instructionButton).offset(30)
+            make.centerX.equalTo(self.view)
+            make.size.equalTo(CGSize(width: 80, height: 40))
+        }
+        
+//        monthOrWeekButton.frame = CGRect(x: yearButton.frame.origin.x+120,
+//                                         y: yearButton.frame.origin.y,
+//                                         width: 100,
+//                                         height: 50)
+        
+        selectTypeButton.snp.makeConstraints { (make) in
+            make.top.equalTo(instructionButton).offset(30)
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(-50)
+            make.size.equalTo(CGSize(width: 80, height: 40))
+        }
+        
+//        selectTypeButton.frame = CGRect(x: monthOrWeekButton.frame.origin.x+80,
+//                                        y: yearButton.frame.origin.y,
+//                                        width: 200,
+//                                        height: 50)
+        candiWeeksBack.snp.makeConstraints { (make) in
+            make.left.equalTo(backButton)
+            make.top.equalTo(yearButton).offset(50)
+            make.size.equalTo(CGSize(width: 30, height: 50))
+        }
+        
+        candiWeeksButton.snp.makeConstraints { (make) in
+            make.left.equalTo(candiWeeksBack).offset(30)
+            make.size.equalTo(CGSize(width: 140, height: 50))
+            make.top.equalTo(candiWeeksBack)
+        }
+        
+        candiWeeksForward.snp.makeConstraints { (make) in
+            make.left.equalTo(candiWeeksButton).offset(140)
+            make.size.equalTo(CGSize(width: 30, height: 50))
+            make.top.equalTo(candiWeeksBack)
+        }
+        
+//        candiWeeksButton.frame = CGRect(x: yearButton.frame.origin.x,
+//                                        y: yearButton.frame.origin.y+80,
+//                                        width: 150,
+//                                        height: 50)
+        
+//        candiWeeksBack.frame = CGRect(x: 20, y: candiWeeksButton.frame.origin.y, width: 30, height: 50)
+//        candiWeeksForward.frame = CGRect(x: candiWeeksButton.frame.origin.x + 150, y: candiWeeksButton.frame.origin.y, width: 30, height: 50)
+        
+        conformButton.snp.makeConstraints { (make) in
+            make.top.equalTo(candiWeeksButton)
+            make.right.equalTo(selectTypeButton)
+            make.size.equalTo(CGSize(width: 100, height: 50))
+        }
+//        conformButton.frame = CGRect(x: candiWeeksButton.frame.origin.x+240,
+//                                     y: candiWeeksButton.frame.origin.y,
+//                                     width: 100,
+//                                     height: 50)
+        
+        moveViewButton.snp.makeConstraints { (make) in
+            make.top.equalTo(selectTypeButton).offset(25)
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(0)
+            make.size.equalTo(CGSize(width: 50, height: 50))
+        }
         
         
     }
