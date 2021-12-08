@@ -19,6 +19,8 @@ pod 'Kingfisher'
 pod 'TextFieldEffects'
 pod 'FSPagerView'
 pod 'Instructions'
+pod 'SnapKit', '~> 5.0.0'
+
   # Pods for healthApp
 
 end

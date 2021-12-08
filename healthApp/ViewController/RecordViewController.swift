@@ -10,6 +10,7 @@ import FirebaseDatabase
 import CircleMenu
 import SideMenu
 import Instructions
+import SnapKit
 
 class RecordViewController: UIViewController {
     
@@ -19,8 +20,6 @@ class RecordViewController: UIViewController {
             
             let instructionButton = UIButton()
             instructionButton.setImage(UIImage(named: "what"), for: .normal)
-            instructionButton.frame = CGRect(x: 200, y: 40, width: 30, height: 30)
-            
             return instructionButton
             
         }()
@@ -30,7 +29,7 @@ class RecordViewController: UIViewController {
     
     private let db = Database.database().reference()
     
-    let moveViewButton = CircleMenu(
+    var moveViewButton = CircleMenu(
       frame: CGRect(x: 380, y: 400, width: 50, height: 50),
       normalIcon:"bar",
       selectedIcon:"close",
@@ -216,12 +215,55 @@ class RecordViewController: UIViewController {
     
     
     override func viewDidLayoutSubviews() {
-        backButton.frame = CGRect(x: 20, y: 40, width: 50, height: 30)
-        dateLabel.frame = CGRect(x: self.view.bounds.maxX/2-50, y: 100, width: 100, height: 100)
-        //calendarButton.frame = CGRect(x: 350, y: 100, width: 50, height: 30)
-        recordButton.frame = CGRect(x: 350, y: dateLabel.frame.origin.y+50, width: 50, height: 30)
-        textView.frame = CGRect(x: 50, y: recordButton.frame.origin.y+100, width: view.frame.size.width-100, height: view.frame.size.height-400)
         
+        backButton.snp.makeConstraints { (make) in
+//            make.top.equalTo(30)
+            make.top.equalTo(instructionButton)
+//            make.left.equalTo(20)
+            make.left.equalTo(self.view.safeAreaLayoutGuide).offset(10)
+            make.size.equalTo(CGSize(width: 50, height: 30))
+        }
+        
+        instructionButton.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.view)
+//            make.top.equalTo(40)
+            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(15)
+            make.size.equalTo(CGSize(width: 30, height: 30))
+        }
+        
+//        instructionButton.frame = CGRect(x: 200, y: 40, width: 30, height: 30)
+        
+//        backButton.frame = CGRect(x: 20, y: 40, width: 50, height: 30)
+//        dateLabel.frame = CGRect(x: self.view.bounds.maxX/2-50, y: 100, width: 100, height: 100)
+        
+        dateLabel.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.view)
+            make.top.equalTo(instructionButton).offset(50)
+            make.size.equalTo(CGSize(width: 100, height: 30))
+        }
+        
+        //calendarButton.frame = CGRect(x: 350, y: 100, width: 50, height: 30)
+//        recordButton.frame = CGRect(x: 350, y: dateLabel.frame.origin.y+50, width: 50, height: 30)
+        
+        recordButton.snp.makeConstraints { (make) in
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(-20)
+            make.top.equalTo(dateLabel)
+            make.size.equalTo(CGSize(width: 50, height: 30))
+        }
+        
+        moveViewButton.snp.makeConstraints { (make) in
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(0)
+            make.centerY.equalTo(self.view)
+            make.size.equalTo(CGSize(width: 50, height: 50))
+            
+        }
+//        textView.frame = CGRect(x: 50, y: recordButton.frame.origin.y+100, width: view.frame.size.width-100, height: view.frame.size.height-400)
+        textView.snp.makeConstraints { (make) in
+            make.top.equalTo(dateLabel).offset(50)
+            make.left.equalTo(self.view.safeAreaLayoutGuide).offset(60)
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(-60)
+            make.bottom.equalTo(-100)
+        }
     }
 }
 
