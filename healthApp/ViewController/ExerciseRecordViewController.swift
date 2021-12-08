@@ -1270,8 +1270,8 @@ class ExerciseRecordViewController: UIViewController {
             make.right.equalTo(self.view.safeAreaLayoutGuide).offset(0)
         }
     
-        recordButton.frame = CGRect(x: self.view.bounds.maxX-70, y: nowDateLabel.frame.origin.y+390, width: 50, height: 50)
-        nowExTypeButton.frame = CGRect(x: self.view.bounds.maxX/2-100, y: nowDateLabel.frame.origin.y+390, width: 200, height: 50)
+        recordButton.frame = CGRect(x: self.view.bounds.maxX-70, y: nowDateLabel.frame.origin.y+400, width: 50, height: 50)
+        nowExTypeButton.frame = CGRect(x: self.view.bounds.maxX/2-100, y: nowDateLabel.frame.origin.y+400, width: 200, height: 50)
         
         
         weightButton.frame = CGRect(x: self.view.bounds.maxX-40, y: nowExTypeButton.frame.origin.y+90, width: 20, height: 20)
@@ -1280,14 +1280,14 @@ class ExerciseRecordViewController: UIViewController {
         fiveKiloBarbellButton.frame = CGRect(x: 30, y: nowExTypeButton.frame.origin.y+140, width: 80, height: 80)
         tenKiloBarbellButton.frame = CGRect(x: fiveKiloBarbellButton.frame.origin.x+150, y: nowExTypeButton.frame.origin.y+140, width: 80, height: 80)
         twentyKiloBarbellButton.frame = CGRect(x: tenKiloBarbellButton.frame.origin.x+150, y: weightLable.frame.origin.y+60, width: 80, height: 80)
-        counter.frame = CGRect(x: fiveKiloBarbellButton.frame.origin.x+45, y: tenKiloBarbellButton.frame.origin.y + 100, width: 110, height: 110)
+        counter.frame = CGRect(x: fiveKiloBarbellButton.frame.origin.x+45, y: tenKiloBarbellButton.frame.origin.y + 130, width: 110, height: 110)
         
-        intervalTimeField.frame = CGRect(x: fiveKiloBarbellButton.frame.origin.x+60, y: tenKiloBarbellButton.frame.origin.y + 140, width: 80, height: 30)
-        intervalAlertButton.frame = CGRect(x: intervalTimeField.frame.origin.x+100, y: tenKiloBarbellButton.frame.origin.y + 140, width: 50, height: 40)
+        intervalTimeField.frame = CGRect(x: fiveKiloBarbellButton.frame.origin.x+60, y: tenKiloBarbellButton.frame.origin.y + 170, width: 80, height: 30)
+        intervalAlertButton.frame = CGRect(x: intervalTimeField.frame.origin.x+100, y: tenKiloBarbellButton.frame.origin.y + 170, width: 50, height: 40)
         
-        counterPauseButton.frame = CGRect(x: intervalTimeField.frame.origin.x+150, y: tenKiloBarbellButton.frame.origin.y + 140, width: 60, height: 40)
-        counterResumeButton.frame = CGRect(x: intervalTimeField.frame.origin.x+150, y: tenKiloBarbellButton.frame.origin.y + 140, width: 60, height: 40)
-        counterResetButton.frame = CGRect(x: intervalTimeField.frame.origin.x+220, y: tenKiloBarbellButton.frame.origin.y + 140, width: 50, height: 40)
+        counterPauseButton.frame = CGRect(x: intervalTimeField.frame.origin.x+150, y: tenKiloBarbellButton.frame.origin.y + 170, width: 60, height: 40)
+        counterResumeButton.frame = CGRect(x: intervalTimeField.frame.origin.x+150, y: tenKiloBarbellButton.frame.origin.y + 170, width: 60, height: 40)
+        counterResetButton.frame = CGRect(x: intervalTimeField.frame.origin.x+220, y: tenKiloBarbellButton.frame.origin.y + 170, width: 50, height: 40)
         
         
     }

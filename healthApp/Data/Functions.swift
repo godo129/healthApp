@@ -115,7 +115,7 @@ func generateWeeks(commonOrLeap: [Int], selectedYear: Int) -> [String] {
                 } else {
                     if firstDate <= todayDate && secondDate >= todayDate {
                         tags = candiDates.count
-                        print(firstMonth,firstDate,secondMonth,secondDate,"왕",todayDate)
+                        
                     }
                 }
                 }
@@ -211,7 +211,7 @@ func generateWeeks(commonOrLeap: [Int], selectedYear: Int) -> [String] {
                 } else {
                     if firstDate <= todayDate && secondDate >= todayDate {
                         tags = candiDates.count
-                        print(firstMonth,firstDate,secondMonth,secondDate,"왕",todayDate)
+                        
                     }
                 }
                 }
