@@ -274,6 +274,31 @@ class ChartViewController: UIViewController, ChartViewDelegate {
             alert.addAction(UIAlertAction(title: "\(n)년", style: .default, handler: { _ in
                 self.selectedYear = n
                 self.yearButton.setTitle("\(self.selectedYear)년", for: .normal)
+                tags = 0
+                // 주간 날짜들 만들기
+                if self.selectedAct == "주간" {
+                    
+                    // 주간 날짜들 만들기
+                    if isCommon(year: self.selectedYear) {
+                        self.candiDates = generateWeeks(commonOrLeap: commonYear, selectedYear: self.selectedYear)
+                    } else {
+                        self.candiDates = generateWeeks(commonOrLeap: leapYear, selectedYear: self.selectedYear)
+                    }
+                    
+                    self.candiWeeksButton.setTitle(self.candiDates[tags], for: .normal)
+                    self.conformButton.tag = tags
+                    
+                    self.candiWeeksButton.isHidden = false
+                    self.candiWeeksForward.isHidden = false
+                    self.candiWeeksBack.isHidden = false
+                    
+                } else {
+                    
+                    self.candiWeeksButton.isHidden = true
+                    self.candiWeeksForward.isHidden = true
+                    self.candiWeeksBack.isHidden = true
+                    
+                }
             }))
         }
         self.present(alert, animated: true, completion: nil)
