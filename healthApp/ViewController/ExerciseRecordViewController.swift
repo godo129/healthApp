@@ -1151,10 +1151,6 @@ class ExerciseRecordViewController: UIViewController {
         
 
         intervalTimeField.text = String(intervalTime)
-        
-        
-        print(exerciseHistory)
-        
     
         
         // 주간
@@ -1181,7 +1177,7 @@ class ExerciseRecordViewController: UIViewController {
         else {
             newList?.append(weightCount)
             calories += Double(setCount) * 0.4
-            volumes += setCount * weightCount
+       
             calorieLabel.text = "소비된 칼로리: \(doubleConvertToString(number: calories))Kcal"
             exerciseHistory.append(nowExerciseType + ":\(weightCount) kg" + " \(setCount) 회")
         }
@@ -1193,10 +1189,11 @@ class ExerciseRecordViewController: UIViewController {
        
         
         // 볼륨 , 칼로리 저장
-        db.child(p_id).child(cur_date).child("volumes").setValue(volumes)
+
         db.child(p_id).child(cur_date).child("calories").setValue(calories)
         
- 
+
+        
         historyTable.reloadData()
 
         

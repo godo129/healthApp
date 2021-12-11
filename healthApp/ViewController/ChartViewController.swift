@@ -274,7 +274,6 @@ class ChartViewController: UIViewController, ChartViewDelegate {
             alert.addAction(UIAlertAction(title: "\(n)년", style: .default, handler: { _ in
                 self.selectedYear = n
                 self.yearButton.setTitle("\(self.selectedYear)년", for: .normal)
-                tags = 0
                 // 주간 날짜들 만들기
                 if self.selectedAct == "주간" {
                     
