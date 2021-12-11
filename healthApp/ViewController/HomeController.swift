@@ -522,10 +522,10 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
 //                                 height: 40)
         
         bannerView.snp.makeConstraints { (make) in
-            make.left.equalTo(60)
-            make.right.equalTo(-60)
-            make.top.equalTo(userLabel).offset(100)
-            make.height.equalTo(340)
+            make.left.equalTo(self.view.safeAreaLayoutGuide).offset(60)
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(-60)
+            make.top.equalTo(userLabel).offset(self.view.frame.size.height/8)
+            make.bottom.equalTo(-self.view.frame.size.height/3)
 
         }
         
@@ -534,9 +534,10 @@ class HomeController: UIViewController, UINavigationControllerDelegate {
 //        bannerView.itemSize = CGSize(width: view.frame.width-150, height: view.frame.height-600)
         
         dogWalkView.snp.makeConstraints { (make) in
-            make.top.equalTo(bannerView).offset(340)
-            make.centerX.equalTo(self.view)
-            make.size.equalTo(CGSize(width: 250, height: 250))
+            make.top.equalTo(bannerView.snp.bottom).offset(20)
+            make.left.equalTo(self.view.safeAreaLayoutGuide).offset(self.view.frame.size.width/3)
+            make.right.equalTo(self.view.safeAreaLayoutGuide).offset(-self.view.frame.size.width/4)
+            make.bottom.equalTo(-10)
         }
         
 //        dogWalkView.frame = CGRect(x: 80,
